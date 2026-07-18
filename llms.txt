@@ -1,0 +1,19 @@
+# PanPanTech AIESL
+
+> PanPanTech AIESL is a smart retail technology site for electronic shelf labels, AIoT retail sensing hardware, cleaning robots, picking robots, e-paper frames, and retail decision systems.
+
+## Canonical Site
+
+- https://www.aiesl.cn/
+
+## Pages
+
+- Home: https://www.aiesl.cn/
+- Products and technology: https://www.aiesl.cn/products.html
+- Solutions and cases: https://www.aiesl.cn/solutions.html
+- About PanPanTech: https://www.aiesl.cn/about.html
+- Contact and demo booking: https://www.aiesl.cn/contact.html
+
+## Crawl Policy
+
+The site is intended to be discoverable by search engines and AI crawlers. See https://www.aiesl.cn/robots.txt and https://www.aiesl.cn/sitemap.xml.
