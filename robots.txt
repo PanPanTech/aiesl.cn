@@ -1,6 +1,22 @@
 User-agent: *
 Allow: /
 
+# China search and AI crawlers explicitly allowed for Baidu and Doubao visibility.
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Baiduspider-image
+Allow: /
+
+User-agent: Baiduspider-render
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: ToutiaoSpider
+Allow: /
+
 # AI crawlers explicitly allowed for AI discovery and answer-engine visibility.
 User-agent: GPTBot
 Allow: /
