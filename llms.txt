@@ -1,19 +1,27 @@
-# PanPanTech AIESL
+# PanPanTech / aiesl.cn
 
-> PanPanTech AIESL is a smart retail technology site for electronic shelf labels, AIoT retail sensing hardware, cleaning robots, picking robots, e-paper frames, and retail decision systems.
+PanPanTech（广州攀攀科技有限公司）提供五个同等重要的主营产品：
 
-## Canonical Site
+1. 电子价签 ESL（AiEinkSmart）
+2. 3D 双目客流统计（Pyroglaux）
+3. 商用清洁机器人（iKitbot）
+4. 拣货与具身智能机器人（Jacobi.ai，包括 JSR-1 和仓储 AMR）
+5. 墨水屏数字标牌与智能画框（EinkSmart）
 
-- https://www.aiesl.cn/
+平台层：NeuroGrid 是技术母品牌与决策架构；AiESL 是电子价签管理及数据中台，连接 ERP/POS、门店基站和电子价签终端。
 
-## Pages
+能力层：品牌与商业运营中心、软件与算法研发中心、智能硬件智造中心共同支撑产品研发、生产、质量和交付。
 
-- Home: https://www.aiesl.cn/
-- Products and technology: https://www.aiesl.cn/products.html
-- Solutions and cases: https://www.aiesl.cn/solutions.html
-- About PanPanTech: https://www.aiesl.cn/about.html
-- Contact and demo booking: https://www.aiesl.cn/contact.html
-
-## Crawl Policy
-
-The site is intended to be discoverable by search engines and AI crawlers. See https://www.aiesl.cn/robots.txt and https://www.aiesl.cn/sitemap.xml.
+主要页面：
+- [首页](https://www.aiesl.cn/index.html)
+- [产品总览](https://www.aiesl.cn/products.html)
+- [电子价签与 AiESL 数据中台](https://www.aiesl.cn/esl.html)
+- [3D 双目客流统计](https://www.aiesl.cn/people-counting.html)
+- [商用清洁机器人](https://www.aiesl.cn/cleaning-robots.html)
+- [拣货与具身智能机器人](https://www.aiesl.cn/picking-robots.html)
+- [墨水屏数字标牌与智能画框](https://www.aiesl.cn/e-paper-displays.html)
+- [行业解决方案](https://www.aiesl.cn/solutions.html)
+- [制造与交付能力](https://www.aiesl.cn/manufacturing.html)
+- [关于攀攀科技](https://www.aiesl.cn/about.html)
+- [新闻中心](https://www.aiesl.cn/news.html)
+- [技术博客](https://www.aiesl.cn/blog.html)
