@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>AiESL 数据中台｜任务、权限、设备与执行审计 · 攀攀科技 PanPanTech</title>
+<meta content="AiESL 数据中台承担模板设计、商品与价格数据、批量任务、设备管理、多门店权限与执行审计，并通过 RESTful API 对接 ERP / POS。属于平台层，支撑六个主营产品。" name="description"/>
+<link href="https://www.aiesl.cn/platform.html" rel="canonical"/>
+<meta content="website" property="og:type"/>
+<meta content="AiESL 数据中台｜任务、权限、设备与执行审计 · 攀攀科技 PanPanTech" property="og:title"/>
+<meta content="AiESL 数据中台承担模板设计、商品与价格数据、批量任务、设备管理、多门店权限与执行审计，并通过 RESTful API 对接 ERP / POS。属于平台层，支撑六个主营产品。" property="og:description"/>
+<meta content="https://www.aiesl.cn/platform.html" property="og:url"/>
+<meta content="zh_CN" property="og:locale"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="assets/images/logo-mark.svg" rel="icon"/>
+<style>
+@font-face{font-family:"AiSans";src:url("assets/fonts/NotoSansSC-V3-subset.woff2") format("woff2");font-weight:100 900;font-display:swap;}
+*{box-sizing:border-box;}
+body{margin:0;background:#fff;color:#48546B;font-family:"AiSans","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,p{margin:0;}
+img{display:block;max-width:100%;}
+a{color:#0B1220;text-decoration:none;}
+a:hover{color:#1F5EFF;}
+::selection{background:#1F5EFF;color:#fff;}
+[data-linegrid]>*{outline:1px solid #E3E8F0;}
+@media (max-width:1080px){
+  [data-split]{grid-template-columns:minmax(0,1fr) !important;gap:28px !important;}
+  [data-cta]{grid-template-columns:minmax(0,1fr) !important;gap:28px !important;}
+  [data-cta]>a{justify-self:start;}
+  [data-tbl]>div{grid-template-columns:minmax(0,1fr) !important;gap:8px !important;}
+  [data-imgpair]{grid-template-columns:minmax(0,1fr) !important;height:auto !important;}
+  [data-imgpair] img{height:clamp(200px,42vw,300px) !important;}
+}
+</style>
+<style>
+[data-desknav] a{white-space:nowrap;}
+@media (max-width:1080px){
+  [data-utilbar]{display:none !important;}
+  [data-desknav]{display:none !important;}
+  [data-mobtoggle]{display:flex !important;}
+}
+@media (min-width:1081px){
+  [data-mobpanel]{display:none !important;}
+}
+</style>
+<style>
+.hv1:hover{color:#fff !important}
+.hv2:hover{color:#fff !important}
+.hv3:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv4:hover{background:#F5F7FA !important}
+.hv5:hover{background:#F5F7FA !important}
+.hv6:hover{background:#F5F7FA !important}
+.hv7:hover{background:#F5F7FA !important}
+.hv8:hover{background:#F5F7FA !important}
+.hv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv10:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv11:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv12:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv13:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv14:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv15:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv16:hover{background:#1544C4 !important}
+.hv17:hover{background:#1544C4 !important}
+.hv18:hover{border-color:#5C9BFF !important;color:#5C9BFF !important}
+.hv19:hover{background:#F5F7FA !important}
+.hv20:hover{background:#F5F7FA !important}
+.hv21:hover{background:#F5F7FA !important}
+.hv22:hover{background:#F5F7FA !important}
+.hv23:hover{background:#F5F7FA !important}
+.hv24:hover{background:#0B1220 !important;color:#fff !important}
+.hv25:hover{color:#fff !important}
+.hv26:hover{color:#fff !important}
+.hv27:hover{color:#fff !important}
+.hv28:hover{color:#fff !important}
+.hv29:hover{color:#fff !important}
+.hv30:hover{color:#fff !important}
+.hv31:hover{color:#fff !important}
+.hv32:hover{color:#fff !important}
+.hv33:hover{color:#fff !important}
+.hv34:hover{color:#fff !important}
+.hv35:hover{color:#fff !important}
+.hv36:hover{color:#fff !important}
+.hv37:hover{color:#fff !important}
+.hv38:hover{color:#fff !important}
+.hv39:hover{color:#fff !important}
+.hv40:hover{color:#fff !important}
+.hv41:hover{color:#B6BDC9 !important}
+[data-navdrop]:hover [data-navpanel]{display:block !important;}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"AiESL 数据中台","applicationCategory":"BusinessApplication","description":"AiESL 数据中台承担模板设计、商品与价格数据、批量任务、设备管理、多门店权限与执行审计，并通过 RESTful API 对接 ERP / POS。属于平台层，支撑六个主营产品。","url":"https://www.aiesl.cn/platform.html","publisher":{"@type":"Organization","name":"广州攀攀科技有限公司","alternateName":"PanPanTech","url":"https://www.aiesl.cn/"}}</script>
+<link href="assets/photo-layout-v4-20260905.css" rel="stylesheet"/>
+</head>
+<body><header data-site-header="" style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);backdrop-filter:blur(12px);border-bottom:1px solid #E3E8F0;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;height:76px;display:flex;align-items:center;justify-content:space-between;gap:36px;">
+<a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+<img alt="" height="36" src="assets/images/logo-mark.svg" style="width:36px;height:36px;object-fit:contain;" width="36"/>
+<span>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;line-height:1.2;white-space:nowrap;">攀攀科技</strong>
+<span style="display:block;margin-top:2px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#8B96AC;white-space:nowrap;">PANPANTECH · AIESL</span>
+</span>
+</a>
+<nav data-desknav="" style="display:flex;align-items:center;gap:4px;font-size:14px;">
+<a class="hv3" href="index.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">首页</a>
+<div data-navdrop="" style="position:relative;">
+<span style="display:inline-flex;align-items:center;gap:6px;padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;cursor:default;">产品<span style="font-size:9px;color:#8B96AC;">▼</span></span>
+<div data-navpanel="" style="display:none;position:absolute;top:100%;left:0;min-width:236px;background:#fff;border:1px solid #E3E8F0;box-shadow:0 18px 44px rgba(11,18,32,0.12);padding:8px 0;z-index:60;">
+<a class="hv4" href="esl.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">01</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">电子价签</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">AiEinkSmart</span></span>
+</a>
+<a class="hv5" href="people-counting.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">02</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">客流统计</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">Pyroglaux</span></span>
+</a>
+<a class="hv6" href="cleaning-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">03</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">清洁机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="hv7" href="picking-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">04</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">拣货机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="hv8" href="e-paper-displays.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">05</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">墨水屏显示</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">EinkSmart</span></span>
+</a>
+<a class="nv6" href="facade-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">06</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">幕墙机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+</div>
+</div>
+<a class="hv9" href="products.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">产品总览</a>
+<a class="hv10" href="platform.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">数据中台</a>
+<a class="hv11" href="solutions.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">解决方案</a>
+<a class="hv12" href="manufacturing.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">制造能力</a>
+<a class="hv13" href="news.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">新闻</a>
+<a class="hv14" href="blog.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">博客</a>
+<a class="hv15" href="about.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">关于我们</a>
+</nav>
+<div style="display:flex;align-items:center;gap:12px;">
+<a class="hv16" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#1F5EFF;color:#fff;font-size:14px;font-weight:600;border-radius:4px;white-space:nowrap;text-decoration:none;">预约方案</a>
+<button aria-label="打开导航" data-mobtoggle="" style="display:none;appearance:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:44px;height:44px;border:1px solid #C6D2E6;border-radius:4px;background:#fff;cursor:pointer;" type="button">
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+</button>
+</div>
+</div>
+<div data-mobpanel="" style="display:none;border-top:1px solid #E3E8F0;background:#fff;padding:20px min(36px,5vw) 30px;">
+<div style="display:flex;flex-direction:column;gap:2px;">
+<a href="index.html" style="padding:13px 4px;font-size:15px;font-weight:500;color:#0B1220;border-bottom:1px solid #EEF1F6;text-decoration:none;">首页</a>
+<a href="esl.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">电子价签</a>
+<a href="people-counting.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">客流统计</a>
+<a href="cleaning-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">清洁机器人</a>
+<a href="picking-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">拣货机器人</a>
+<a href="e-paper-displays.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">墨水屏显示</a>
+<a href="facade-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">幕墙机器人</a>
+<a href="products.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">产品总览</a>
+<a href="platform.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">数据中台</a>
+<a href="solutions.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">解决方案</a>
+<a href="manufacturing.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">制造能力</a>
+<a href="news.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">新闻中心</a>
+<a href="blog.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">技术博客</a>
+<a href="about.html" style="padding:13px 4px;font-size:15px;color:#48546B;text-decoration:none;">关于我们</a>
+<a href="https://www.aiesl.cn/contact.html" style="margin-top:18px;display:flex;align-items:center;justify-content:center;padding:15px 20px;background:#1F5EFF;color:#fff;font-size:15px;font-weight:600;border-radius:4px;text-decoration:none;">预约方案</a>
+</div>
+</div>
+</header>
+<div style="background:#fff;">
+<div>
+
+
+</div>
+<section style="background:#0B1220;position:relative;overflow:hidden;">
+<div style="position:absolute;inset:0;background-image:linear-gradient(#1E2739 1px,transparent 1px),linear-gradient(90deg,#1E2739 1px,transparent 1px);background-size:72px 72px;opacity:0.5;pointer-events:none;"></div>
+<div style="position:relative;width:min(100% - 72px,1400px);margin-inline:auto;padding:32px 0 clamp(64px,7vw,104px);">
+<div style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:#8B96AC;margin-bottom:clamp(36px,4vw,56px);">
+<a href="index.html" style="color:#8B96AC;">首页</a><span>/</span><span style="color:#fff;">数据中台</span>
+</div>
+<div data-split="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.9fr);gap:64px;align-items:center;">
+<div>
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+<span style="width:40px;height:1px;background:#5C9BFF;"></span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.2em;color:#5C9BFF;">AIESL DATA PLATFORM · 平台层</span>
+</div>
+<h1 style="max-width:17ch;font-size:clamp(34px,4.2vw,58px);line-height:1.08;letter-spacing:-0.032em;font-weight:600;color:#fff;text-wrap:balance;">硬件之上，一套统一的任务与审计闭环</h1>
+<p style="margin-top:22px;max-width:50ch;font-size:16.5px;line-height:1.8;color:#9BA7BE;text-wrap:pretty;">AiESL 数据中台承担模板设计、商品与价格数据、批量任务、设备管理、多门店权限与执行审计，并通过 RESTful API 对接 ERP / POS。它属于平台层，支撑六个主营产品，但不是第六个产品。</p>
+<div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:14px;">
+<a class="hv17" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:9px;padding:14px 28px;background:#1F5EFF;color:#fff;font-size:14.5px;font-weight:600;border-radius:4px;">预约平台演示<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+<a class="hv18" href="#chain" style="display:inline-flex;align-items:center;padding:14px 28px;border:1px solid #3A4459;color:#fff;font-size:14.5px;font-weight:600;border-radius:4px;">查看五段链路</a>
+</div>
+</div>
+<figure style="margin:0;">
+<img alt="门店生鲜区货架标牌按任务刷新内容" decoding="async" height="1300" src="assets/images/signage-02.jpg" style="width:100%;height:clamp(260px,30vw,420px);object-fit:cover;object-position:center 38%;border:1px solid #1E2739;" width="732"/>
+<figcaption style="margin-top:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.1em;color:#6E7A91;">FIG. — 平台的产出最终体现在现场：货架上显示的内容与系统里的记录一致</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section style="border-bottom:1px solid #E3E8F0;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));">
+<div style="padding:32px 32px 32px 0;">
+<strong style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:clamp(22px,2.2vw,34px);font-weight:400;color:#0B1220;line-height:1.1;letter-spacing:-0.02em;white-space:nowrap;">5 段</strong>
+<span style="display:block;margin-top:10px;font-size:13.5px;color:#8B96AC;">从数据源到状态回传</span>
+</div>
+<div style="padding:32px;border-left:1px solid #E3E8F0;">
+<strong style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:clamp(22px,2.2vw,34px);font-weight:400;color:#0B1220;line-height:1.1;letter-spacing:-0.02em;white-space:nowrap;">API</strong>
+<span style="display:block;margin-top:10px;font-size:13.5px;color:#8B96AC;">RESTful 对接 ERP / POS</span>
+</div>
+<div style="padding:32px;border-left:1px solid #E3E8F0;">
+<strong style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:clamp(22px,2.2vw,34px);font-weight:400;color:#0B1220;line-height:1.1;letter-spacing:-0.02em;white-space:nowrap;">多门店</strong>
+<span style="display:block;margin-top:10px;font-size:13.5px;color:#8B96AC;">权限与任务分级</span>
+</div>
+<div style="padding:32px;border-left:1px solid #E3E8F0;">
+<strong style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:clamp(22px,2.2vw,34px);font-weight:400;color:#0B1220;line-height:1.1;letter-spacing:-0.02em;white-space:nowrap;">SaaS</strong>
+<span style="display:block;margin-top:10px;font-size:13.5px;color:#8B96AC;">部署与自动升级</span>
+</div>
+</div>
+</section>
+<section id="chain" style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(64px,7vw,100px) 0;">
+<div data-split="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,440px);gap:72px;align-items:end;padding-bottom:48px;">
+<div>
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+<span style="width:40px;height:1px;background:#1F5EFF;"></span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.2em;color:#1F5EFF;">TASK CHAIN</span>
+</div>
+<h2 style="max-width:18ch;font-size:clamp(30px,3.2vw,46px);line-height:1.14;letter-spacing:-0.03em;font-weight:600;color:#0B1220;">五段链路，构成可追溯的闭环</h2>
+</div>
+<p style="font-size:15.5px;line-height:1.85;color:#5B6880;">从商品中心到现场终端，再把执行结果与设备异常回到平台——每一步都留下可核对的记录。</p>
+</div>
+<div data-linegrid="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:#fff;">
+<div style="padding:30px 24px 34px;border-top:2px solid #1F5EFF;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#1F5EFF;">01 / DATA SOURCE</span>
+<h3 style="margin-top:16px;font-size:17px;font-weight:600;color:#0B1220;line-height:1.4;">ERP / POS / 商品中心</h3>
+<p style="margin-top:10px;font-size:14px;line-height:1.8;color:#5B6880;">承接商品、价格、促销与门店组织等业务数据，字段口径在对接时逐项对齐。</p>
+</div>
+<div style="padding:30px 24px 34px;border-top:2px solid #1F5EFF;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#1F5EFF;">02 / PLATFORM</span>
+<h3 style="margin-top:16px;font-size:17px;font-weight:600;color:#0B1220;line-height:1.4;">AiESL 数据中台</h3>
+<p style="margin-top:10px;font-size:14px;line-height:1.8;color:#5B6880;">把数据变化匹配到货位与模板，生成任务；权限、设备状态与审计都在这一层。</p>
+</div>
+<div style="padding:30px 24px 34px;border-top:2px solid #1F5EFF;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#1F5EFF;">03 / NETWORK</span>
+<h3 style="margin-top:16px;font-size:17px;font-weight:600;color:#0B1220;line-height:1.4;">基站 / 网关</h3>
+<p style="margin-top:10px;font-size:14px;line-height:1.8;color:#5B6880;">以有线或无线网络接入现场，通过私有低功耗协议与终端稳定通信。</p>
+</div>
+<div style="padding:30px 24px 34px;border-top:2px solid #1F5EFF;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#1F5EFF;">04 / TERMINAL</span>
+<h3 style="margin-top:16px;font-size:17px;font-weight:600;color:#0B1220;line-height:1.4;">现场终端</h3>
+<p style="margin-top:10px;font-size:14px;line-height:1.8;color:#5B6880;">价签与墨水屏标牌按任务刷新内容，覆盖常温、冷链与大尺寸场景。</p>
+</div>
+<div style="padding:30px 24px 34px;border-top:2px solid #0E7C86;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#0E7C86;">05 / FEEDBACK</span>
+<h3 style="margin-top:16px;font-size:17px;font-weight:600;color:#0B1220;line-height:1.4;">执行状态回传</h3>
+<p style="margin-top:10px;font-size:14px;line-height:1.8;color:#5B6880;">按终端粒度回传结果、电量与异常，形成可派工的失败清单与审计记录。</p>
+</div>
+</div>
+<p style="margin-top:24px;font-size:14px;color:#8B96AC;">第 05 段用于回传执行状态，帮助记录任务完成数量、未完成项及异常原因。</p>
+</section>
+<section style="background:#F5F7FA;border-block:1px solid #E3E8F0;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(64px,7vw,100px) 0;">
+<div data-split="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,440px);gap:72px;align-items:end;padding-bottom:48px;">
+<div>
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+<span style="width:40px;height:1px;background:#1F5EFF;"></span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.2em;color:#1F5EFF;">CAPABILITIES</span>
+</div>
+<h2 style="max-width:18ch;font-size:clamp(30px,3.2vw,46px);line-height:1.14;letter-spacing:-0.03em;font-weight:600;color:#0B1220;">平台能力</h2>
+</div>
+<p style="font-size:15.5px;line-height:1.85;color:#5B6880;">八项能力覆盖从内容设计到执行留痕的完整运营动作。</p>
+</div>
+<div data-imgpair="" style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px;height:clamp(240px,24vw,340px);margin-bottom:32px;">
+<img alt="终端出厂前的功能复测工位" decoding="async" height="1200" loading="lazy" src="assets/images/photo-v2/factory-qc-20260905.webp" style="width:100%;height:100%;object-fit:cover;" width="1800"/>
+<img alt="Swift 4.20 英寸电子价签" decoding="async" height="620" loading="lazy" src="assets/images/esl-series/swift-0420.jpg" style="width:100%;height:100%;object-fit:contain;background:#fff;padding:20px;" width="900"/>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;">
+<div style="background:#fff;border:1px solid #E3E8F0;padding:22px 24px;">
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">可视化模板设计</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">价格、原价、单位价、会员价与二维码的版式固定下来，避免各门店自行发挥。</p>
+</div>
+<div style="background:#fff;border:1px solid #E3E8F0;padding:22px 24px;">
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">商品与价格数据管理</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">商品编码、规格与货位的对应关系，以及常规价、促销价与生效时间。</p>
+</div>
+<div style="background:#fff;border:1px solid #E3E8F0;padding:22px 24px;">
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">批量改价与促销编排</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">支持按品类或区域分批下发，每批完成即可验收补漏，而不是一次全刷。</p>
+</div>
+<div style="background:#fff;border:1px solid #E3E8F0;padding:22px 24px;">
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">终端与基站设备管理</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">在线状态、电量阈值告警与固件版本，按门店与区域分组查看。</p>
+</div>
+<div style="background:#fff;border:1px solid #E3E8F0;padding:22px 24px;">
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">多门店权限与任务分级</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">总部、区域与门店各自能改哪些范围，让每次操作可以归属到人。</p>
+</div>
+<div style="background:#fff;border:1px solid #E3E8F0;padding:22px 24px;">
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">RESTful API 对接</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">与 ERP / POS / WMS 直连，消除人工导表带来的"两套价格"。</p>
+</div>
+<div style="background:#fff;border:1px solid #E3E8F0;padding:22px 24px;">
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">异常告警与执行审计</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">任务发起人、时间、影响范围与最终结果留痕，可导出用于核查。</p>
+</div>
+<div style="background:#fff;border:1px solid #E3E8F0;border-top:2px solid #0E7C86;padding:22px 24px;">
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">SaaS 部署与自动升级</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">免本地服务器，版本统一，多门店扩容不需要重复部署。</p>
+</div>
+</div>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(64px,7vw,100px) 0;">
+<div data-split="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:64px;align-items:center;">
+<div>
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+<span style="width:40px;height:1px;background:#1F5EFF;"></span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.2em;color:#1F5EFF;">WHICH PRODUCTS</span>
+</div>
+<h2 style="max-width:18ch;font-size:clamp(28px,3vw,42px);line-height:1.14;letter-spacing:-0.03em;font-weight:600;color:#0B1220;">哪些产品接入平台</h2>
+<p style="margin-top:20px;max-width:44ch;font-size:16px;line-height:1.8;color:#5B6880;text-wrap:pretty;">平台的核心是"把正确的内容送到正确的位置，并把结果收回来"。因此以内容下发为主的产品直接接入，机器人类产品则以任务与状态回传的方式对接。</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:2px;">
+<a class="hv19" href="esl.html" style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:20px 24px;display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;align-items:baseline;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">01</span>
+<span><strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">电子价签 ESL</strong><span style="display:block;margin-top:4px;font-size:14px;color:#5B6880;">模板、价格任务与执行审计的主要使用场景。</span></span>
+</a>
+<a class="hv20" href="e-paper-displays.html" style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:20px 24px;display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;align-items:baseline;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">05</span>
+<span><strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">墨水屏数字标牌</strong><span style="display:block;margin-top:4px;font-size:14px;color:#5B6880;">商业信息类内容走同一套模板与批量下发逻辑。</span></span>
+</a>
+<a class="hv21" href="people-counting.html" style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:20px 24px;display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;align-items:baseline;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#0E7C86;">02</span>
+<span><strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">客流统计</strong><span style="display:block;margin-top:4px;font-size:14px;color:#5B6880;">以结构化指标接入，用于与价格任务和陈列调整对照。</span></span>
+</a>
+<a class="hv22" href="cleaning-robots.html" style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:20px 24px;display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;align-items:baseline;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#0E7C86;">03</span>
+<span><strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">清洁机器人</strong><span style="display:block;margin-top:4px;font-size:14px;color:#5B6880;">排班任务下发、覆盖率与异常回传，车队记录可回看。</span></span>
+</a>
+<a class="hv23" href="picking-robots.html" style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:20px 24px;display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;align-items:baseline;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#0E7C86;">04</span>
+<span><strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">拣货机器人</strong><span style="display:block;margin-top:4px;font-size:14px;color:#5B6880;">搬运任务与执行状态对接，单趟耗时与失败分类可统计。</span></span>
+</a>
+</div>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:0 0 clamp(64px,7vw,100px);">
+<div data-cta="" style="background:#1F5EFF;border-radius:8px;padding:clamp(44px,5vw,68px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:56px;align-items:center;">
+<div>
+<h2 style="max-width:22ch;font-size:clamp(26px,2.8vw,38px);line-height:1.16;letter-spacing:-0.028em;font-weight:600;color:#fff;">先把一家门店的链路跑通，再谈全网</h2>
+<p style="margin-top:16px;max-width:48ch;font-size:15.5px;line-height:1.8;color:#D3E0FF;">告诉我们 ERP / POS 的接口方式与门店组织结构，我们给出对接方案与权限设计。</p>
+</div>
+<a class="hv24" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:10px;padding:18px 34px;background:#fff;color:#1F5EFF;font-size:15px;font-weight:600;border-radius:4px;white-space:nowrap;">预约平台演示<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</section>
+<footer style="background:#0B1220;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;padding:72px 0 40px;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:44px 52px;">
+<div>
+<div style="display:flex;align-items:center;gap:12px;">
+<img alt="" height="32" src="assets/images/logo-mark.svg" style="width:32px;height:32px;object-fit:contain;filter:brightness(0) invert(1);" width="32"/>
+<span>
+<strong style="display:block;font-size:14.5px;font-weight:600;color:#fff;">攀攀科技</strong>
+<span style="display:block;margin-top:3px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#6E7A91;">PANPANTECH · AIESL</span>
+</span>
+</div>
+<p style="margin:20px 0 0;max-width:34ch;font-size:13.5px;line-height:1.8;color:#8B96AC;">连接产品、数据平台、软件研发与硬件智造，为零售、商业空间与工业场景提供可落地的 AIoT 能力。</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">产品</h2>
+<a class="hv25" href="esl.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">电子价签</a>
+<a class="hv26" href="people-counting.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">客流统计</a>
+<a class="hv27" href="cleaning-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">清洁机器人</a>
+<a class="hv28" href="picking-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">拣货机器人</a>
+<a class="hv29" href="e-paper-displays.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">墨水屏显示</a>
+<a class="hv29" href="facade-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">幕墙机器人</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">平台与能力</h2>
+<a class="hv30" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">AiESL 数据中台</a>
+<a class="hv31" href="solutions.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">行业解决方案</a>
+<a class="hv32" href="manufacturing.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">制造与交付</a>
+<a class="hv33" href="products.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">产品总览</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">内容</h2>
+<a class="hv34" href="news.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">新闻中心</a>
+<a class="hv35" href="blog.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">技术博客</a>
+<a class="hv36" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">平台架构</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">公司</h2>
+<a class="hv37" href="about.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">关于我们</a>
+<a class="hv38" href="about.html#brand-architecture" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">品牌架构</a>
+<a class="hv39" href="https://www.aiesl.cn/contact.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">联系我们</a>
+<a class="hv40" href="https://www.panpantechnology.com" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">集团英文站</a>
+</div>
+</div>
+<div style="margin-top:56px;padding-top:24px;border-top:1px solid #1E2739;display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;font-size:12.5px;color:#6E7A91;">
+<span>© 2026 广州攀攀科技有限公司 PanPanTech</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0.08em;">NeuroGrid · AiESL · AiEinkSmart · Pyroglaux · EinkSmart</span>
+<a class="hv41" href="https://beian.miit.gov.cn/" style="color:#6E7A91;text-decoration:none;">粤ICP备2026035004号-1</a>
+</div>
+</div>
+</footer>
+</div>
+<script>
+(function(){var t=document.querySelector('[data-mobtoggle]'),p=document.querySelector('[data-mobpanel]');if(t&&p){t.addEventListener('click',function(){p.style.display=(p.style.display==='block')?'none':'block';});}})();
+</script>
+</body>
+</html>

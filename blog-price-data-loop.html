@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>如何把门店价格任务设计成可追踪的数据闭环｜技术博客 · 攀攀科技</title>
+<meta content="模板、商品、价格、权限、执行状态和审计记录分别解决哪些问题。" name="description"/>
+<link href="https://www.aiesl.cn/blog-price-data-loop.html" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<meta content="如何把门店价格任务设计成可追踪的数据闭环｜技术博客 · 攀攀科技" property="og:title"/>
+<meta content="模板、商品、价格、权限、执行状态和审计记录分别解决哪些问题。" property="og:description"/>
+<meta content="https://www.aiesl.cn/blog-price-data-loop.html" property="og:url"/>
+<meta content="zh_CN" property="og:locale"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="assets/images/logo-mark.svg" rel="icon"/>
+<style>
+@font-face{font-family:"AiSans";src:url("assets/fonts/NotoSansSC-V3-subset.woff2") format("woff2");font-weight:100 900;font-display:swap;}
+*{box-sizing:border-box;}
+body{margin:0;background:#fff;color:#48546B;font-family:"AiSans","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,p{margin:0;}
+img{display:block;max-width:100%;}
+a{color:#0B1220;text-decoration:none;}
+a:hover{color:#1F5EFF;}
+::selection{background:#1F5EFF;color:#fff;}
+[data-linegrid]>*{outline:1px solid #E3E8F0;}
+@media (max-width:1080px){
+  [data-cta]{grid-template-columns:minmax(0,1fr) !important;gap:28px !important;}
+  [data-cta]>a{justify-self:start;}
+  [data-body]{grid-template-columns:minmax(0,1fr) !important;gap:40px !important;}
+  [data-aside]{position:static !important;}
+}
+</style>
+<style>
+[data-desknav] a{white-space:nowrap;}
+@media (max-width:1080px){
+  [data-utilbar]{display:none !important;}
+  [data-desknav]{display:none !important;}
+  [data-mobtoggle]{display:flex !important;}
+}
+@media (min-width:1081px){
+  [data-mobpanel]{display:none !important;}
+}
+</style>
+<style>
+.hv1:hover{color:#fff !important}
+.hv2:hover{color:#fff !important}
+.hv3:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv4:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv5:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv6:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv10:hover{background:#1544C4 !important}
+.hv11:hover{color:#1F5EFF !important}
+.hv12:hover{color:#1F5EFF !important}
+.hv13:hover{color:#1F5EFF !important}
+.hv14:hover{background:#0B1220 !important;color:#fff !important}
+.hv15:hover{color:#fff !important}
+.hv16:hover{color:#fff !important}
+.hv17:hover{color:#fff !important}
+.hv18:hover{color:#fff !important}
+.hv19:hover{color:#fff !important}
+.hv20:hover{color:#fff !important}
+.hv21:hover{color:#fff !important}
+.hv22:hover{color:#fff !important}
+.hv23:hover{color:#fff !important}
+.hv24:hover{color:#fff !important}
+.hv25:hover{color:#fff !important}
+.hv26:hover{color:#fff !important}
+.hv27:hover{color:#fff !important}
+.hv28:hover{color:#fff !important}
+.hv29:hover{color:#fff !important}
+.hv30:hover{color:#fff !important}
+.hv31:hover{color:#B6BDC9 !important}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"如何把门店价格任务设计成可追踪的数据闭环","description":"模板、商品、价格、权限、执行状态和审计记录分别解决哪些问题。","inLanguage":"zh-CN","url":"https://www.aiesl.cn/blog-price-data-loop.html","publisher":{"@type":"Organization","name":"广州攀攀科技有限公司","alternateName":"PanPanTech","url":"https://www.aiesl.cn/"}}</script>
+<style>
+.nv1:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv2:hover{background:#F5F7FA !important}
+.nv3:hover{background:#F5F7FA !important}
+.nv4:hover{background:#F5F7FA !important}
+.nv5:hover{background:#F5F7FA !important}
+.nv6:hover{background:#F5F7FA !important}
+.nv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv10:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv11:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv12:hover{background:#F5F7FA !important;color:#0B1220 !important}
+[data-navdrop]:hover [data-navpanel]{display:block !important;}
+</style>
+<link href="assets/photo-layout-v4-20260905.css" rel="stylesheet"/>
+</head>
+<body><header data-site-header="" style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);backdrop-filter:blur(12px);border-bottom:1px solid #E3E8F0;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;height:76px;display:flex;align-items:center;justify-content:space-between;gap:36px;">
+<a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+<img alt="" height="36" src="assets/images/logo-mark.svg" style="width:36px;height:36px;object-fit:contain;" width="36"/>
+<span>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;line-height:1.2;white-space:nowrap;">攀攀科技</strong>
+<span style="display:block;margin-top:2px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#8B96AC;white-space:nowrap;">PANPANTECH · AIESL</span>
+</span>
+</a>
+<nav data-desknav="" style="display:flex;align-items:center;gap:4px;font-size:14px;">
+<a class="nv1" href="index.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">首页</a>
+<div data-navdrop="" style="position:relative;">
+<span style="display:inline-flex;align-items:center;gap:6px;padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;cursor:default;">产品<span style="font-size:9px;color:#8B96AC;">▼</span></span>
+<div data-navpanel="" style="display:none;position:absolute;top:100%;left:0;min-width:236px;background:#fff;border:1px solid #E3E8F0;box-shadow:0 18px 44px rgba(11,18,32,0.12);padding:8px 0;z-index:60;">
+<a class="nv2" href="esl.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">01</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">电子价签</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">AiEinkSmart</span></span>
+</a>
+<a class="nv3" href="people-counting.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">02</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">客流统计</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">Pyroglaux</span></span>
+</a>
+<a class="nv4" href="cleaning-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">03</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">清洁机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv5" href="picking-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">04</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">拣货机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv6" href="e-paper-displays.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">05</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">墨水屏显示</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">EinkSmart</span></span>
+</a>
+<a class="nv6" href="facade-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">06</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">幕墙机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+</div>
+</div>
+<a class="nv7" href="products.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">产品总览</a>
+<a class="nv7" href="platform.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">数据中台</a>
+<a class="nv8" href="solutions.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">解决方案</a>
+<a class="nv9" href="manufacturing.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">制造能力</a>
+<a class="nv10" href="news.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">新闻</a>
+<a class="nv11" href="blog.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">博客</a>
+<a class="nv12" href="about.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">关于我们</a>
+</nav>
+<div style="display:flex;align-items:center;gap:12px;">
+<a class="hv10" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#1F5EFF;color:#fff;font-size:14px;font-weight:600;border-radius:4px;white-space:nowrap;text-decoration:none;">预约方案</a>
+<button aria-label="打开导航" data-mobtoggle="" style="display:none;appearance:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:44px;height:44px;border:1px solid #C6D2E6;border-radius:4px;background:#fff;cursor:pointer;" type="button">
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+</button>
+</div>
+</div>
+<div data-mobpanel="" style="display:none;border-top:1px solid #E3E8F0;background:#fff;padding:20px min(36px,5vw) 30px;">
+<div style="display:flex;flex-direction:column;gap:2px;">
+<a href="index.html" style="padding:13px 4px;font-size:15px;font-weight:500;color:#0B1220;border-bottom:1px solid #EEF1F6;text-decoration:none;">首页</a>
+<a href="esl.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">电子价签</a>
+<a href="people-counting.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">客流统计</a>
+<a href="cleaning-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">清洁机器人</a>
+<a href="picking-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">拣货机器人</a>
+<a href="e-paper-displays.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">墨水屏显示</a>
+<a href="facade-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">幕墙机器人</a>
+<a href="products.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">产品总览</a>
+<a href="platform.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">数据中台</a>
+<a href="solutions.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">解决方案</a>
+<a href="manufacturing.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">制造能力</a>
+<a href="news.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">新闻中心</a>
+<a href="blog.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">技术博客</a>
+<a href="about.html" style="padding:13px 4px;font-size:15px;color:#48546B;text-decoration:none;">关于我们</a>
+<a href="https://www.aiesl.cn/contact.html" style="margin-top:18px;display:flex;align-items:center;justify-content:center;padding:15px 20px;background:#1F5EFF;color:#fff;font-size:15px;font-weight:600;border-radius:4px;text-decoration:none;">预约方案</a>
+</div>
+</div>
+</header>
+<div style="background:#fff;">
+<div>
+
+
+</div>
+<section style="background:#F5F7FA;border-bottom:1px solid #E3E8F0;position:relative;overflow:hidden;">
+<div style="position:absolute;inset:0;background-image:linear-gradient(#E3E8F0 1px,transparent 1px),linear-gradient(90deg,#E3E8F0 1px,transparent 1px);background-size:72px 72px;opacity:0.55;pointer-events:none;"></div>
+<div style="position:relative;width:min(100% - 72px,1400px);margin-inline:auto;padding:32px 0 clamp(48px,5vw,72px);">
+<div style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:#7C8AA3;margin-bottom:clamp(32px,3.6vw,48px);">
+<a href="index.html" style="color:#7C8AA3;">首页</a><span>/</span><a href="blog.html" style="color:#7C8AA3;">技术博客</a><span>/</span><span style="color:#0B1220;">价格任务的数据闭环</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;">
+<span style="padding:5px 12px;background:#EFF4FF;color:#1F5EFF;font-size:12px;font-weight:600;border-radius:3px;">数据治理</span>
+<span style="padding:5px 12px;background:#fff;border:1px solid #E3E8F0;color:#5B6880;font-size:12px;font-weight:600;border-radius:3px;">博客</span>
+</div>
+<h1 style="max-width:24ch;font-size:clamp(30px,3.6vw,50px);line-height:1.12;letter-spacing:-0.03em;font-weight:600;color:#0B1220;text-wrap:balance;">如何把门店价格任务设计成可追踪的数据闭环</h1>
+<p style="margin-top:22px;max-width:54ch;font-size:17px;line-height:1.8;color:#5B6880;text-wrap:pretty;">模板、商品、价格、权限、执行状态和审计记录分别解决哪些问题——以及为什么少了任何一环，改价这件事都会退回到"靠人盯"。</p>
+<div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:28px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.12em;color:#8B96AC;">
+<span>AIESL ENGINEERING</span>
+<span>约 13 分钟阅读</span>
+</div>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding-top:clamp(40px,4vw,56px);">
+<figure style="margin:0;">
+<img alt="门店与仓储环境中的价格数据流转" decoding="async" height="1200" src="assets/images/photo-v2/factory-hall-20260905.webp" style="width:100%;height:clamp(280px,34vw,480px);object-fit:cover;" width="1800"/>
+<figcaption style="margin-top:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.1em;color:#8B96AC;">FIG. 1 — 价格数据的问题很少出在"算错"，多数出在"改了没落地、落地了没人知道"</figcaption>
+</figure>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(56px,6vw,84px) 0 clamp(64px,7vw,100px);">
+<div data-body="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,270px);gap:clamp(48px,5vw,72px);align-items:start;">
+<article style="max-width:84ch;">
+<p style="font-size:17.5px;line-height:1.85;color:#3C495F;text-wrap:pretty;">"闭环"这个词在方案里出现得太频繁，以至于失去了意义。放到价格任务上，它其实指一件很具体的事：任何一次价格变化，都能回答三个问题——谁改的、货架上有没有真的改成、改的结果留下记录了吗。三个都能回答，才叫闭环；只能回答前一个，那只是一套下发工具。</p>
+<p style="margin-top:22px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这篇文章把价格任务拆成六个组成部分，逐个说明它解决什么问题、缺失时会出现什么症状。适合在系统选型或内部流程梳理阶段作为核对清单使用。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">一、六个组成部分，六类不同的问题</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">很多团队把"价格管理"当成一个功能，实际上它是六件事叠在一起。把它们分开看，就能发现自己的短板在哪一层。</p>
+<div style="margin-top:28px;border:1px solid #E3E8F0;">
+<div style="padding:22px 26px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">TEMPLATE</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">模板：决定信息怎么排</strong>
+<p style="margin-top:8px;font-size:15px;line-height:1.8;color:#5B6880;">价格、原价、单位价、产地、会员价、二维码放在哪、多大、什么字重。模板把品牌规范固定下来，避免每家门店自己发挥。缺失时的症状：同一个促销活动，十家店做出十种版式。</p>
+</div>
+</div>
+<div style="padding:22px 26px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">PRODUCT</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">商品数据：决定标签绑谁</strong>
+<p style="margin-top:8px;font-size:15px;line-height:1.8;color:#5B6880;">商品编码、名称、规格与货位的对应关系。这一层容易出错，因为它依赖门店把标签绑到正确的货位上。缺失或混乱时的症状：价格是对的，但贴在了隔壁商品前面。</p>
+</div>
+</div>
+<div style="padding:22px 26px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">PRICE</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">价格数据：决定显示什么</strong>
+<p style="margin-top:8px;font-size:15px;line-height:1.8;color:#5B6880;">来自 ERP / POS 或商品中心，包含常规价、促销价、会员价与生效时间。关键不是取到价格，而是取到"此刻应该显示的那个价格"。缺失时的症状：促销结束了，货架上还挂着促销价。</p>
+</div>
+</div>
+<div style="padding:22px 26px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">PERMISSION</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">权限：决定谁能改</strong>
+<p style="margin-top:8px;font-size:15px;line-height:1.8;color:#5B6880;">总部能改全部，区域能改哪些品类，门店只能执行还是也能临时调整。权限不是限制，而是让责任可以归属。缺失时的症状：出现异常价格，但没人知道是谁操作的。</p>
+</div>
+</div>
+<div style="padding:22px 26px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">STATUS</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">执行状态：决定是否真的生效</strong>
+<p style="margin-top:8px;font-size:15px;line-height:1.8;color:#5B6880;">任务下发成功不等于货架刷新成功。执行状态要按终端粒度回传：成功、失败、离线、电量不足。缺失时的症状：系统显示改价完成，现场还有一批旧价格。</p>
+</div>
+</div>
+<div style="padding:22px 26px;display:grid;grid-template-columns:120px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#0E7C86;">AUDIT</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">审计记录：决定能否回溯</strong>
+<p style="margin-top:8px;font-size:15px;line-height:1.8;color:#5B6880;">每次任务的发起人、时间、影响范围与最终结果。记录可作为价格争议、内部核查与合规检查的参考依据。缺失时的症状：客户投诉标价与结算价不一致，可能增加核查当时货架显示内容的难度。</p>
+</div>
+</div>
+</div>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">二、闭环的关键在回传，不在下发</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">下发是单向的，做起来不难：把任务推给基站，基站广播给终端，结束。难的是回传——系统要知道每一片标签的实际结果，并把"没成功的那些"变成一份可以处理的清单。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这中间有一个容易被忽略的差别：任务级状态和终端级状态。任务级状态告诉你"这次改价 98% 完成"，终端级状态告诉你"剩下 2% 是哪 47 片、分别什么原因"。前者是给管理层看的数字，后者才是能派工的清单。只有后者存在，运维流程才能建立。</p>
+<div data-linegrid="" style="margin-top:clamp(32px,3.2vw,44px);display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:#fff;">
+<div style="background:#fff;padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">CASE A</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">终端离线</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">标签被移到了信号死角，或基站覆盖不足。处理方式是调整位置或补基站，不是换标签。</p>
+</div>
+<div style="background:#fff;padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">CASE B</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">电量不足</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">刷新需要电，低电量终端会拒绝执行。系统应提前按电量阈值告警，而不是等改价失败才发现。</p>
+</div>
+<div style="background:#fff;padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">CASE C</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">绑定错误</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">刷新成功但内容不对。这是商品数据层的问题，需要重新绑定货位，回传状态是"成功"，反而更难发现。</p>
+</div>
+<div style="background:#fff;padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#0E7C86;">CASE D</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">任务未下发</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">上游价格没同步过来，平台根本没生成任务。这类问题要靠接口层面的对账发现，终端侧看不出来。</p>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">CASE C 需要重点关注：系统认为一切正常，实际货架上的价格是错的。发现和减少这一类问题，可结合定期抽检、绑定流程规范及现场核查——这也是为什么"闭环"不能完全等同于"系统自动化"。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">三、批量改价：不要一次全刷</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">一键改全店听起来很好，实际执行时会带来两个问题。第一是耗时——电子纸整屏刷新需要时间，几千片终端同时排队，完成时间会明显拉长。第二是排查困难——如果失败率是 3%，你拿到的是一份分散在全店的清单，补漏刷要满场跑。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">更实际的做法是按品类或区域分批。分批的好处是每一批完成后就能验收、就能补漏，问题被限制在一个可控范围内。促销日改价尤其应该提前分批排好，而不是开店前十分钟点一次全刷。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">下面是一份促销日的分批示例。它不是标准答案，具体批次划分要按门店的品类结构和开店时间调整，但这个思路可以直接套用：把容易出问题、需要人工确认的品类优先安排，把量大但风险低的品类放在后面，中间留出补漏时间。</p>
+<div style="margin-top:26px;border:1px solid #E3E8F0;">
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;background:#F5F7FA;display:grid;grid-template-columns:96px minmax(0,1.1fr) minmax(0,1.4fr);gap:20px;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#8B96AC;">时间</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#8B96AC;">批次</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#8B96AC;">为什么排在这里</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:96px minmax(0,1.1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;color:#1F5EFF;">06:30</span>
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">生鲜与日配</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">价格每天都变、当天理货通常开始较早，先刷完这批，理货员上货时看到的就是新价格。</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:96px minmax(0,1.1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;color:#1F5EFF;">07:00</span>
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">促销端架与堆头</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">数量不多但曝光较多，出错影响较大，必须留出人工核对的时间。</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:96px minmax(0,1.1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;color:#1F5EFF;">07:30</span>
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">常规货架（按区域拆 2–3 批）</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">数量较多，拆成几批依次下发，避免同一基站下几千片终端同时排队。</span>
+</div>
+<div style="padding:18px 24px;display:grid;grid-template-columns:96px minmax(0,1.1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;color:#0E7C86;">08:30</span>
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">补漏与复核</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">按失败清单逐片处理，开店前留出这段窗口，问题就不会带进营业时间。</span>
+</div>
+</div>
+<p style="margin-top:26px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这份排期真正的价值不在时间点，而在它把"改价"从一个动作变成了一条有验收节点的流程。每一批结束都有人确认，失败清单在开店前清空——这才是分批的意义。如果只是把全刷拆成几次全刷、中间没有人看结果，那么拆和不拆没有区别。</p>
+<figure style="margin:clamp(36px,3.6vw,48px) 0 0;">
+<img alt="门店生鲜区的价格标牌与货架陈列" decoding="async" height="1300" loading="lazy" src="assets/images/signage-02.jpg" style="width:100%;height:clamp(260px,30vw,400px);object-fit:cover;object-position:center 38%;" width="732"/>
+<figcaption style="margin-top:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.1em;color:#8B96AC;">FIG. 2 — 生鲜与促销区改价较频繁，可优先安排在分批策略中</figcaption>
+</figure>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">四、接口层：人工导表需关注价格同步差异</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">如果价格数据是靠人工导 Excel 进价签系统的，那么系统里的价格和 ERP 里的价格可能因同步延迟或遗漏而不一致，需要约定同步与核查流程。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">RESTful API 对接的意义在于消除这个中间环节：价格在 ERP 里改，平台自动拿到、自动生成任务。这时候需要确认的是几个具体细节：</p>
+<div style="margin-top:26px;display:flex;flex-direction:column;gap:2px;">
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:100px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">TRIGGER</span>
+<span style="font-size:15px;color:#48546B;">是 ERP 主动推送，还是平台定时拉取？推送更及时，拉取更容易排查。</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:100px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">FIELDS</span>
+<span style="font-size:15px;color:#48546B;">含税与不含税、单位价换算、会员价与阶梯价怎么表达，要逐字段对齐。</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:100px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">TIMING</span>
+<span style="font-size:15px;color:#48546B;">生效时间由谁控制——ERP 给出生效时刻，还是平台按门店营业时间自行排？</span>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:18px 22px;display:grid;grid-template-columns:100px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#0E7C86;">RECONCILE</span>
+<span style="font-size:15px;color:#48546B;">有没有对账机制？每天核对一次"平台价格与 ERP 价格是否一致"，能拦住大部分静默错误。</span>
+</div>
+</div>
+<p style="margin-top:26px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">字段口径是这四项里容易被"以为对齐了"的一项。双方各自都清楚自己系统里的字段含义，但没人把两边放在一张表上逐行核对，结果往往在首店验收时才暴露。下面这张对照表建议在对接前填完，每一行都要有 ERP 侧和价签侧两个明确答案：</p>
+<div style="margin-top:26px;border:1px solid #E3E8F0;">
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;background:#F5F7FA;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#8B96AC;">需要对齐的字段</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#8B96AC;">必须问清的问题</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">售价（含税 / 不含税）</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">ERP 传过来的是哪一个？如果是不含税价，税率由谁提供、在哪一层做换算？</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">单位价</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">每 100g 还是每 kg？由 ERP 算好传过来，还是价签平台按规格字段自己算？</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">会员价</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">是独立字段还是一种促销类型？没有会员价的商品，模板上那一栏显示什么？</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">阶梯价与多件优惠</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">"第二件半价"这类规则用什么结构表达？模板放不下时优先显示哪一档？</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">原价 / 划线价</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">促销期间要不要显示原价？原价取的是上一个常规价还是建议零售价？</span>
+</div>
+<div style="padding:18px 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">生效与失效时间</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">促销结束后自动回到常规价，还是需要再发一次任务？这一条需要在对接前确认。</span>
+</div>
+</div>
+<p style="margin-top:26px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">最后一行值得单独强调。促销上线所有人都会盯，促销下线常常没人管——如果失效逻辑没有做，货架上就会长期挂着已经结束的促销价，而这在合规上比改价晚了几分钟严重得多。对接时把"失效由谁触发"写进接口文档，比事后靠人巡店可靠。</p>
+<div style="margin-top:clamp(36px,3.6vw,48px);background:#0B1220;padding:clamp(28px,3vw,40px);">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#5C9BFF;">KEY TAKEAWAY</span>
+<p style="margin-top:14px;max-width:54ch;font-size:17px;line-height:1.8;color:#fff;text-wrap:pretty;">闭环不是"系统自动做完所有事"，而是"每一次改价都能被追问到底"。判断标准很简单：随便挑一天、挑一片标签，你能不能查出它当天显示了什么价格、是谁改的、有没有改成功。</p>
+</div>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">五、把闭环落到日常运维</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">系统能力只是一半，另一半是日常动作。下面这四条是我们在项目里反复确认的内容，建议在上线前写进运维文档，明确到岗位：</p>
+<div style="margin-top:26px;display:flex;flex-direction:column;gap:18px;">
+<div style="display:grid;grid-template-columns:34px minmax(0,1fr);gap:16px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;color:#1F5EFF;">01</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">每次批量改价后看一次失败清单</strong>
+<p style="margin-top:6px;font-size:15px;line-height:1.8;color:#5B6880;">不是看完成率，是看清单。失败终端要在当班内补完，不能积压到第二天。</p>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:34px minmax(0,1fr);gap:16px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;color:#1F5EFF;">02</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">按周处理低电量告警</strong>
+<p style="margin-top:6px;font-size:15px;line-height:1.8;color:#5B6880;">电量是可预测的，提前更换比等失败后补救便宜得多。</p>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:34px minmax(0,1fr);gap:16px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;color:#1F5EFF;">03</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">按月抽检绑定关系</strong>
+<p style="margin-top:6px;font-size:15px;line-height:1.8;color:#5B6880;">陈列调整后标签容易错位，定期抽检有助于发现 CASE C 类问题。</p>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:34px minmax(0,1fr);gap:16px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;color:#0E7C86;">04</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">保留审计记录并明确保存期限</strong>
+<p style="margin-top:6px;font-size:15px;line-height:1.8;color:#5B6880;">按内部合规要求确定保存时长，并确认可以导出——需要用到它的时候通常很急。</p>
+</div>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">把这六个组成部分与四条运维动作放在一起，价格任务才真正成为一个闭环：业务系统改价，平台生成任务，网络下发，终端执行，状态回传，异常有人处理，记录可以回溯。任何一环缺位，改价都会退回成"靠人盯"，而人工核查成本可能随门店数量增加。</p>
+</article>
+<aside data-aside="" style="position:sticky;top:100px;">
+<div style="border:1px solid #E3E8F0;padding:26px 24px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#8B96AC;">IN THIS ARTICLE</span>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:11px;">
+<span style="font-size:14px;color:#5B6880;">一、六个组成部分</span>
+<span style="font-size:14px;color:#5B6880;">二、闭环关键在回传</span>
+<span style="font-size:14px;color:#5B6880;">三、批量改价要分批</span>
+<span style="font-size:14px;color:#5B6880;">四、接口层与对账</span>
+<span style="font-size:14px;color:#5B6880;">五、落到日常运维</span>
+</div>
+</div>
+<div style="margin-top:16px;border:1px solid #E3E8F0;padding:26px 24px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#8B96AC;">RELATED</span>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:14px;">
+<a class="hv11" href="blog-esl-system.html" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">终端、基站与数据中台 →</a>
+<a class="hv12" href="platform.html" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">AiESL 数据中台五段链路 →</a>
+<a class="hv13" href="solutions.html" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">门店场景解决方案 →</a>
+</div>
+</div>
+</aside>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:0 0 clamp(64px,7vw,100px);">
+<div data-cta="" style="background:#1F5EFF;border-radius:8px;padding:clamp(44px,5vw,68px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:56px;align-items:center;">
+<div>
+<h2 style="max-width:22ch;font-size:clamp(26px,2.8vw,38px);line-height:1.16;letter-spacing:-0.028em;font-weight:600;color:#fff;">需要把技术专题转化为项目方案？</h2>
+<p style="margin-top:16px;max-width:48ch;font-size:15.5px;line-height:1.8;color:#D3E0FF;">提交门店、仓库、场地、接口或任务信息，我们将结合产品、平台和交付能力进一步沟通。</p>
+</div>
+<a class="hv14" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:10px;padding:18px 34px;background:#fff;color:#1F5EFF;font-size:15px;font-weight:600;border-radius:4px;white-space:nowrap;">预约技术沟通<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</section>
+<footer style="background:#0B1220;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;padding:72px 0 40px;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:44px 52px;">
+<div>
+<div style="display:flex;align-items:center;gap:12px;">
+<img alt="" height="32" src="assets/images/logo-mark.svg" style="width:32px;height:32px;object-fit:contain;filter:brightness(0) invert(1);" width="32"/>
+<span>
+<strong style="display:block;font-size:14.5px;font-weight:600;color:#fff;">攀攀科技</strong>
+<span style="display:block;margin-top:3px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#6E7A91;">PANPANTECH · AIESL</span>
+</span>
+</div>
+<p style="margin:20px 0 0;max-width:34ch;font-size:13.5px;line-height:1.8;color:#8B96AC;">连接产品、数据平台、软件研发与硬件智造，为零售、商业空间与工业场景提供可落地的 AIoT 能力。</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">产品</h2>
+<a class="hv15" href="esl.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">电子价签</a>
+<a class="hv16" href="people-counting.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">客流统计</a>
+<a class="hv17" href="cleaning-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">清洁机器人</a>
+<a class="hv18" href="picking-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">拣货机器人</a>
+<a class="hv19" href="e-paper-displays.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">墨水屏显示</a>
+<a class="hv19" href="facade-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">幕墙机器人</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">平台与能力</h2>
+<a class="hv20" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">AiESL 数据中台</a>
+<a class="hv21" href="solutions.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">行业解决方案</a>
+<a class="hv22" href="manufacturing.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">制造与交付</a>
+<a class="hv23" href="products.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">产品总览</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">内容</h2>
+<a class="hv24" href="news.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">新闻中心</a>
+<a class="hv25" href="blog.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">技术博客</a>
+<a class="hv26" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">平台架构</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">公司</h2>
+<a class="hv27" href="about.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">关于我们</a>
+<a class="hv28" href="about.html#brand-architecture" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">品牌架构</a>
+<a class="hv29" href="https://www.aiesl.cn/contact.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">联系我们</a>
+<a class="hv30" href="https://www.panpantechnology.com" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">集团英文站</a>
+</div>
+</div>
+<div style="margin-top:56px;padding-top:24px;border-top:1px solid #1E2739;display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;font-size:12.5px;color:#6E7A91;">
+<span>© 2026 广州攀攀科技有限公司 PanPanTech</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0.08em;">NeuroGrid · AiESL · AiEinkSmart · Pyroglaux · EinkSmart</span>
+<a class="hv31" href="https://beian.miit.gov.cn/" style="color:#6E7A91;text-decoration:none;">粤ICP备2026035004号-1</a>
+</div>
+</div>
+</footer>
+</div>
+<script>
+(function(){
+  var t=document.querySelector('[data-mobtoggle]'),p=document.querySelector('[data-mobpanel]');
+  if(t&&p){t.addEventListener('click',function(){p.style.display=(p.style.display==='block')?'none':'block';});}
+  var track=document.querySelector('[data-hero-track]');
+  if(!track)return;
+  var tabs=[].slice.call(document.querySelectorAll('[data-go]')),
+      ind=document.querySelector('[data-tab-indicator]'),i=0,timer;
+  function go(n){i=n;track.scrollTo({left:track.clientWidth*n,behavior:'smooth'});if(ind)ind.style.transform='translateX('+(n*100)+'%)';}
+  function arm(){clearInterval(timer);timer=setInterval(function(){go((i+1)%5);},7000);}
+  tabs.forEach(function(b){b.addEventListener('click',function(){go(+b.getAttribute('data-go'));arm();});});
+  window.addEventListener('resize',function(){track.scrollTo({left:track.clientWidth*i});});
+  arm();
+})();
+</script>
+</body>
+</html>

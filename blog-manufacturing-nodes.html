@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>从样品到批量：智能硬件项目需要确认哪些制造节点｜技术博客 · 攀攀科技</title>
+<meta content="需求评审、工程准备、试产、质量检查和交付资料如何减少后期变更风险。" name="description"/>
+<link href="https://www.aiesl.cn/blog-manufacturing-nodes.html" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<meta content="从样品到批量：智能硬件项目需要确认哪些制造节点｜技术博客 · 攀攀科技" property="og:title"/>
+<meta content="需求评审、工程准备、试产、质量检查和交付资料如何减少后期变更风险。" property="og:description"/>
+<meta content="https://www.aiesl.cn/blog-manufacturing-nodes.html" property="og:url"/>
+<meta content="zh_CN" property="og:locale"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="assets/images/logo-mark.svg" rel="icon"/>
+<style>
+@font-face{font-family:"AiSans";src:url("assets/fonts/NotoSansSC-V3-subset.woff2") format("woff2");font-weight:100 900;font-display:swap;}
+*{box-sizing:border-box;}
+body{margin:0;background:#fff;color:#48546B;font-family:"AiSans","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,p{margin:0;}
+img{display:block;max-width:100%;}
+a{color:#0B1220;text-decoration:none;}
+a:hover{color:#1F5EFF;}
+::selection{background:#1F5EFF;color:#fff;}
+[data-linegrid]>*{outline:1px solid #E3E8F0;}
+@media (max-width:1080px){
+  [data-cta]{grid-template-columns:minmax(0,1fr) !important;gap:28px !important;}
+  [data-cta]>a{justify-self:start;}
+  [data-body]{grid-template-columns:minmax(0,1fr) !important;gap:40px !important;}
+  [data-aside]{position:static !important;}
+  [data-tbl]>div{grid-template-columns:minmax(0,1fr) !important;gap:8px !important;}
+}
+</style>
+<style>
+[data-desknav] a{white-space:nowrap;}
+@media (max-width:1080px){
+  [data-utilbar]{display:none !important;}
+  [data-desknav]{display:none !important;}
+  [data-mobtoggle]{display:flex !important;}
+}
+@media (min-width:1081px){
+  [data-mobpanel]{display:none !important;}
+}
+</style>
+<style>
+.hv1:hover{color:#fff !important}
+.hv2:hover{color:#fff !important}
+.hv3:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv4:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv5:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv6:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv10:hover{background:#1544C4 !important}
+.hv11:hover{color:#1F5EFF !important}
+.hv12:hover{color:#1F5EFF !important}
+.hv13:hover{color:#1F5EFF !important}
+.hv14:hover{background:#0B1220 !important;color:#fff !important}
+.hv15:hover{color:#fff !important}
+.hv16:hover{color:#fff !important}
+.hv17:hover{color:#fff !important}
+.hv18:hover{color:#fff !important}
+.hv19:hover{color:#fff !important}
+.hv20:hover{color:#fff !important}
+.hv21:hover{color:#fff !important}
+.hv22:hover{color:#fff !important}
+.hv23:hover{color:#fff !important}
+.hv24:hover{color:#fff !important}
+.hv25:hover{color:#fff !important}
+.hv26:hover{color:#fff !important}
+.hv27:hover{color:#fff !important}
+.hv28:hover{color:#fff !important}
+.hv29:hover{color:#fff !important}
+.hv30:hover{color:#fff !important}
+.hv31:hover{color:#B6BDC9 !important}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"从样品到批量：智能硬件项目需要确认哪些制造节点","description":"需求评审、工程准备、试产、质量检查和交付资料如何减少后期变更风险。","inLanguage":"zh-CN","url":"https://www.aiesl.cn/blog-manufacturing-nodes.html","publisher":{"@type":"Organization","name":"广州攀攀科技有限公司","alternateName":"PanPanTech","url":"https://www.aiesl.cn/"}}</script>
+<style>
+.nv1:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv2:hover{background:#F5F7FA !important}
+.nv3:hover{background:#F5F7FA !important}
+.nv4:hover{background:#F5F7FA !important}
+.nv5:hover{background:#F5F7FA !important}
+.nv6:hover{background:#F5F7FA !important}
+.nv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv10:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv11:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv12:hover{background:#F5F7FA !important;color:#0B1220 !important}
+[data-navdrop]:hover [data-navpanel]{display:block !important;}
+</style>
+<link href="assets/photo-layout-v4-20260905.css" rel="stylesheet"/>
+</head>
+<body><header data-site-header="" style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);backdrop-filter:blur(12px);border-bottom:1px solid #E3E8F0;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;height:76px;display:flex;align-items:center;justify-content:space-between;gap:36px;">
+<a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+<img alt="" height="36" src="assets/images/logo-mark.svg" style="width:36px;height:36px;object-fit:contain;" width="36"/>
+<span>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;line-height:1.2;white-space:nowrap;">攀攀科技</strong>
+<span style="display:block;margin-top:2px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#8B96AC;white-space:nowrap;">PANPANTECH · AIESL</span>
+</span>
+</a>
+<nav data-desknav="" style="display:flex;align-items:center;gap:4px;font-size:14px;">
+<a class="nv1" href="index.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">首页</a>
+<div data-navdrop="" style="position:relative;">
+<span style="display:inline-flex;align-items:center;gap:6px;padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;cursor:default;">产品<span style="font-size:9px;color:#8B96AC;">▼</span></span>
+<div data-navpanel="" style="display:none;position:absolute;top:100%;left:0;min-width:236px;background:#fff;border:1px solid #E3E8F0;box-shadow:0 18px 44px rgba(11,18,32,0.12);padding:8px 0;z-index:60;">
+<a class="nv2" href="esl.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">01</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">电子价签</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">AiEinkSmart</span></span>
+</a>
+<a class="nv3" href="people-counting.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">02</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">客流统计</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">Pyroglaux</span></span>
+</a>
+<a class="nv4" href="cleaning-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">03</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">清洁机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv5" href="picking-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">04</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">拣货机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv6" href="e-paper-displays.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">05</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">墨水屏显示</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">EinkSmart</span></span>
+</a>
+<a class="nv6" href="facade-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">06</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">幕墙机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+</div>
+</div>
+<a class="nv7" href="products.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">产品总览</a>
+<a class="nv7" href="platform.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">数据中台</a>
+<a class="nv8" href="solutions.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">解决方案</a>
+<a class="nv9" href="manufacturing.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">制造能力</a>
+<a class="nv10" href="news.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">新闻</a>
+<a class="nv11" href="blog.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">博客</a>
+<a class="nv12" href="about.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">关于我们</a>
+</nav>
+<div style="display:flex;align-items:center;gap:12px;">
+<a class="hv10" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#1F5EFF;color:#fff;font-size:14px;font-weight:600;border-radius:4px;white-space:nowrap;text-decoration:none;">预约方案</a>
+<button aria-label="打开导航" data-mobtoggle="" style="display:none;appearance:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:44px;height:44px;border:1px solid #C6D2E6;border-radius:4px;background:#fff;cursor:pointer;" type="button">
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+</button>
+</div>
+</div>
+<div data-mobpanel="" style="display:none;border-top:1px solid #E3E8F0;background:#fff;padding:20px min(36px,5vw) 30px;">
+<div style="display:flex;flex-direction:column;gap:2px;">
+<a href="index.html" style="padding:13px 4px;font-size:15px;font-weight:500;color:#0B1220;border-bottom:1px solid #EEF1F6;text-decoration:none;">首页</a>
+<a href="esl.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">电子价签</a>
+<a href="people-counting.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">客流统计</a>
+<a href="cleaning-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">清洁机器人</a>
+<a href="picking-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">拣货机器人</a>
+<a href="e-paper-displays.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">墨水屏显示</a>
+<a href="facade-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">幕墙机器人</a>
+<a href="products.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">产品总览</a>
+<a href="platform.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">数据中台</a>
+<a href="solutions.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">解决方案</a>
+<a href="manufacturing.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">制造能力</a>
+<a href="news.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">新闻中心</a>
+<a href="blog.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">技术博客</a>
+<a href="about.html" style="padding:13px 4px;font-size:15px;color:#48546B;text-decoration:none;">关于我们</a>
+<a href="https://www.aiesl.cn/contact.html" style="margin-top:18px;display:flex;align-items:center;justify-content:center;padding:15px 20px;background:#1F5EFF;color:#fff;font-size:15px;font-weight:600;border-radius:4px;text-decoration:none;">预约方案</a>
+</div>
+</div>
+</header>
+<div style="background:#fff;">
+<div>
+
+
+</div>
+<section style="background:#F5F7FA;border-bottom:1px solid #E3E8F0;position:relative;overflow:hidden;">
+<div style="position:absolute;inset:0;background-image:linear-gradient(#E3E8F0 1px,transparent 1px),linear-gradient(90deg,#E3E8F0 1px,transparent 1px);background-size:72px 72px;opacity:0.55;pointer-events:none;"></div>
+<div style="position:relative;width:min(100% - 72px,1400px);margin-inline:auto;padding:32px 0 clamp(48px,5vw,72px);">
+<div style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:#7C8AA3;margin-bottom:clamp(32px,3.6vw,48px);">
+<a href="index.html" style="color:#7C8AA3;">首页</a><span>/</span><a href="blog.html" style="color:#7C8AA3;">技术博客</a><span>/</span><span style="color:#0B1220;">从样品到批量</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;">
+<span style="padding:5px 12px;background:#EFF4FF;color:#1F5EFF;font-size:12px;font-weight:600;border-radius:3px;">研发与制造</span>
+<span style="padding:5px 12px;background:#fff;border:1px solid #E3E8F0;color:#5B6880;font-size:12px;font-weight:600;border-radius:3px;">博客</span>
+</div>
+<h1 style="max-width:24ch;font-size:clamp(30px,3.6vw,50px);line-height:1.12;letter-spacing:-0.03em;font-weight:600;color:#0B1220;text-wrap:balance;">从样品到批量：智能硬件项目需要确认哪些制造节点</h1>
+<p style="margin-top:22px;max-width:54ch;font-size:17px;line-height:1.8;color:#5B6880;text-wrap:pretty;">需求评审、工程准备、试产、质量检查和交付资料如何减少后期变更风险——以及为什么可制造性评审必须放在打样之前。</p>
+<div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:28px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.12em;color:#8B96AC;">
+<span>AIESL ENGINEERING</span>
+<span>约 15 分钟阅读</span>
+</div>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding-top:clamp(40px,4vw,56px);">
+<figure style="margin:0;">
+<img alt="智造中心整机装配线" decoding="async" height="1200" src="assets/images/photo-v2/factory-assembly-20260905.webp" style="width:100%;height:clamp(280px,34vw,480px);object-fit:cover;" width="1800"/>
+<figcaption style="margin-top:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.1em;color:#8B96AC;">FIG. 1 — 量产阶段能改的东西很少，绝大部分决定在打样之前就已经定下</figcaption>
+</figure>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(56px,6vw,84px) 0 clamp(64px,7vw,100px);">
+<div data-body="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,270px);gap:clamp(48px,5vw,72px);align-items:start;">
+<article style="max-width:84ch;">
+<p style="font-size:17.5px;line-height:1.85;color:#3C495F;text-wrap:pretty;">硬件项目的成本曲线是不对称的：设计阶段改一个决定，代价是几小时的讨论；打样后改，代价是几周和一副模具；量产后改，代价可能是一整批物料。这条曲线决定了制造项目的推进原则——把判断提前，而不是把问题推后。</p>
+<p style="margin-top:22px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这篇文章把从需求到批量的过程拆成五个节点，说明每个节点该确认什么、跳过它会在哪个阶段付出代价。适合在启动一个 OEM / ODM 项目或自研产品量产前作为核对清单使用。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">一、需求评审：先把"不做什么"写清楚</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">需求文档里写满了要实现的功能，却很少写明不实现什么、以及各项要求的优先级。这在后期会造成反复：当结构空间与散热要求冲突时，没有优先级就只能重新开会讨论。</p>
+<div data-tbl="" style="margin-top:26px;border:1px solid #E3E8F0;">
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">使用环境</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">室内还是户外、温湿度范围、有无水汽油污粉尘。这一项决定防护等级与选料，变更时可能涉及较多成本。</span>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">目标数量与节奏</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">首批多少、年用量多少、是一次性还是持续供货。数量级决定工艺路线与模具投入是否合理。</span>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">成本目标</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">给出目标区间而不是"越低越好"。有区间才能在方案阶段做取舍，没有区间只能来回改。</span>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">认证要求</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">销往哪些地区、需要哪些认证。认证要求会反向约束器件选型与结构设计，必须一开始就明确。</span>
+</div>
+<div style="padding:20px 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">优先级排序</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">成本、体积、性能、交期发生冲突时，先让哪一项。这份排序是后续所有取舍的依据。</span>
+</div>
+</div>
+<p style="margin-top:26px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">"优先级排序"是这五项里需要提前确认的一项。它不需要复杂论证，只需要甲方内部先达成一致：如果为了压成本可以牺牲一点体积，就写下来；如果交期是死线、成本可以让，也写下来。有了这句话，后面十几个小决定不用每次都开会。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">"认证要求"则是需要在选型前确认的一项。某个无线模块在国内可用、出口某地区却需要额外认证，如果这一点在选型时没提，等到样品做完才发现，往往要换模块并重新验证——电路、结构与固件都要跟着动。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">二、可制造性评审：为什么必须在打样之前</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这个环节有助于提前识别结构、电子与工艺问题。花一天时间，让结构、电子与工艺工程师坐在一起把设计过一遍，有助于减少后续返工。评审要看的是下面这几类问题：</p>
+<div data-linegrid="" style="margin-top:26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:#fff;">
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">STRUCTURE</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">结构可装配性</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">装配顺序是否可行、螺丝位有没有工具空间、卡扣能不能承受反复拆装。</p>
+</div>
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">STACK-UP</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">堆叠与公差</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">各层累积公差是否在可控范围、屏体贴合是否留出余量。公差没算清，量产良率会波动。</p>
+</div>
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">TEST POINT</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">可测试性</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">有没有预留测试点与烧录接口。产线测试工装依赖这些，后补要改板。</p>
+</div>
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#0E7C86;">SOURCING</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">物料可得性</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">关键器件是否有替代料、交期多长、是否面临停产。单一来源的器件需要评估供应风险。</p>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">"可测试性"经常被当成产线自己的事，但它必须在设计阶段解决。产线需要在几秒内判断一台设备是否合格，这依赖预留的测试点、烧录接口与自检程序。如果这些没有设计进去，量产测试就只能靠人工操作整机功能，速度慢且漏检率高——而这时候再改板，等于重走一遍打样。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">"物料可得性"是另一个必须提前问的问题。设计时选了符合性能要求的器件，如果它只有一个供货来源、交期十六周、还有停产风险，那么这个设计在量产阶段是脆弱的。评审时应该对关键器件逐一确认是否有替代方案，并在设计上为替代料留出兼容空间。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">三、打样与试产：两件不同的事</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这两个阶段经常被合并讨论，但它们验证的东西完全不同，不能相互替代。</p>
+<div style="margin-top:26px;display:flex;flex-direction:column;gap:2px;">
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:22px 24px;">
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">打样：验证设计对不对</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">少量手工制作，确认功能实现、外观效果与基本可靠性。打样件是工程师在工程打样条件下制作的，它证明"这个设计能工作"，但不能证明"这个设计能批量做出来"。</p>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:22px 24px;">
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">试产：验证产线跑不跑得通</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">用真实产线、真实工装、产线工人操作，跑一个小批量。这一步暴露的是工艺问题：某个步骤太依赖手感、某个工装定位不准、某个测试项耗时过长。这些问题在打样阶段看不到。</p>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">跳过试产直接量产会增加硬件项目的交付风险。打样件全部合格，不代表产线上能稳定复现——工程师知道某个排线要先绕过卡扣再插，产线工人不知道，除非工艺文件里写了。试产的核心产出不是那几十台样机，而是一份被验证过的作业指导书。</p>
+<figure style="margin:clamp(36px,3.6vw,48px) 0 0;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;">
+<img alt="智造中心厂房" decoding="async" height="1200" loading="lazy" src="assets/images/photo-v2/factory-hall-20260905.webp" style="width:100%;aspect-ratio:4 / 3;object-fit:cover;border:1px solid #E3E8F0;height:auto;" width="1800"/>
+<img alt="质检工位" decoding="async" height="1200" loading="lazy" src="assets/images/photo-v2/factory-qc-20260905.webp" style="width:100%;aspect-ratio:4 / 3;object-fit:cover;border:1px solid #E3E8F0;height:auto;" width="1800"/>
+</div>
+<figcaption style="margin-top:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.1em;color:#8B96AC;">FIG. 2 — 试产要在真实产线、真实工装上跑，暴露的是工艺问题而不是设计问题</figcaption>
+</figure>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">四、质量检查：四个节点，四类问题</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">质量控制放在流程里，而不是出货前。四个检验节点各自拦截不同类型的问题，缺哪一个，对应的问题就会流到下一环。</p>
+<div style="margin-top:26px;border:1px solid #E3E8F0;">
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:110px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">IQC</span>
+<div>
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">来料检验</strong>
+<p style="margin-top:8px;font-size:14.5px;line-height:1.8;color:#5B6880;">拦截物料本身的问题，并记录供应商批次。没有批次记录，出现批量不良时无法界定范围。</p>
+</div>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:110px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">AOI</span>
+<div>
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">贴装后光学检测</strong>
+<p style="margin-top:8px;font-size:14.5px;line-height:1.8;color:#5B6880;">拦截焊接与贴装缺陷。在这一步发现比整机装配后发现便宜得多，因为板还没被装进壳里。</p>
+</div>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:110px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">BURN-IN</span>
+<div>
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">整机老化</strong>
+<p style="margin-top:8px;font-size:14.5px;line-height:1.8;color:#5B6880;">拦截早期失效。通电运行一段时间能筛掉那些"刚开机正常、用两天就坏"的个体。</p>
+</div>
+</div>
+<div style="padding:20px 24px;display:grid;grid-template-columns:110px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#0E7C86;">OQC</span>
+<div>
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">出货抽检</strong>
+<p style="margin-top:8px;font-size:14.5px;line-height:1.8;color:#5B6880;">拦截包装、配件与标识错误，并留下这一批的最终记录。抽检比例与判定标准要事先约定。</p>
+</div>
+</div>
+</div>
+<p style="margin-top:26px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">老化测试的时长是一个需要甲乙双方共同决定的参数。时间越长筛得越干净，但占用产能、拉长交期。合理的做法是按产品的实际使用场景定：装在高处、更换困难的终端应该多老化一段时间，桌面可随时更换的产品可以缩短。这个决定应该写进技术协议，而不是由产线自行安排。</p>
+<div style="margin-top:clamp(36px,3.6vw,48px);background:#0B1220;padding:clamp(28px,3vw,40px);">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#5C9BFF;">KEY TAKEAWAY</span>
+<p style="margin-top:14px;max-width:54ch;font-size:17px;line-height:1.8;color:#fff;text-wrap:pretty;">可制造性评审花一天，试产花两周，两者合起来能省掉后期几个月的返工。硬件项目省不掉的成本是时间，而时间几乎全部花在返工上。</p>
+</div>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">五、交付资料：项目真正结束的标志</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">收到货不等于项目完成。下面这几份资料决定了这批产品在未来两三年里好不好维护、能不能追溯、要补货时是否还能做出一样的东西。</p>
+<div style="margin-top:26px;display:flex;flex-direction:column;gap:2px;">
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">BOM</span>
+<span style="font-size:15px;color:#48546B;">最终版物料清单，含替代料与关键器件的供应商信息。</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">BATCH</span>
+<span style="font-size:15px;color:#48546B;">批次记录：这一批用了哪些物料批号、什么时候生产、检验结果如何。</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">FIRMWARE</span>
+<span style="font-size:15px;color:#48546B;">出厂固件版本号与升级方式，避免现场设备版本混乱。</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">SPARE</span>
+<span style="font-size:15px;color:#48546B;">备件清单与预留数量，按项目周期与故障率估算。</span>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:18px 22px;display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#0E7C86;">SERVICE</span>
+<span style="font-size:15px;color:#48546B;">维修与更换流程：坏件寄回哪里、多久换回、保修范围如何界定。</span>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">"备件清单"这一项需要纳入长期项目的运维规划。一批终端部署三年，期间可能出现个体损坏，如果没有预留备件、而当初的某个器件已经停产，那就只能改设计重新做一版——为了几台维修件走一遍完整流程，成本极不划算。首批下单时可结合设备数量、维修周期及器件供应情况确定备件比例。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">"批次记录"的价值同样在事后显现。当现场出现某一类故障时，能否快速判断"是不是同一批物料的问题、影响多少台"，与这份记录的完整程度有关。没有它，排查范围就是全部已交付设备。</p>
+<p style="margin-top:22px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">把五个节点串起来看，制造项目的推进逻辑其实很简单：把相关判断尽量前移。需求阶段定优先级，评审阶段挡设计问题，试产阶段挡工艺问题，检验阶段挡个体问题，交付阶段留下可追溯的记录。每一个节点都在为下一个节点减少不确定性——这也是"先勘测再报价、先试点再复制"这套原则在硬件端的同一个道理。</p>
+</article>
+<aside data-aside="" style="position:sticky;top:100px;">
+<div style="border:1px solid #E3E8F0;padding:26px 24px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#8B96AC;">IN THIS ARTICLE</span>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:11px;">
+<span style="font-size:14px;color:#5B6880;">一、需求评审与优先级</span>
+<span style="font-size:14px;color:#5B6880;">二、可制造性评审</span>
+<span style="font-size:14px;color:#5B6880;">三、打样与试产的区别</span>
+<span style="font-size:14px;color:#5B6880;">四、四个质检节点</span>
+<span style="font-size:14px;color:#5B6880;">五、交付资料清单</span>
+</div>
+</div>
+<div style="margin-top:16px;border:1px solid #E3E8F0;padding:26px 24px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#8B96AC;">RELATED</span>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:14px;">
+<a class="hv11" href="manufacturing.html" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">制造能力与交付流程 →</a>
+<a class="hv12" href="manufacturing.html#process" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">从打样到批量交付 →</a>
+<a class="hv13" href="about.html" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">三位一体架构 →</a>
+</div>
+</div>
+</aside>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:0 0 clamp(64px,7vw,100px);">
+<div data-cta="" style="background:#1F5EFF;border-radius:8px;padding:clamp(44px,5vw,68px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:56px;align-items:center;">
+<div>
+<h2 style="max-width:22ch;font-size:clamp(26px,2.8vw,38px);line-height:1.16;letter-spacing:-0.028em;font-weight:600;color:#fff;">需要把技术专题转化为项目方案？</h2>
+<p style="margin-top:16px;max-width:48ch;font-size:15.5px;line-height:1.8;color:#D3E0FF;">提交门店、仓库、场地、接口或任务信息，我们将结合产品、平台和交付能力进一步沟通。</p>
+</div>
+<a class="hv14" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:10px;padding:18px 34px;background:#fff;color:#1F5EFF;font-size:15px;font-weight:600;border-radius:4px;white-space:nowrap;">预约技术沟通<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</section>
+<footer style="background:#0B1220;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;padding:72px 0 40px;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:44px 52px;">
+<div>
+<div style="display:flex;align-items:center;gap:12px;">
+<img alt="" height="32" src="assets/images/logo-mark.svg" style="width:32px;height:32px;object-fit:contain;filter:brightness(0) invert(1);" width="32"/>
+<span>
+<strong style="display:block;font-size:14.5px;font-weight:600;color:#fff;">攀攀科技</strong>
+<span style="display:block;margin-top:3px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#6E7A91;">PANPANTECH · AIESL</span>
+</span>
+</div>
+<p style="margin:20px 0 0;max-width:34ch;font-size:13.5px;line-height:1.8;color:#8B96AC;">连接产品、数据平台、软件研发与硬件智造，为零售、商业空间与工业场景提供可落地的 AIoT 能力。</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">产品</h2>
+<a class="hv15" href="esl.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">电子价签</a>
+<a class="hv16" href="people-counting.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">客流统计</a>
+<a class="hv17" href="cleaning-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">清洁机器人</a>
+<a class="hv18" href="picking-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">拣货机器人</a>
+<a class="hv19" href="e-paper-displays.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">墨水屏显示</a>
+<a class="hv19" href="facade-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">幕墙机器人</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">平台与能力</h2>
+<a class="hv20" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">AiESL 数据中台</a>
+<a class="hv21" href="solutions.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">行业解决方案</a>
+<a class="hv22" href="manufacturing.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">制造与交付</a>
+<a class="hv23" href="products.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">产品总览</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">内容</h2>
+<a class="hv24" href="news.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">新闻中心</a>
+<a class="hv25" href="blog.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">技术博客</a>
+<a class="hv26" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">平台架构</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">公司</h2>
+<a class="hv27" href="about.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">关于我们</a>
+<a class="hv28" href="about.html#brand-architecture" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">品牌架构</a>
+<a class="hv29" href="https://www.aiesl.cn/contact.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">联系我们</a>
+<a class="hv30" href="https://www.panpantechnology.com" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">集团英文站</a>
+</div>
+</div>
+<div style="margin-top:56px;padding-top:24px;border-top:1px solid #1E2739;display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;font-size:12.5px;color:#6E7A91;">
+<span>© 2026 广州攀攀科技有限公司 PanPanTech</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0.08em;">NeuroGrid · AiESL · AiEinkSmart · Pyroglaux · EinkSmart</span>
+<a class="hv31" href="https://beian.miit.gov.cn/" style="color:#6E7A91;text-decoration:none;">粤ICP备2026035004号-1</a>
+</div>
+</div>
+</footer>
+</div>
+<script>
+(function(){
+  var t=document.querySelector('[data-mobtoggle]'),p=document.querySelector('[data-mobpanel]');
+  if(t&&p){t.addEventListener('click',function(){p.style.display=(p.style.display==='block')?'none':'block';});}
+  var track=document.querySelector('[data-hero-track]');
+  if(!track)return;
+  var tabs=[].slice.call(document.querySelectorAll('[data-go]')),
+      ind=document.querySelector('[data-tab-indicator]'),i=0,timer;
+  function go(n){i=n;track.scrollTo({left:track.clientWidth*n,behavior:'smooth'});if(ind)ind.style.transform='translateX('+(n*100)+'%)';}
+  function arm(){clearInterval(timer);timer=setInterval(function(){go((i+1)%5);},7000);}
+  tabs.forEach(function(b){b.addEventListener('click',function(){go(+b.getAttribute('data-go'));arm();});});
+  window.addEventListener('resize',function(){track.scrollTo({left:track.clientWidth*i});});
+  arm();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+/* Photo review v2: product containment and responsive media grids. */
+img{max-width:100%;}
+[data-imgpair]{align-items:stretch;}
+[data-imgpair]>*{min-width:0;}
+[data-hero-media]{overflow:hidden;}
+[data-hero-media] img[src*="cleaning-studio"]{object-fit:cover!important;padding:0!important;}
+[data-hero-media] img[src*="people-r40-front"]{padding:clamp(24px,4.4vw,64px)!important;}
+@media(max-width:1080px){
+  [data-hero-media]{height:auto!important;display:flex;flex-direction:column;}
+  [data-hero-media]>img{height:clamp(260px,40vw,380px)!important;flex:none;}
+  [data-hero-media]>div{position:static!important;max-width:none!important;align-self:stretch;}
+  [data-hero-media] img[src*="cleaning-studio"]{object-fit:contain!important;}
+}
+@media(max-width:680px){
+  header>div{width:calc(100% - 32px)!important;gap:12px!important;}
+  header>div>a>span>span{font-size:8px!important;letter-spacing:.1em!important;}
+  [data-hero-media] img[src*="cleaning-studio"]{object-fit:cover!important;}
+  [data-imgpair]{height:auto!important;grid-template-rows:auto!important;overflow:visible!important;}
+  [data-imgpair]>img{height:300px!important;min-height:0!important;}
+  [data-imgpair]>div{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:auto!important;}
+  [data-imgpair]>div>img{height:160px!important;min-height:0!important;}
+  [data-brand-row]{grid-template-columns:minmax(0,1fr)!important;gap:12px!important;}
+}
+
+/* Keep intrinsic dimensions for layout hints; CSS defines responsive media boxes. */
+img[style*="aspect-ratio"]{height:auto!important;display:block;}
+.dexforce-media{height:auto!important;grid-template-rows:auto!important;overflow:visible!important;}
+.company-profile{width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(64px,7vw,100px) 0;border-bottom:1px solid #E3E8F0;}
+.company-profile-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:72px;align-items:center;}
+.company-eyebrow{display:block;color:#1F5EFF;font-size:13px;letter-spacing:.12em;margin-bottom:26px;}
+.company-profile h2{font-size:clamp(28px,3vw,42px);line-height:1.28;letter-spacing:-.025em;color:#0B1220;font-weight:600;}
+.company-profile p{margin-top:20px;color:#5B6880;font-size:15px;line-height:1.9;}
+.company-profile .company-lead{font-size:17px;margin-top:28px;}
+.company-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid #DCE4F0;border-radius:10px;overflow:hidden;}
+.company-stats>div{padding:32px 26px;min-width:0;}.company-stats>div:nth-child(even){border-left:1px solid #DCE4F0;}.company-stats>div:nth-child(n+3){border-top:1px solid #DCE4F0;}
+.company-stats strong{display:block;font-size:clamp(27px,3vw,42px);line-height:1.2;color:#0B1220;font-weight:500;white-space:nowrap;}
+.company-stats span{display:block;margin-top:12px;color:#7C8AA3;font-size:13px;}
+@media(max-width:1080px){.company-profile-grid{grid-template-columns:1fr;gap:36px;}.company-stats>div{padding:26px;}}
+@media(max-width:680px){.company-profile{width:calc(100% - 48px);}.company-stats>div{padding:22px 15px;}.company-stats strong{font-size:27px;}.company-stats span{font-size:12px;}[data-imgpair]>p{margin:0!important;}}
+
+/* The same document-scoped sticky navigation is used on all 20 pages. */
+[data-site-header]{position:sticky!important;top:0!important;z-index:100!important;}
+html{scroll-padding-top:92px;}
+[data-mobpanel]{max-height:calc(100dvh - 76px);overflow-y:auto;overscroll-behavior:contain;}
+.robot-scenes{height:auto!important;grid-template-rows:auto!important;overflow:visible!important;}
+.robot-scenes>img{height:auto!important;min-height:0!important;}

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>3D 双目客流统计如何兼顾匿名化与运营分析｜技术博客 · 攀攀科技</title>
+<meta content="区分感知、计数、空间指标与个人身份识别，明确数据使用边界。" name="description"/>
+<link href="https://www.aiesl.cn/blog-people-counting.html" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<meta content="3D 双目客流统计如何兼顾匿名化与运营分析｜技术博客 · 攀攀科技" property="og:title"/>
+<meta content="区分感知、计数、空间指标与个人身份识别，明确数据使用边界。" property="og:description"/>
+<meta content="https://www.aiesl.cn/blog-people-counting.html" property="og:url"/>
+<meta content="zh_CN" property="og:locale"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="assets/images/logo-mark.svg" rel="icon"/>
+<style>
+@font-face{font-family:"AiSans";src:url("assets/fonts/NotoSansSC-V3-subset.woff2") format("woff2");font-weight:100 900;font-display:swap;}
+*{box-sizing:border-box;}
+body{margin:0;background:#fff;color:#48546B;font-family:"AiSans","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,p{margin:0;}
+img{display:block;max-width:100%;}
+a{color:#0B1220;text-decoration:none;}
+a:hover{color:#1F5EFF;}
+::selection{background:#1F5EFF;color:#fff;}
+[data-linegrid]>*{outline:1px solid #E3E8F0;}
+@media (max-width:1080px){
+  [data-cta]{grid-template-columns:minmax(0,1fr) !important;gap:28px !important;}
+  [data-cta]>a{justify-self:start;}
+  [data-body]{grid-template-columns:minmax(0,1fr) !important;gap:40px !important;}
+  [data-aside]{position:static !important;}
+  [data-tbl]{grid-template-columns:minmax(0,1fr) !important;gap:8px !important;}
+}
+</style>
+<style>
+[data-desknav] a{white-space:nowrap;}
+@media (max-width:1080px){
+  [data-utilbar]{display:none !important;}
+  [data-desknav]{display:none !important;}
+  [data-mobtoggle]{display:flex !important;}
+}
+@media (min-width:1081px){
+  [data-mobpanel]{display:none !important;}
+}
+</style>
+<style>
+.hv1:hover{color:#fff !important}
+.hv2:hover{color:#fff !important}
+.hv3:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv4:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv5:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv6:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv10:hover{background:#1544C4 !important}
+.hv11:hover{color:#1F5EFF !important}
+.hv12:hover{color:#1F5EFF !important}
+.hv13:hover{color:#1F5EFF !important}
+.hv14:hover{background:#0B1220 !important;color:#fff !important}
+.hv15:hover{color:#fff !important}
+.hv16:hover{color:#fff !important}
+.hv17:hover{color:#fff !important}
+.hv18:hover{color:#fff !important}
+.hv19:hover{color:#fff !important}
+.hv20:hover{color:#fff !important}
+.hv21:hover{color:#fff !important}
+.hv22:hover{color:#fff !important}
+.hv23:hover{color:#fff !important}
+.hv24:hover{color:#fff !important}
+.hv25:hover{color:#fff !important}
+.hv26:hover{color:#fff !important}
+.hv27:hover{color:#fff !important}
+.hv28:hover{color:#fff !important}
+.hv29:hover{color:#fff !important}
+.hv30:hover{color:#fff !important}
+.hv31:hover{color:#B6BDC9 !important}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"3D 双目客流统计如何兼顾匿名化与运营分析","description":"区分感知、计数、空间指标与个人身份识别，明确数据使用边界。","inLanguage":"zh-CN","url":"https://www.aiesl.cn/blog-people-counting.html","publisher":{"@type":"Organization","name":"广州攀攀科技有限公司","alternateName":"PanPanTech","url":"https://www.aiesl.cn/"}}</script>
+<style>
+.nv1:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv2:hover{background:#F5F7FA !important}
+.nv3:hover{background:#F5F7FA !important}
+.nv4:hover{background:#F5F7FA !important}
+.nv5:hover{background:#F5F7FA !important}
+.nv6:hover{background:#F5F7FA !important}
+.nv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv10:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv11:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv12:hover{background:#F5F7FA !important;color:#0B1220 !important}
+[data-navdrop]:hover [data-navpanel]{display:block !important;}
+</style>
+<link href="assets/photo-layout-v4-20260905.css" rel="stylesheet"/>
+</head>
+<body><header data-site-header="" style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);backdrop-filter:blur(12px);border-bottom:1px solid #E3E8F0;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;height:76px;display:flex;align-items:center;justify-content:space-between;gap:36px;">
+<a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+<img alt="" height="36" src="assets/images/logo-mark.svg" style="width:36px;height:36px;object-fit:contain;" width="36"/>
+<span>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;line-height:1.2;white-space:nowrap;">攀攀科技</strong>
+<span style="display:block;margin-top:2px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#8B96AC;white-space:nowrap;">PANPANTECH · AIESL</span>
+</span>
+</a>
+<nav data-desknav="" style="display:flex;align-items:center;gap:4px;font-size:14px;">
+<a class="nv1" href="index.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">首页</a>
+<div data-navdrop="" style="position:relative;">
+<span style="display:inline-flex;align-items:center;gap:6px;padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;cursor:default;">产品<span style="font-size:9px;color:#8B96AC;">▼</span></span>
+<div data-navpanel="" style="display:none;position:absolute;top:100%;left:0;min-width:236px;background:#fff;border:1px solid #E3E8F0;box-shadow:0 18px 44px rgba(11,18,32,0.12);padding:8px 0;z-index:60;">
+<a class="nv2" href="esl.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">01</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">电子价签</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">AiEinkSmart</span></span>
+</a>
+<a class="nv3" href="people-counting.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">02</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">客流统计</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">Pyroglaux</span></span>
+</a>
+<a class="nv4" href="cleaning-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">03</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">清洁机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv5" href="picking-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">04</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">拣货机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv6" href="e-paper-displays.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">05</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">墨水屏显示</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">EinkSmart</span></span>
+</a>
+<a class="nv6" href="facade-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">06</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">幕墙机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+</div>
+</div>
+<a class="nv7" href="products.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">产品总览</a>
+<a class="nv7" href="platform.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">数据中台</a>
+<a class="nv8" href="solutions.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">解决方案</a>
+<a class="nv9" href="manufacturing.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">制造能力</a>
+<a class="nv10" href="news.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">新闻</a>
+<a class="nv11" href="blog.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">博客</a>
+<a class="nv12" href="about.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">关于我们</a>
+</nav>
+<div style="display:flex;align-items:center;gap:12px;">
+<a class="hv10" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#1F5EFF;color:#fff;font-size:14px;font-weight:600;border-radius:4px;white-space:nowrap;text-decoration:none;">预约方案</a>
+<button aria-label="打开导航" data-mobtoggle="" style="display:none;appearance:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:44px;height:44px;border:1px solid #C6D2E6;border-radius:4px;background:#fff;cursor:pointer;" type="button">
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+</button>
+</div>
+</div>
+<div data-mobpanel="" style="display:none;border-top:1px solid #E3E8F0;background:#fff;padding:20px min(36px,5vw) 30px;">
+<div style="display:flex;flex-direction:column;gap:2px;">
+<a href="index.html" style="padding:13px 4px;font-size:15px;font-weight:500;color:#0B1220;border-bottom:1px solid #EEF1F6;text-decoration:none;">首页</a>
+<a href="esl.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">电子价签</a>
+<a href="people-counting.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">客流统计</a>
+<a href="cleaning-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">清洁机器人</a>
+<a href="picking-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">拣货机器人</a>
+<a href="e-paper-displays.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">墨水屏显示</a>
+<a href="facade-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">幕墙机器人</a>
+<a href="products.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">产品总览</a>
+<a href="platform.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">数据中台</a>
+<a href="solutions.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">解决方案</a>
+<a href="manufacturing.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">制造能力</a>
+<a href="news.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">新闻中心</a>
+<a href="blog.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">技术博客</a>
+<a href="about.html" style="padding:13px 4px;font-size:15px;color:#48546B;text-decoration:none;">关于我们</a>
+<a href="https://www.aiesl.cn/contact.html" style="margin-top:18px;display:flex;align-items:center;justify-content:center;padding:15px 20px;background:#1F5EFF;color:#fff;font-size:15px;font-weight:600;border-radius:4px;text-decoration:none;">预约方案</a>
+</div>
+</div>
+</header>
+<div style="background:#fff;">
+<div>
+
+
+</div>
+<section style="background:#F5F7FA;border-bottom:1px solid #E3E8F0;position:relative;overflow:hidden;">
+<div style="position:absolute;inset:0;background-image:linear-gradient(#E3E8F0 1px,transparent 1px),linear-gradient(90deg,#E3E8F0 1px,transparent 1px);background-size:72px 72px;opacity:0.55;pointer-events:none;"></div>
+<div style="position:relative;width:min(100% - 72px,1400px);margin-inline:auto;padding:32px 0 clamp(48px,5vw,72px);">
+<div style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:#7C8AA3;margin-bottom:clamp(32px,3.6vw,48px);">
+<a href="index.html" style="color:#7C8AA3;">首页</a><span>/</span><a href="blog.html" style="color:#7C8AA3;">技术博客</a><span>/</span><span style="color:#0B1220;">客流统计与匿名化</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;">
+<span style="padding:5px 12px;background:#EFF4FF;color:#1F5EFF;font-size:12px;font-weight:600;border-radius:3px;">空间分析</span>
+<span style="padding:5px 12px;background:#fff;border:1px solid #E3E8F0;color:#5B6880;font-size:12px;font-weight:600;border-radius:3px;">博客</span>
+</div>
+<h1 style="max-width:24ch;font-size:clamp(30px,3.6vw,50px);line-height:1.12;letter-spacing:-0.03em;font-weight:600;color:#0B1220;text-wrap:balance;">3D 双目客流统计如何兼顾匿名化与运营分析</h1>
+<p style="margin-top:22px;max-width:54ch;font-size:17px;line-height:1.8;color:#5B6880;text-wrap:pretty;">区分感知、计数、空间指标与个人身份识别，明确数据使用边界——以及为什么口径没定清楚，后面所有分析都会吵架。</p>
+<div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:28px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.12em;color:#8B96AC;">
+<span>AIESL ENGINEERING</span>
+<span>约 14 分钟阅读</span>
+</div>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding-top:clamp(40px,4vw,56px);">
+<figure style="margin:0;">
+<img alt="R40 门店双目客流统计设备" decoding="async" height="800" src="assets/images/photo-v2/people-r40-front-20260905.webp" style="width:100%;height:clamp(280px,34vw,480px);object-fit:contain;background:#FFFFFF;padding:16px;" width="800"/>
+<figcaption style="margin-top:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.1em;color:#8B96AC;">FIG. 1 — 双目设备输出的是深度与计数，不是可识别身份的画面</figcaption>
+</figure>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(56px,6vw,84px) 0 clamp(64px,7vw,100px);">
+<div data-body="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,270px);gap:clamp(48px,5vw,72px);align-items:start;">
+<article style="max-width:84ch;">
+<p style="font-size:17.5px;line-height:1.85;color:#3C495F;text-wrap:pretty;">客流统计项目需要关注的问题不是设备装错了，而是三个月后各部门拿着同一套数据得出完全不同的结论。运营说客流涨了，店长说没感觉，财务算出来的转化率和市场部的对不上。追到最后往往发现，大家对"一个客流"的定义从来没有统一过。</p>
+<p style="margin-top:22px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这篇文章讲两件事：技术上双目方案输出的到底是什么，以及在装设备之前必须先书面确定哪些口径。前者决定系统能力边界，后者决定数据能不能被信任。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">一、四个层级：感知、计数、空间指标、身份识别</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">"摄像头"这个词把四件性质完全不同的事混在了一起。把它们分开，才能准确回答"你们会不会拍到我的脸"这类问题——这个问题需要在门店、写字楼与政企项目沟通中明确。</p>
+<div style="margin-top:28px;display:flex;flex-direction:column;gap:2px;">
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:22px 24px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#1F5EFF;">LEVEL 1 / SENSING</span>
+<strong style="display:block;margin-top:10px;font-size:17px;font-weight:600;color:#0B1220;">感知：生成深度图</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">左右两个镜头利用视差重建深度。这一步产生的是"某个位置有一个多高的立体物体"，用于区分人、推车、影子与海报。深度图在设备内部处理，不需要离开设备。</p>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:22px 24px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#1F5EFF;">LEVEL 2 / COUNTING</span>
+<strong style="display:block;margin-top:10px;font-size:17px;font-weight:600;color:#0B1220;">计数：进出判定与轨迹拼接</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">在设备端判断目标越线方向、拼接同一目标在视场内的移动轨迹。轨迹只在设备内短暂存在，用于判断"这是同一个人的一次进入"，不用于跨时间或跨设备关联。</p>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:22px 24px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#1F5EFF;">LEVEL 3 / METRICS</span>
+<strong style="display:block;margin-top:10px;font-size:17px;font-weight:600;color:#0B1220;">空间指标：结构化数据上传</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">上传的是数字：某时段进入 N 人、离店 M 人、某区域平均停留 T 分钟。这一层是平台看到的全部内容，也是所有分析的输入。</p>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #C05A5A;padding:22px 24px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#C05A5A;">LEVEL 4 / IDENTITY — 不在本系统范围内</span>
+<strong style="display:block;margin-top:10px;font-size:17px;font-weight:600;color:#0B1220;">身份识别：人脸比对与个人档案</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">识别"这是谁"、建立个人到店档案、跨门店关联同一个人的行为——这些属于另一类系统，本方案不做，也不应该被当作"顺便可以加上"的功能。</p>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这个四层划分在对外沟通时非常有用。当物业、租户或员工代表问起隐私问题时，可以直接回答：系统在第 1 层感知、第 2 层计数、第 3 层输出数字，第 4 层不做。这比一句"我们很重视隐私"有说服力得多。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">二、为什么是双目，而不是单目或红外对射</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">客流统计有多种技术路线，各有适用场景。选择双目通常是因为它在"精度"和"不采集身份信息"之间取得了可接受的平衡。</p>
+<div data-tbl="" style="margin-top:26px;border:1px solid #E3E8F0;">
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;background:#F5F7FA;display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1fr) minmax(0,1fr);gap:20px;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#8B96AC;">方案</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#8B96AC;">主要问题</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#8B96AC;">适用情况</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">红外对射</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">两人并排通过只算一次，无法判断方向与停留。</span>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">窄门、低客流、只需要粗略量级的场景。</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">单目视觉</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">缺少深度信息，影子、推车、镜面反射都可能被误计。</span>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">光照稳定、地面无强反射的受控环境。</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">Wi-Fi / 蓝牙探针</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">采集设备标识，属于个人相关数据；且只覆盖开着无线的人。</span>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">合规条件明确、只做趋势参考的场景。</span>
+</div>
+<div style="padding:18px 24px;display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">3D 双目</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">安装高度与视场角要求严格，遮挡会影响精度。</span>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">需要方向、停留与区域指标，且不希望采集身份信息。</span>
+</div>
+</div>
+<p style="margin-top:26px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这张表里第三行需要单独说明。Wi-Fi 与蓝牙探针在成本上有明显优势，一台设备可以覆盖很大范围，也不需要精确的安装位置，因此在不少方案里被当作低成本替代品推荐。但它采集的是设备的无线标识，这在性质上属于与个人相关的数据——即使做了哈希处理，它仍然是"同一台设备"的标识符，因此可以跨时间、跨门店关联。这与双目方案"只输出数字"的性质完全不同。如果项目所在场景对个人数据有明确要求，探针方案的合规成本会远高于它省下的硬件成本。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">另一个常被低估的是红外对射的局限。其结构相对简单，可结合低客流窄门场景评估适用性，仍需按设备和现场条件安排维护。但一旦门口出现并排通行、推车、或者带小孩的顾客，可能出现漏计，影响数据与趋势判断。判断能不能用对射，标准不是预算，而是"门口会不会出现两个人并排走进来"。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">双目的代价在安装：它对高度和角度的要求比其它方案严格。层高不足、门头有雨棚遮挡、或者只能装在侧墙而非正上方，都会让精度下降。这些约束在报价单上看不出来，只能靠现场勘测确认——这也是为什么勘测在客流项目里不是可选项。</p>
+<figure style="margin:clamp(36px,3.6vw,48px) 0 0;">
+<img alt="双目设备的深度输出与端侧参数配置界面" decoding="async" height="845" loading="lazy" src="assets/images/people-02.jpg" style="width:100%;height:clamp(260px,30vw,400px);object-fit:cover;" width="1400"/>
+<figcaption style="margin-top:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.1em;color:#8B96AC;">FIG. 2 — 端侧深度输出与参数配置界面（工业场景调试界面）：越线方向、有效身高区间与统计区域都在设备内设定</figcaption>
+</figure>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">三、口径没定清楚，后面所有分析都会吵架</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这一节用于明确各方的数据口径。下面这七个问题必须在装设备之前书面确定，并且要有一份各方都签字确认的口径文档。它们没有标准答案，但必须有一个统一答案。</p>
+<div style="margin-top:26px;display:flex;flex-direction:column;gap:16px;">
+<div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;color:#1F5EFF;">Q1</span>
+<p style="font-size:16px;line-height:1.8;color:#48546B;"><strong style="color:#0B1220;font-weight:600;">员工算不算客流？</strong>不排除，早晚班交接会形成虚假高峰；要排除，就需要设定身高区间之外的额外规则或在排班时段做校正。多数项目选择用统计时段规避，而不是试图识别员工。</p>
+</div>
+<div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;color:#1F5EFF;">Q2</span>
+<p style="font-size:16px;line-height:1.8;color:#48546B;"><strong style="color:#0B1220;font-weight:600;">儿童算不算？</strong>有效身高下限设在哪里，直接影响母婴、玩具与教育类业态的数据。设成 1.2 米还是 0.8 米，会得出完全不同的客流量。</p>
+</div>
+<div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;color:#1F5EFF;">Q3</span>
+<p style="font-size:16px;line-height:1.8;color:#48546B;"><strong style="color:#0B1220;font-weight:600;">折返算几次？</strong>顾客出门接电话再进来，是一次还是两次？多数场景会设一个冷却时间窗（例如几分钟内的重复进入合并为一次），这个窗口长度必须写进文档。</p>
+</div>
+<div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;color:#1F5EFF;">Q4</span>
+<p style="font-size:16px;line-height:1.8;color:#48546B;"><strong style="color:#0B1220;font-weight:600;">多个入口怎么合并？</strong>三个门各装一台设备，总客流是三台相加吗？如果顾客从 A 门进 B 门出，相加会重复计算。需要明确是按"进入总数"还是"去重后的到店人数"。</p>
+</div>
+<div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;color:#1F5EFF;">Q5</span>
+<p style="font-size:16px;line-height:1.8;color:#48546B;"><strong style="color:#0B1220;font-weight:600;">"停留"从什么时候开始算？</strong>进入区域即计时，还是停下超过 N 秒才算？路过和停留的界线由这个阈值决定，直接影响区域热度数据。</p>
+</div>
+<div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;color:#1F5EFF;">Q6</span>
+<p style="font-size:16px;line-height:1.8;color:#48546B;"><strong style="color:#0B1220;font-weight:600;">营业时间外的数据算不算？</strong>保洁、理货与夜间巡查都会产生计数。是按营业时段截取，还是全天统计并另行标注？</p>
+</div>
+<div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;color:#0E7C86;">Q7</span>
+<p style="font-size:16px;line-height:1.8;color:#48546B;"><strong style="color:#0B1220;font-weight:600;">和 POS 交易数的比值叫什么？</strong>如果分母是"进入总数"，得到的数字和分母是"去重到店人数"完全不同。转化率这个词在两种口径下不能互相比较。</p>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这七个问题的共同点是：它们都不是技术问题，而是业务定义问题。设备的可配置口径需按具体型号和方案确认，并约定统一的数据定义。先定口径再装设备，比装完再来讨论"这个数字准不准"要省事得多。</p>
+<div style="margin-top:clamp(36px,3.6vw,48px);background:#0B1220;padding:clamp(28px,3vw,40px);">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#5C9BFF;">KEY TAKEAWAY</span>
+<p style="margin-top:14px;max-width:54ch;font-size:17px;line-height:1.8;color:#fff;text-wrap:pretty;">客流数据的可信度需要结合设备精度、统一口径和现场校准共同评估。一份签字确认的口径文档，比多装两台设备更能决定项目成败。</p>
+</div>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">四、安装：三个决定精度的物理条件</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">口径定完，接下来是现场。双目设备的精度由三个物理条件决定，勘测时必须逐项确认。</p>
+<div data-linegrid="" style="margin-top:26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:#fff;">
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">HEIGHT</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">安装高度</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">过低会导致视场不足、边缘目标被截断；过高会削弱深度分辨力。层高不足的门店需要提前评估。</p>
+</div>
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">FOV</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">视场覆盖</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">门头宽度超过单台设备覆盖范围时需要多台拼接，拼接区的重叠处理要在配置时明确。</p>
+</div>
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">OCCLUSION</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">遮挡与反射</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">雨棚、吊旗、促销堆头与镜面地砖都会干扰。装完之后再改陈列，也会让精度变化。</p>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">举一个具体例子说明这三条怎么一起起作用。一家门头净宽 4.2 米、吊顶净高 2.8 米的社区超市，单台设备的视场无法完整覆盖 4.2 米宽的通行面，边缘会留下约半米的盲区——顾客贴着门框走进来就可能漏计。可选的处理方式有两个：一是装两台做拼接，并在配置里明确重叠区的去重规则；二是在地面用陈列或隔断把有效通行宽度收窄到单台可覆盖的范围内。前者成本高一些但不影响动线，后者不花钱但要门店配合改陈列。这个判断必须在勘测时做完，因为它同时影响设备数量与最终报价。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">如果同一家店吊顶净高只有 2.4 米，情况会反过来：高度不足时视场进一步收窄，即使装两台也可能覆盖不全，此时更现实的做法是把统计线从门口内移到入口通道稍深处——那里的通行面通常更窄。位置内移会带来一个副作用：站在门口张望但没有真正进店的人不再被计入。这未必是坏事，但必须写进口径文档，否则日后与历史数据对比时会出现无法解释的落差。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">最后一条容易被忽视：客流设备的精度不是一次性的。门口换了新的促销堆头、加了吊旗、或者调整了闸机位置，都可能改变视场条件。因此陈列调整后应该复核一次数据是否出现异常跳变，这一条建议写进运维流程。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">五、验收：用人工计数校准，而不是看精度标称值</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">供应商给出的精度数字是在特定条件下测得的，它不能替代你自己门店的验收。可执行的做法是人工对比校准：</p>
+<div style="margin-top:26px;display:flex;flex-direction:column;gap:2px;">
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">STEP 1</span>
+<span style="font-size:15px;color:#48546B;">选三个时段：早间平峰、午间高峰、晚间平峰，每段人工计数 30 分钟。</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">STEP 2</span>
+<span style="font-size:15px;color:#48546B;">人工计数必须按已确认的口径执行——员工排不排除、儿童算不算，都要一致。</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">STEP 3</span>
+<span style="font-size:15px;color:#48546B;">分时段对比偏差，而不是只看总数——总数相符可能是正负误差互相抵消。</span>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:18px 22px;display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#0E7C86;">STEP 4</span>
+<span style="font-size:15px;color:#48546B;">高峰时段偏差大于平峰时，通常是遮挡或视场问题，需要调整安装而非改参数。</span>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">校准完成后，把这份对比结果连同口径文档一起归档。后续任何关于"数据准不准"的讨论，都可以回到这份基线，而不是从头再吵一遍。这份文档有助于后续核查与沟通。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">六、客流数据怎么和价格、陈列串起来</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">口径统一、校准完成之后，客流才真正开始产生价值。它自己只是一个数字，只有和别的动作放在一起才能形成判断。下面三条是可结合业务场景评估的组合方式。</p>
+<div style="margin-top:26px;display:flex;flex-direction:column;gap:2px;">
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:22px 24px;">
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">与价格任务对照：促销到底带来了什么</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">电子价签的执行记录里有"什么时候、哪些商品改成了促销价"，客流数据里有"那几天的到店与区域停留"。把两条时间线叠在一起，可以看出某次促销是真的把人带进了店，还是只让已经进店的人多停留了一会儿。这两种情况需要的后续动作完全不同。</p>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:22px 24px;">
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">与陈列调整对照：动线改了有没有效果</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">陈列调整前后各取两周的区域热度做对比，能看出人流是否真的被引到了目标区域。注意要排除季节与促销因素——如果调整刚好赶上大促，那两周的数据说明不了陈列本身的效果。</p>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:22px 24px;">
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">与人力排班对照：人有没有站在需要的时段</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">把分时客流曲线和实际排班表并排看，常常会发现两者错位——高峰时段人手不足，平峰时段却有人闲着。这类调整不需要新增人力，只需要挪班次，可用于评估排班与客流的匹配情况。</p>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这三种用法有一个共同前提：所有参与讨论的人说的"客流"必须是同一件事。口径文档、校准基线与运维复核，都是为了守住这个前提。守住了，客流数据能同时支撑价格、陈列与人力三类决策；守不住，它就只是一个每天有人报、但没人真正相信的数字。</p>
+</article>
+<aside data-aside="" style="position:sticky;top:100px;">
+<div style="border:1px solid #E3E8F0;padding:26px 24px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#8B96AC;">IN THIS ARTICLE</span>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:11px;">
+<span style="font-size:14px;color:#5B6880;">一、四个层级的边界</span>
+<span style="font-size:14px;color:#5B6880;">二、为什么选双目</span>
+<span style="font-size:14px;color:#5B6880;">三、七个必须先定的口径</span>
+<span style="font-size:14px;color:#5B6880;">四、决定精度的物理条件</span>
+<span style="font-size:14px;color:#5B6880;">五、用人工计数校准</span>
+<span style="font-size:14px;color:#5B6880;">六、与价格和陈列串联</span>
+</div>
+</div>
+<div style="margin-top:16px;border:1px solid #E3E8F0;padding:26px 24px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#8B96AC;">RELATED</span>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:14px;">
+<a class="hv11" href="people-counting.html" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">3D 双目客流统计产品 →</a>
+<a class="hv12" href="people-counting.html#privacy" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">隐私治理边界 →</a>
+<a class="hv13" href="solutions.html" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">门店与商业空间方案 →</a>
+</div>
+</div>
+</aside>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:0 0 clamp(64px,7vw,100px);">
+<div data-cta="" style="background:#1F5EFF;border-radius:8px;padding:clamp(44px,5vw,68px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:56px;align-items:center;">
+<div>
+<h2 style="max-width:22ch;font-size:clamp(26px,2.8vw,38px);line-height:1.16;letter-spacing:-0.028em;font-weight:600;color:#fff;">需要把技术专题转化为项目方案？</h2>
+<p style="margin-top:16px;max-width:48ch;font-size:15.5px;line-height:1.8;color:#D3E0FF;">提交门店、仓库、场地、接口或任务信息，我们将结合产品、平台和交付能力进一步沟通。</p>
+</div>
+<a class="hv14" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:10px;padding:18px 34px;background:#fff;color:#1F5EFF;font-size:15px;font-weight:600;border-radius:4px;white-space:nowrap;">预约技术沟通<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</section>
+<footer style="background:#0B1220;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;padding:72px 0 40px;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:44px 52px;">
+<div>
+<div style="display:flex;align-items:center;gap:12px;">
+<img alt="" height="32" src="assets/images/logo-mark.svg" style="width:32px;height:32px;object-fit:contain;filter:brightness(0) invert(1);" width="32"/>
+<span>
+<strong style="display:block;font-size:14.5px;font-weight:600;color:#fff;">攀攀科技</strong>
+<span style="display:block;margin-top:3px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#6E7A91;">PANPANTECH · AIESL</span>
+</span>
+</div>
+<p style="margin:20px 0 0;max-width:34ch;font-size:13.5px;line-height:1.8;color:#8B96AC;">连接产品、数据平台、软件研发与硬件智造，为零售、商业空间与工业场景提供可落地的 AIoT 能力。</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">产品</h2>
+<a class="hv15" href="esl.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">电子价签</a>
+<a class="hv16" href="people-counting.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">客流统计</a>
+<a class="hv17" href="cleaning-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">清洁机器人</a>
+<a class="hv18" href="picking-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">拣货机器人</a>
+<a class="hv19" href="e-paper-displays.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">墨水屏显示</a>
+<a class="hv19" href="facade-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">幕墙机器人</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">平台与能力</h2>
+<a class="hv20" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">AiESL 数据中台</a>
+<a class="hv21" href="solutions.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">行业解决方案</a>
+<a class="hv22" href="manufacturing.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">制造与交付</a>
+<a class="hv23" href="products.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">产品总览</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">内容</h2>
+<a class="hv24" href="news.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">新闻中心</a>
+<a class="hv25" href="blog.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">技术博客</a>
+<a class="hv26" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">平台架构</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">公司</h2>
+<a class="hv27" href="about.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">关于我们</a>
+<a class="hv28" href="about.html#brand-architecture" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">品牌架构</a>
+<a class="hv29" href="https://www.aiesl.cn/contact.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">联系我们</a>
+<a class="hv30" href="https://www.panpantechnology.com" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">集团英文站</a>
+</div>
+</div>
+<div style="margin-top:56px;padding-top:24px;border-top:1px solid #1E2739;display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;font-size:12.5px;color:#6E7A91;">
+<span>© 2026 广州攀攀科技有限公司 PanPanTech</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0.08em;">NeuroGrid · AiESL · AiEinkSmart · Pyroglaux · EinkSmart</span>
+<a class="hv31" href="https://beian.miit.gov.cn/" style="color:#6E7A91;text-decoration:none;">粤ICP备2026035004号-1</a>
+</div>
+</div>
+</footer>
+</div>
+<script>
+(function(){
+  var t=document.querySelector('[data-mobtoggle]'),p=document.querySelector('[data-mobpanel]');
+  if(t&&p){t.addEventListener('click',function(){p.style.display=(p.style.display==='block')?'none':'block';});}
+  var track=document.querySelector('[data-hero-track]');
+  if(!track)return;
+  var tabs=[].slice.call(document.querySelectorAll('[data-go]')),
+      ind=document.querySelector('[data-tab-indicator]'),i=0,timer;
+  function go(n){i=n;track.scrollTo({left:track.clientWidth*n,behavior:'smooth'});if(ind)ind.style.transform='translateX('+(n*100)+'%)';}
+  function arm(){clearInterval(timer);timer=setInterval(function(){go((i+1)%5);},7000);}
+  tabs.forEach(function(b){b.addEventListener('click',function(){go(+b.getAttribute('data-go'));arm();});});
+  window.addEventListener('resize',function(){track.scrollTo({left:track.clientWidth*i});});
+  arm();
+})();
+</script>
+</body>
+</html>

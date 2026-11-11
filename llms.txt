@@ -1,27 +1,41 @@
-# PanPanTech / aiesl.cn
+# 广州攀攀科技有限公司 PanPanTech
 
-PanPanTech（广州攀攀科技有限公司）提供五个同等重要的主营产品：
+> 面向零售、商业空间与工业场景的 AIoT 产品与平台供应商。目前六个主营产品：电子价签、3D 双目客流统计、商用清洁机器人、拣货与具身智能机器人、墨水屏显示、高空幕墙清洗机器人。AiESL 数据中台为平台层，智能硬件智造中心为交付能力层——二者支撑六个产品，但都不是第七个产品。
 
-1. 电子价签 ESL（AiEinkSmart）
-2. 3D 双目客流统计（Pyroglaux）
-3. 商用清洁机器人（iKitbot）
-4. 拣货与具身智能机器人（Jacobi.ai，包括 JSR-1 和仓储 AMR）
-5. 墨水屏数字标牌与智能画框（EinkSmart）
+公司架构为三位一体：广州运营中心、香港软件与算法研发中心、广州智能硬件智造中心。
+品牌层级：PanPanTech 为母品牌；NeuroGrid 与 AiESL 为平台品牌；AiEinkSmart、Pyroglaux、EinkSmart 为产品品牌。机器人产品统一使用 PanPanTech 品牌；地面清洁、搬运、具身智能与高空幕墙清洗分别采用 ACR、AMR、ASR 与 AFR 系列自有型号。
 
-平台层：NeuroGrid 是技术母品牌与决策架构；AiESL 是电子价签管理及数据中台，连接 ERP/POS、门店基站和电子价签终端。
+## 产品
 
-能力层：品牌与商业运营中心、软件与算法研发中心、智能硬件智造中心共同支撑产品研发、生产、质量和交付。
+- [产品总览](https://www.aiesl.cn/products.html): 六个主营产品，以及数据平台与制造能力两层底座的关系。
+- [电子价签 ESL](https://www.aiesl.cn/esl.html): Swift 与 Classic 两个系列覆盖 1.54″–13.3″，共 16 个在售型号；基站为系统组件而非产品系列；AiESL 数据中台五段链路（商品中心 → 数据中台 → 基站 → 终端 → 状态回传）。
+- [3D 双目客流统计](https://www.aiesl.cn/people-counting.html): 双目深度感知在设备端完成匿名化，仅上传结构化指标；不做人脸识别、不建个人档案、不跨门店关联身份。
+- [商用清洁机器人](https://www.aiesl.cn/cleaning-robots.html): 扫吸洗拖一体机型、车队管理后台与五项场地评估框架。
+- [拣货与具身智能机器人](https://www.aiesl.cn/picking-robots.html): PanPanTech ASR-0012 面向抓取、放置等具身智能任务的开发验证，无人零售配图为场景示意；PanPanTech AMR-0300 / AMR-0600 单独归为物料搬运与产线配送机器人。
+- [墨水屏数字标牌与智能画框](https://www.aiesl.cn/e-paper-displays.html): 类纸显示、低功耗与云端内容管理，服务商业空间与艺术场景。
+- [高空幕墙清洗机器人](https://www.aiesl.cn/facade-robots.html): AFR 系列总览，按立面条件在 AFR-1500、AFR-1200、AFR-0400 中选型；主推 AFR-1500。
+- [AFR-1500](https://www.aiesl.cn/afr-1500.html): 主推机型。清洗幅宽 600–1500 mm 可调，最大作业高度 ≤300 m，整机 50 kg。已取得 CE 认证（无线电设备指令 RED，公告机构 1282 型式检验），覆盖电气安全、EMC 和无线电，有效期到 2030 年 10 月。该认证不是机械指令认证。AFR-1200 与 AFR-0400 尚未取得 CE，不作认证宣称。
+- [AFR-1200](https://www.aiesl.cn/afr-1200.html): 涵道风扇方案，含电池约 22 kg，越障大于 1 m；效率数字为厂家数据。尚未取得 CE。
+- [AFR-0400](https://www.aiesl.cn/afr-0400.html): 真空吸附爬壁，0–90°，喷淋 100–300 m²/h，可配高压清洗与可选打磨。尚未取得 CE。
 
-主要页面：
-- [首页](https://www.aiesl.cn/index.html)
-- [产品总览](https://www.aiesl.cn/products.html)
-- [电子价签与 AiESL 数据中台](https://www.aiesl.cn/esl.html)
-- [3D 双目客流统计](https://www.aiesl.cn/people-counting.html)
-- [商用清洁机器人](https://www.aiesl.cn/cleaning-robots.html)
-- [拣货与具身智能机器人](https://www.aiesl.cn/picking-robots.html)
-- [墨水屏数字标牌与智能画框](https://www.aiesl.cn/e-paper-displays.html)
-- [行业解决方案](https://www.aiesl.cn/solutions.html)
-- [制造与交付能力](https://www.aiesl.cn/manufacturing.html)
-- [关于攀攀科技](https://www.aiesl.cn/about.html)
-- [新闻中心](https://www.aiesl.cn/news.html)
-- [技术博客](https://www.aiesl.cn/blog.html)
+## 平台与能力
+
+- [AiESL 数据中台](https://www.aiesl.cn/platform.html): 模板设计、商品与价格数据、批量改价、设备管理、多门店权限、执行审计，RESTful API 对接 ERP / POS。
+- [制造能力](https://www.aiesl.cn/manufacturing.html): SMT、整机装配、质检与 OEM / ODM 交付；IQC / AOI / BURN-IN / OQC 四节点质检链。
+- [行业解决方案](https://www.aiesl.cn/solutions.html): 连锁门店与商超、商业空间与交通枢纽、仓储与配送中心、工厂与产线配送四类场景，每类标出起步产品、可扩展产品与需确认的现场条件。
+
+## 技术博客
+
+- [电子价签项目为什么必须同时看终端、基站与数据中台](https://www.aiesl.cn/blog-esl-system.html): 三层职责边界、一次改价的五段链路、基站密度勘测、平台层五个提问、试点该记录的五项数字。
+- [如何把门店价格任务设计成可追踪的数据闭环](https://www.aiesl.cn/blog-price-data-loop.html): 模板/商品/价格/权限/执行状态/审计六个组成部分，四类执行失败，促销日分批排期，接口字段对照表。
+- [3D 双目客流统计如何兼顾匿名化与运营分析](https://www.aiesl.cn/blog-people-counting.html): 感知/计数/空间指标/身份识别四层边界，四种技术路线对照，七个必须先定的数据口径，人工计数校准四步。
+- [清洁机器人 ROI 评估应先建立哪些现场基线](https://www.aiesl.cn/blog-cleaning-roi.html): 可机洗面积、地面材质、作业窗口、人流、补给点位、人工边界六条基线；五项效率削减因素；五类中断原因。
+- [AMR 选型：载荷、接口、路线与异常处理如何一起评估](https://www.aiesl.cn/blog-amr-selection.html): 载荷五项、接口四问、台数计算算例、异常处置流程、数据回到 WMS/MES。
+- [低功耗显示如何服务商业信息与空间内容更新](https://www.aiesl.cn/blog-epaper-display.html): 按内容变化频率判断电子纸与液晶的适用边界、电子纸四项特性、两类内容管理需求、安装与供电五项。
+- [从样品到批量：智能硬件项目需要确认哪些制造节点](https://www.aiesl.cn/blog-manufacturing-nodes.html): 需求评审与优先级、可制造性评审、打样与试产的区别、四个质检节点、交付资料清单。
+
+## 公司
+
+- [关于我们](https://www.aiesl.cn/about.html): 三位一体架构、品牌矩阵层级与项目推进原则。
+- [新闻中心](https://www.aiesl.cn/news.html): 品牌建设、平台能力、产品进展、制造体系与方案更新。
+- [联系我们](https://www.aiesl.cn/contact.html)

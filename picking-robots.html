@@ -1,138 +1,444 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>拣货、具身智能与仓储 AMR｜Jacobi.ai｜攀攀科技</title>
-  <meta name="description" content="JSR-1 具身智能机器人与 T300、T600 仓储 AMR，覆盖货架识别、拣选补货、物料搬运和产线配送。">
-  <link rel="canonical" href="https://www.aiesl.cn/picking-robots.html">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="拣货、具身智能与仓储 AMR｜Jacobi.ai｜攀攀科技">
-  <meta property="og:description" content="JSR-1 具身智能机器人与 T300、T600 仓储 AMR，覆盖货架识别、拣选补货、物料搬运和产线配送。">
-  <meta property="og:url" content="https://www.aiesl.cn/picking-robots.html">
-  <meta property="og:image" content="https://www.aiesl.cn/current-site/assets/images/jsr-01.jpg">
-  <meta name="theme-color" content="#ffffff">
-  <link rel="icon" href="current-site/assets/images/logo-mark.svg">
-  <link rel="stylesheet" href="current-site/assets/css/brand-v3.css">
-  <script src="current-site/assets/js/brand-v3.js" defer></script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.aiesl.cn/#organization","name":"广州攀攀科技有限公司","alternateName":"PanPanTech","url":"https://www.aiesl.cn/","logo":"https://www.aiesl.cn/current-site/assets/images/logo-mark.png"},{"@type":"WebPage","@id":"https://www.aiesl.cn/picking-robots.html#webpage","url":"https://www.aiesl.cn/picking-robots.html","name":"拣货、具身智能与仓储 AMR｜Jacobi.ai｜攀攀科技","description":"JSR-1 具身智能机器人与 T300、T600 仓储 AMR，覆盖货架识别、拣选补货、物料搬运和产线配送。","isPartOf":{"@id":"https://www.aiesl.cn/#website"},"about":{"@id":"https://www.aiesl.cn/#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://www.aiesl.cn/"},{"@type":"ListItem","position":2,"name":"产品总览","item":"https://www.aiesl.cn/picking-robots.html"},{"@type":"ListItem","position":3,"name":"拣货与具身智能机器人","item":"https://www.aiesl.cn/picking-robots.html"}]},{"@type":"Product","name":"拣货与具身智能机器人","brand":{"@type":"Brand","name":"PanPanTech"},"manufacturer":{"@id":"https://www.aiesl.cn/#organization"},"url":"https://www.aiesl.cn/picking-robots.html","description":"JSR-1 具身智能机器人与 T300、T600 仓储 AMR，覆盖货架识别、拣选补货、物料搬运和产线配送。"}]}</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>拣货与具身智能机器人｜ASR-0012 与工业搬运 AMR · PanPanTech</title>
+<meta content="PanPanTech ASR-0012 面向商超盘点、补货与拣货作业；AMR-0300 / AMR-0600 用于工业搬运与产线配送。" name="description"/>
+<link href="https://www.aiesl.cn/picking-robots.html" rel="canonical"/>
+<meta content="website" property="og:type"/>
+<meta content="拣货与具身智能机器人｜ASR-0012 与工业搬运 AMR · PanPanTech" property="og:title"/>
+<meta content="PanPanTech ASR-0012 面向商超盘点、补货与拣货作业；AMR-0300 / AMR-0600 用于工业搬运与产线配送。" property="og:description"/>
+<meta content="https://www.aiesl.cn/picking-robots.html" property="og:url"/>
+<meta content="zh_CN" property="og:locale"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="assets/images/logo-mark.svg" rel="icon"/>
+<style>
+@font-face{font-family:"AiSans";src:url("assets/fonts/NotoSansSC-V3-subset.woff2") format("woff2");font-weight:100 900;font-display:swap;}
+*{box-sizing:border-box;}
+body{margin:0;background:#fff;color:#48546B;font-family:"AiSans","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,p{margin:0;}
+img{display:block;max-width:100%;}
+a{color:#0B1220;text-decoration:none;}
+a:hover{color:#1F5EFF;}
+::selection{background:#1F5EFF;color:#fff;}
+[data-linegrid]>*{outline:1px solid #E3E8F0;}
+@media (max-width:1080px){
+  [data-split]{grid-template-columns:minmax(0,1fr) !important;gap:28px !important;}
+  [data-cta]{grid-template-columns:minmax(0,1fr) !important;gap:28px !important;}
+  [data-cta]>a{justify-self:start;}
+}
+</style>
+<style>
+[data-desknav] a{white-space:nowrap;}
+@media (max-width:1080px){
+  [data-utilbar]{display:none !important;}
+  [data-desknav]{display:none !important;}
+  [data-mobtoggle]{display:flex !important;}
+}
+@media (min-width:1081px){
+  [data-mobpanel]{display:none !important;}
+}
+</style>
+<style>
+.hv1:hover{color:#fff !important}
+.hv2:hover{color:#fff !important}
+.hv3:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv4:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv5:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv6:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv10:hover{background:#1544C4 !important}
+.hv11:hover{background:#1544C4 !important}
+.hv12:hover{border-color:#1F5EFF !important;color:#1F5EFF !important}
+.hv13:hover{background:#0B1220 !important;color:#fff !important}
+.hv14:hover{color:#fff !important}
+.hv15:hover{color:#fff !important}
+.hv16:hover{color:#fff !important}
+.hv17:hover{color:#fff !important}
+.hv18:hover{color:#fff !important}
+.hv19:hover{color:#fff !important}
+.hv20:hover{color:#fff !important}
+.hv21:hover{color:#fff !important}
+.hv22:hover{color:#fff !important}
+.hv23:hover{color:#fff !important}
+.hv24:hover{color:#fff !important}
+.hv25:hover{color:#fff !important}
+.hv26:hover{color:#fff !important}
+.hv27:hover{color:#fff !important}
+.hv28:hover{color:#fff !important}
+.hv29:hover{color:#fff !important}
+.hv30:hover{color:#B6BDC9 !important}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"广州攀攀科技有限公司","alternateName":"PanPanTech","url":"https://www.aiesl.cn/","description":"PanPanTech ASR-0012 面向商超盘点、补货与拣货作业；AMR-0300 / AMR-0600 用于工业搬运与产线配送。","brand":["NeuroGrid","AiESL","AiEinkSmart","Pyroglaux","EinkSmart"]}</script>
+<style>
+.nv1:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv2:hover{background:#F5F7FA !important}
+.nv3:hover{background:#F5F7FA !important}
+.nv4:hover{background:#F5F7FA !important}
+.nv5:hover{background:#F5F7FA !important}
+.nv6:hover{background:#F5F7FA !important}
+.nv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv10:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv11:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv12:hover{background:#F5F7FA !important;color:#0B1220 !important}
+[data-navdrop]:hover [data-navpanel]{display:block !important;}
+</style>
+<link href="assets/photo-layout-v4-20260905.css" rel="stylesheet"/>
 </head>
-<body data-page="product">
-  <a class="skip-link" href="#main-content">跳到主要内容</a>
-  <header class="site-header" data-site-header>
-    <div class="container nav-shell">
-      <a class="brand-lockup" href="index.html">
-        <img src="current-site/assets/images/logo-mark.svg" alt="" width="38" height="38">
-        <span><strong>攀攀科技</strong><small>PANPANTECH · AIESL</small></span>
-      </a>
-      <nav class="desktop-nav" aria-label="主导航">
-        <a class="nav-link" href="index.html" >首页</a>
-        <div class="product-menu-wrap">
-          <button class="product-menu-button" type="button" aria-expanded="false" data-product-menu-button>产品</button>
-          <div class="mega-menu" data-mega-menu><div class="mega-grid">
-    <a class="mega-card" href="esl.html">
-      <span class="num">01</span>
-      <strong>电子价签</strong>
-      <span>AiEinkSmart</span>
-    </a>
-    <a class="mega-card" href="people-counting.html">
-      <span class="num">02</span>
-      <strong>客流统计</strong>
-      <span>Pyroglaux</span>
-    </a>
-    <a class="mega-card" href="cleaning-robots.html">
-      <span class="num">03</span>
-      <strong>清洁机器人</strong>
-      <span>iKitbot</span>
-    </a>
-    <a class="mega-card" href="picking-robots.html">
-      <span class="num">04</span>
-      <strong>拣货机器人</strong>
-      <span>Jacobi.ai</span>
-    </a>
-    <a class="mega-card" href="e-paper-displays.html">
-      <span class="num">05</span>
-      <strong>墨水屏显示</strong>
-      <span>EinkSmart</span>
-    </a></div></div>
-        </div>
-        <a class="nav-link" href="products.html" >产品总览</a>
-        <a class="nav-link" href="solutions.html" >解决方案</a>
-        <a class="nav-link" href="manufacturing.html" >制造能力</a>
-        <a class="nav-link" href="news.html" >新闻</a>
-        <a class="nav-link" href="blog.html" >博客</a>
-        <a class="nav-link" href="about.html" >关于我们</a>
-      </nav>
-      <div class="nav-actions">
-        <a class="button button--primary" href="https://www.aiesl.cn/contact.html">预约方案</a>
-        <button class="mobile-toggle" type="button" aria-label="打开导航" aria-expanded="false" data-mobile-toggle><span></span><span></span><span></span></button>
-      </div>
-    </div>
-    <div class="mobile-panel" data-mobile-panel>
-      <a href="index.html">首页</a>
-      <strong class="eyebrow" style="margin:18px 0 8px">五个主营产品</strong>
-      <div class="mobile-products">
-    <a class="mobile-product-link" href="esl.html">
-      <span class="num">01</span>
-      <strong>电子价签</strong>
-      <span>AiEinkSmart</span>
-    </a>
-    <a class="mobile-product-link" href="people-counting.html">
-      <span class="num">02</span>
-      <strong>客流统计</strong>
-      <span>Pyroglaux</span>
-    </a>
-    <a class="mobile-product-link" href="cleaning-robots.html">
-      <span class="num">03</span>
-      <strong>清洁机器人</strong>
-      <span>iKitbot</span>
-    </a>
-    <a class="mobile-product-link" href="picking-robots.html">
-      <span class="num">04</span>
-      <strong>拣货机器人</strong>
-      <span>Jacobi.ai</span>
-    </a>
-    <a class="mobile-product-link" href="e-paper-displays.html">
-      <span class="num">05</span>
-      <strong>墨水屏显示</strong>
-      <span>EinkSmart</span>
-    </a></div>
-      <a href="products.html">产品总览</a>
-      <a href="solutions.html">解决方案</a>
-      <a href="manufacturing.html">制造能力</a>
-      <a href="news.html">新闻中心</a>
-      <a href="blog.html">技术博客</a>
-      <a href="about.html">关于我们</a>
-      <a href="https://www.aiesl.cn/contact.html">预约方案</a>
-    </div>
-  </header>
-  <main id="main-content">
-    <section class="page-hero"><div class="container page-hero-grid">
-    <div><nav class="breadcrumbs" aria-label="面包屑"><a href="index.html">首页</a><span>/</span><a href="products.html">产品总览</a><span>/</span><span aria-current="page">拣货机器人</span></nav><span class="eyebrow">04 · Jacobi.ai</span><h1>让识别、拣选与搬运成为连续的现场任务</h1><p class="lead">JSR-1 面向货架与服务任务，T300 / T600 AMR 面向仓内搬运和产线配送，按对象、载荷与流程选择方案。</p><div class="actions"><a class="button button--primary" href="https://www.aiesl.cn/contact.html">获取方案与报价</a><a class="button button--outline" href="products.html">查看五个主营产品</a></div></div>
-    <figure class="page-hero-media"><img src="current-site/assets/images/jsr-01.jpg" alt="JSR-1 具身智能拣货机器人" width="1200" height="750"></figure>
-  </div></section>
-    <section class="section"><div class="container"><div class="section-head section-head--split"><div><span class="eyebrow">能力边界</span><h2>识别、操作和移动分别验证</h2></div><p class="lead">先验证任务成功率和现场边界，再扩展到更多 SKU、工位或路线。</p></div><div class="feature-grid"><article class="feature-card reveal"><div class="icon-box">AI</div><h3>货架与物体识别</h3><p>围绕目标商品、货架和作业环境建立识别与任务规则。</p></article><article class="feature-card reveal"><div class="icon-box">ARM</div><h3>拣选与服务操作</h3><p>通过机械臂和末端执行器完成指定对象的操作任务。</p></article><article class="feature-card reveal"><div class="icon-box">AMR</div><h3>自主搬运</h3><p>以移动底盘承担货架、料箱和工位之间的物料转运。</p></article></div></div></section>
-    <section class="section section--soft"><div class="container"><div class="section-head section-head--split"><div><span class="eyebrow">产品组合</span><h2>具身智能与 AMR 面向不同任务</h2></div><p class="lead">型号参数与负载能力以最终产品规格书和现场验证为准。</p></div><div class="model-grid"><article class="model-card reveal"><img src="current-site/assets/images/jsr-01.jpg" alt="JSR-1 具身智能机器人" loading="lazy"><div class="model-card-body"><span class="model-tag">具身智能</span><h3>JSR-1</h3><p>面向货架盘点、理货、补货与指定服务任务。</p><div class="mini-specs"><div class="mini-spec"><span>重点</span><strong>识别与操作成功率</strong></div><div class="mini-spec"><span>验证</span><strong>SKU 与末端执行器</strong></div></div></div></article><article class="model-card reveal"><img src="current-site/assets/images/t300-standard-amr.jpg" alt="T300 仓储 AMR" loading="lazy"><div class="model-card-body"><span class="model-tag">标准搬运</span><h3>T300 AMR</h3><p>适配料箱、货架和产线物料的常规搬运任务。</p><div class="mini-specs"><div class="mini-spec"><span>标称级别</span><strong>300 kg</strong></div><div class="mini-spec"><span>重点</span><strong>路线与对接方式</strong></div></div></div></article><article class="model-card reveal"><img src="current-site/assets/images/t600-heavy-payload-amr-new.jpg" alt="T600 重载 AMR" loading="lazy"><div class="model-card-body"><span class="model-tag">重载搬运</span><h3>T600 AMR</h3><p>面向更高载荷的货架转运与工位配送任务。</p><div class="mini-specs"><div class="mini-spec"><span>标称级别</span><strong>600 kg</strong></div><div class="mini-spec"><span>重点</span><strong>载荷与地面条件</strong></div></div></div></article></div></div></section>
-    <section class="section"><div class="container"><div class="section-head section-head--split"><div><span class="eyebrow">作业流程</span><h2>把机器人嵌入现有 WMS、MES 与现场规则</h2></div><p class="lead">项目成败取决于任务编排、异常处理和上下游接口，而不只是单机参数。</p></div><div class="process"><article class="process-step reveal"><span class="num">01</span><h3>任务输入</h3><p>从 WMS、MES 或人工工作台接收任务。</p></article><article class="process-step reveal"><span class="num">02</span><h3>对象确认</h3><p>确认货架、物料、工位与目标状态。</p></article><article class="process-step reveal"><span class="num">03</span><h3>路径与操作</h3><p>规划移动路线或机械臂操作序列。</p></article><article class="process-step reveal"><span class="num">04</span><h3>异常处理</h3><p>对遮挡、失败和占道情况进行处理。</p></article><article class="process-step reveal"><span class="num">05</span><h3>结果回传</h3><p>记录任务状态并回传业务系统。</p></article></div></div></section>
-    <section class="section section--blue"><div class="container"><div class="split"><div><div class="section-head"><div><span class="eyebrow">AMR 演示</span><h2>先看流程稳定性，再谈车队规模</h2></div><p class="lead">视频默认由用户点击播放，首屏不加载大型媒体。</p></div></div><div class="media-frame"><video controls preload="none" poster="current-site/assets/images/warehouse-amr-scene.jpg"><source src="current-site/assets/videos/warehouse-amr-demo.mp4" type="video/mp4">您的浏览器不支持视频播放。</video></div></div></div></section>
-    <section class="cta"><div class="container"><div class="cta-panel reveal"><div><h2>提交拣货或搬运任务说明</h2><p>提供物料、载荷、路线、接口和节拍要求，我们将判断适合 JSR-1、AMR 或组合验证。</p></div><a class="button button--primary" href="https://www.aiesl.cn/contact.html">预约任务验证</a></div></div></section></main>
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a class="brand-lockup" href="index.html">
-            <img src="current-site/assets/images/logo-mark.svg" alt="" width="38" height="38">
-            <span><strong>攀攀科技</strong><small>PANPANTECH · AIESL</small></span>
-          </a>
-          <p>连接产品、数据平台、软件研发与硬件智造，为零售、商业空间和工业场景提供可落地的 AIoT 能力。</p>
-        </div>
-        <div class="footer-col"><h2>产品</h2><a href="esl.html">电子价签</a><a href="people-counting.html">客流统计</a><a href="cleaning-robots.html">清洁机器人</a><a href="picking-robots.html">拣货机器人</a><a href="e-paper-displays.html">墨水屏显示</a></div>
-        <div class="footer-col"><h2>平台与能力</h2><a href="esl.html#platform">AiESL 数据中台</a><a href="solutions.html">行业解决方案</a><a href="manufacturing.html">制造与交付</a><a href="products.html">产品总览</a></div>
-        <div class="footer-col"><h2>内容</h2><a href="news.html">新闻中心</a><a href="blog.html">技术博客</a><a href="solutions.html">行业方案</a><a href="esl.html#platform">平台架构</a></div>
-        <div class="footer-col"><h2>公司</h2><a href="about.html">关于我们</a><a href="about.html#brand-architecture">品牌架构</a><a href="https://www.aiesl.cn/contact.html">联系我们</a><a href="https://www.panpantechnology.com">集团英文站</a></div>
-      </div>
-      <div class="footer-bottom"><span>© <span data-year></span> 广州攀攀科技有限公司 PanPanTech</span><span>NeuroGrid · AiESL · AiEinkSmart · Pyroglaux · EinkSmart</span><a href="https://beian.miit.gov.cn/" rel="noopener">粤ICP备2026035004号-1</a></div>
-    </div>
-  </footer>
+<body><header data-site-header="" style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);backdrop-filter:blur(12px);border-bottom:1px solid #E3E8F0;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;height:76px;display:flex;align-items:center;justify-content:space-between;gap:36px;">
+<a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+<img alt="" height="36" src="assets/images/logo-mark.svg" style="width:36px;height:36px;object-fit:contain;" width="36"/>
+<span>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;line-height:1.2;white-space:nowrap;">攀攀科技</strong>
+<span style="display:block;margin-top:2px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#8B96AC;white-space:nowrap;">PANPANTECH · AIESL</span>
+</span>
+</a>
+<nav data-desknav="" style="display:flex;align-items:center;gap:4px;font-size:14px;">
+<a class="nv1" href="index.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">首页</a>
+<div data-navdrop="" style="position:relative;">
+<span style="display:inline-flex;align-items:center;gap:6px;padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;cursor:default;">产品<span style="font-size:9px;color:#8B96AC;">▼</span></span>
+<div data-navpanel="" style="display:none;position:absolute;top:100%;left:0;min-width:236px;background:#fff;border:1px solid #E3E8F0;box-shadow:0 18px 44px rgba(11,18,32,0.12);padding:8px 0;z-index:60;">
+<a class="nv2" href="esl.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">01</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">电子价签</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">AiEinkSmart</span></span>
+</a>
+<a class="nv3" href="people-counting.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">02</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">客流统计</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">Pyroglaux</span></span>
+</a>
+<a class="nv4" href="cleaning-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">03</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">清洁机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv5" href="picking-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">04</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">拣货机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv6" href="e-paper-displays.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">05</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">墨水屏显示</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">EinkSmart</span></span>
+</a>
+<a class="nv6" href="facade-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">06</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">幕墙机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+</div>
+</div>
+<a class="nv7" href="products.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">产品总览</a>
+<a class="nv7" href="platform.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">数据中台</a>
+<a class="nv8" href="solutions.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">解决方案</a>
+<a class="nv9" href="manufacturing.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">制造能力</a>
+<a class="nv10" href="news.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">新闻</a>
+<a class="nv11" href="blog.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">博客</a>
+<a class="nv12" href="about.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">关于我们</a>
+</nav>
+<div style="display:flex;align-items:center;gap:12px;">
+<a class="hv10" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#1F5EFF;color:#fff;font-size:14px;font-weight:600;border-radius:4px;white-space:nowrap;text-decoration:none;">预约方案</a>
+<button aria-label="打开导航" data-mobtoggle="" style="display:none;appearance:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:44px;height:44px;border:1px solid #C6D2E6;border-radius:4px;background:#fff;cursor:pointer;" type="button">
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+</button>
+</div>
+</div>
+<div data-mobpanel="" style="display:none;border-top:1px solid #E3E8F0;background:#fff;padding:20px min(36px,5vw) 30px;">
+<div style="display:flex;flex-direction:column;gap:2px;">
+<a href="index.html" style="padding:13px 4px;font-size:15px;font-weight:500;color:#0B1220;border-bottom:1px solid #EEF1F6;text-decoration:none;">首页</a>
+<a href="esl.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">电子价签</a>
+<a href="people-counting.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">客流统计</a>
+<a href="cleaning-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">清洁机器人</a>
+<a href="picking-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">拣货机器人</a>
+<a href="e-paper-displays.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">墨水屏显示</a>
+<a href="facade-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">幕墙机器人</a>
+<a href="products.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">产品总览</a>
+<a href="platform.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">数据中台</a>
+<a href="solutions.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">解决方案</a>
+<a href="manufacturing.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">制造能力</a>
+<a href="news.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">新闻中心</a>
+<a href="blog.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">技术博客</a>
+<a href="about.html" style="padding:13px 4px;font-size:15px;color:#48546B;text-decoration:none;">关于我们</a>
+<a href="https://www.aiesl.cn/contact.html" style="margin-top:18px;display:flex;align-items:center;justify-content:center;padding:15px 20px;background:#1F5EFF;color:#fff;font-size:15px;font-weight:600;border-radius:4px;text-decoration:none;">预约方案</a>
+</div>
+</div>
+</header>
+<div style="background:#fff;">
+<div>
+
+
+</div>
+<section style="background:#F5F7FA;border-bottom:1px solid #E3E8F0;position:relative;overflow:hidden;">
+<div style="position:absolute;inset:0;background-image:linear-gradient(#E3E8F0 1px,transparent 1px),linear-gradient(90deg,#E3E8F0 1px,transparent 1px);background-size:72px 72px;opacity:0.55;pointer-events:none;"></div>
+<div style="position:relative;width:min(100% - 72px,1400px);margin-inline:auto;padding:32px 0 clamp(56px,6vw,88px);">
+<div style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:#7C8AA3;margin-bottom:clamp(36px,4vw,56px);">
+<a href="index.html" style="color:#7C8AA3;">首页</a><span>/</span><a href="products.html" style="color:#7C8AA3;">产品总览</a><span>/</span><span style="color:#0B1220;">拣货与具身智能机器人</span>
+</div>
+<div data-split="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.95fr);gap:64px;align-items:center;">
+<div>
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.16em;color:#1F5EFF;">04 / PanPanTech</span>
+<span style="width:28px;height:1px;background:#C6D2E6;"></span>
+<span style="font-size:12px;color:#7C8AA3;">拣货与具身智能机器人</span>
+</div>
+<h1 style="max-width:15ch;font-size:clamp(34px,4vw,56px);line-height:1.1;letter-spacing:-0.032em;font-weight:600;color:#0B1220;text-wrap:balance;">让机器人看懂商品，完成抓取与递送</h1>
+<p style="margin-top:22px;max-width:44ch;font-size:16.5px;line-height:1.8;color:#5B6880;text-wrap:pretty;">PanPanTech ASR-0012 面向商超盘点、补货与拣货打包，结合深度感知、机械臂与移动底盘完成现场任务。AMR-0300 / AMR-0600 则用于物料搬运与产线配送，按不同作业需求选型。</p>
+<div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:14px;">
+<a class="hv11" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:9px;padding:14px 28px;background:#1F5EFF;color:#fff;font-size:14.5px;font-weight:600;border-radius:4px;">获取选型建议<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+<a class="hv12" href="#amr" style="display:inline-flex;align-items:center;padding:14px 28px;border:1px solid #C6D2E6;background:#fff;color:#0B1220;font-size:14.5px;font-weight:600;border-radius:4px;">查看 AMR 机型</a>
+</div>
+</div>
+<figure style="margin:0;"><img alt="商品抓取与递送的无人零售场景示意" decoding="async" height="900" src="assets/images/photo-v4/panpantech-retail-service-20260905.webp" style="width:100%;height:auto;aspect-ratio:16 / 9;object-fit:contain;background:#101314;" width="1600"/><small style="display:block;color:#7C8AA3;margin-top:10px;">无人零售 · 商品抓取与递送场景示意</small></figure>
+</div>
+</div>
+</section>
+<section style="border-bottom:1px solid #E3E8F0;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));">
+<div style="padding:32px 32px 32px 0;">
+<strong style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:clamp(22px,2.2vw,34px);font-weight:400;color:#0B1220;line-height:1.1;letter-spacing:-0.02em;white-space:nowrap;">ASR-0012</strong>
+<span style="display:block;margin-top:10px;font-size:13.5px;color:#8B96AC;">具身智能作业平台</span>
+</div>
+<div style="padding:32px;border-left:1px solid #E3E8F0;">
+<strong style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:clamp(22px,2.2vw,34px);font-weight:400;color:#0B1220;line-height:1.1;letter-spacing:-0.02em;white-space:nowrap;">AMR-0300</strong>
+<span style="display:block;margin-top:10px;font-size:13.5px;color:#8B96AC;">标准 / 顶升 / 辊筒</span>
+</div>
+<div style="padding:32px;border-left:1px solid #E3E8F0;">
+<strong style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:clamp(22px,2.2vw,34px);font-weight:400;color:#0B1220;line-height:1.1;letter-spacing:-0.02em;white-space:nowrap;">AMR-0600</strong>
+<span style="display:block;margin-top:10px;font-size:13.5px;color:#8B96AC;">重载搬运底盘</span>
+</div>
+<div style="padding:32px;border-left:1px solid #E3E8F0;">
+<strong style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:clamp(22px,2.2vw,34px);font-weight:400;color:#0B1220;line-height:1.1;letter-spacing:-0.02em;white-space:nowrap;">调度</strong>
+<span style="display:block;margin-top:10px;font-size:13.5px;color:#8B96AC;">多机任务与状态回传</span>
+</div>
+</div>
+</section>
+<section id="jsr" style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(64px,7vw,100px) 0;">
+<div data-split="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.9fr);gap:64px;align-items:center;">
+<div>
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+<span style="width:40px;height:1px;background:#1F5EFF;"></span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.2em;color:#1F5EFF;">ASR-0012 / EMBODIED AI</span>
+</div>
+<h2 style="max-width:18ch;font-size:clamp(28px,3vw,42px);line-height:1.14;letter-spacing:-0.03em;font-weight:600;color:#0B1220;">ASR-0012 具身智能服务机器人</h2>
+<p style="margin-top:20px;max-width:44ch;font-size:16px;line-height:1.8;color:#5B6880;text-wrap:pretty;">ASR-0012 整机 12 自由度，配备 RGB-D 深度摄像头与 6 自由度机械臂，机械臂负载 3 kg，支持商品识别、抓取与放置。面向商超盘点、补货与拣货打包，结合具体商品与现场流程评估作业方式。</p>
+<div style="margin-top:28px;display:flex;flex-direction:column;gap:2px;">
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:96px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">PERCEPTION</span>
+<span style="font-size:14.5px;color:#48546B;">视觉识别商品、货位与抓取姿态</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:96px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">MANIPULATION</span>
+<span style="font-size:14.5px;color:#48546B;">机械臂完成拣选、放置与整理</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:96px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">MOBILITY</span>
+<span style="font-size:14.5px;color:#48546B;">移动底盘在通道间自主行进</span>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:18px 22px;display:grid;grid-template-columns:96px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#0E7C86;">TASK LOG</span>
+<span style="font-size:14.5px;color:#48546B;">通过开发接口对接任务与执行记录</span>
+</div>
+</div>
+</div>
+<figure style="margin:0;"><img alt="无人零售售卖机场景示意" decoding="async" height="1024" loading="lazy" src="assets/images/photo-v4/panpantech-retail-kiosk-20260905.webp" style="width:100%;height:auto;aspect-ratio:3 / 2;object-fit:contain;background:#F1F3F7;" width="1536"/><figcaption style="margin-top:12px;font-size:12px;line-height:1.8;color:#7C8AA3;">无人零售场景示意；ASR-0012 的外观与配置以中文产品规格书为准。</figcaption></figure>
+</div>
+</section>
+<section id="amr" style="background:#F5F7FA;border-block:1px solid #E3E8F0;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(64px,7vw,100px) 0;">
+<div data-split="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,420px);gap:72px;align-items:end;padding-bottom:44px;">
+<div>
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+<span style="width:40px;height:1px;background:#1F5EFF;"></span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.2em;color:#1F5EFF;">WAREHOUSE AMR</span>
+</div>
+<h2 style="max-width:20ch;font-size:clamp(28px,3vw,42px);line-height:1.14;letter-spacing:-0.03em;font-weight:600;color:#0B1220;">PanPanTech AMR-0300 / AMR-0600 搬运机器人</h2>
+</div>
+<p style="font-size:15.5px;line-height:1.85;color:#5B6880;">AMR-0300 提供标准、潜伏顶升、辊筒、托盘与牵引等形态；AMR-0600 面向 600 kg 级重载搬运。两类设备用于物料转运与产线配送。</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;">
+<article style="border:1px solid #E3E8F0;border-radius:6px;overflow:hidden;background:#fff;">
+<img alt="AMR-0300 标准型 AMR" decoding="async" height="1200" loading="lazy" src="assets/images/t300-standard-amr.jpg" style="width:100%;aspect-ratio:4 / 3;object-fit:contain;background:#FFFFFF;padding:16px;height:auto;" width="1200"/>
+<div style="padding:22px 24px 26px;border-top:1px solid #E3E8F0;">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;">
+<strong style="font-size:16.5px;font-weight:600;color:#0B1220;">AMR-0300 标准型</strong>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">STANDARD</span>
+</div>
+<p style="margin-top:10px;font-size:14px;line-height:1.8;color:#5B6880;">带交互屏与推手的通用搬运机型，适合仓内点到点转运。</p>
+</div>
+</article>
+<article style="border:1px solid #E3E8F0;border-radius:6px;overflow:hidden;background:#fff;">
+<img alt="AMR-0300 辊筒型 AMR" decoding="async" height="1200" loading="lazy" src="assets/images/t300-conveyor-amr-new.jpg" style="width:100%;aspect-ratio:4 / 3;object-fit:contain;background:#F5F7FA;padding:16px;height:auto;" width="1200"/>
+<div style="padding:22px 24px 26px;border-top:1px solid #E3E8F0;">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;">
+<strong style="font-size:16.5px;font-weight:600;color:#0B1220;">AMR-0300 辊筒型</strong>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">CONVEYOR</span>
+</div>
+<p style="margin-top:10px;font-size:14px;line-height:1.8;color:#5B6880;">顶部辊筒台面，与产线输送线自动对接，无需人工上下料。</p>
+</div>
+</article>
+<article style="border:1px solid #E3E8F0;border-radius:6px;overflow:hidden;background:#fff;">
+<img alt="AMR-0600 重载型 AMR 底盘" decoding="async" height="1200" loading="lazy" src="assets/images/t600-heavy-payload-amr-new.jpg" style="width:100%;aspect-ratio:4 / 3;object-fit:contain;background:#F5F7FA;padding:16px;height:auto;" width="1200"/>
+<div style="padding:22px 24px 26px;border-top:1px solid #E3E8F0;">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;">
+<strong style="font-size:16.5px;font-weight:600;color:#0B1220;">AMR-0600 重载型</strong>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">HEAVY</span>
+</div>
+<p style="margin-top:10px;font-size:14px;line-height:1.8;color:#5B6880;">低身重载底盘，用于料架、周转箱与大件物料的整体搬运。</p>
+</div>
+</article>
+</div>
+<p style="margin-top:24px;font-size:13.5px;color:#8B96AC;">AMR-0300 另有顶升型上装。载重、举升行程与运行速度等参数以签字版规格书为准。</p>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(64px,7vw,100px) 0;">
+<div data-split="" style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:64px;align-items:center;">
+<figure style="margin:0;">
+<img alt="AMR-0300 顶升型搬运机器人产品图" decoding="async" height="1200" loading="lazy" src="assets/images/t300-lifting-amr.jpg" style="width:100%;height:clamp(280px,32vw,440px);object-fit:contain;background:#F1F3F7;" width="1200"/>
+<figcaption style="margin-top:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.1em;color:#8B96AC;">FIG. — PanPanTech AMR-0300 顶升型 · 搬运机器人产品图</figcaption>
+</figure>
+<div>
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+<span style="width:40px;height:1px;background:#1F5EFF;"></span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.2em;color:#1F5EFF;">FLOW DESIGN</span>
+</div>
+<h2 style="max-width:18ch;font-size:clamp(28px,3vw,42px);line-height:1.14;letter-spacing:-0.03em;font-weight:600;color:#0B1220;">先规划动线，再决定台数</h2>
+<p style="margin-top:20px;max-width:44ch;font-size:16px;line-height:1.8;color:#5B6880;text-wrap:pretty;">仓储与产线的搬运需求要放在同一张平面图上看：取货点、放货点、充电位与人车混行区一起确定，才能算出合理的机型组合与台数。</p>
+<div data-linegrid="" style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:#fff;">
+<div style="background:#fff;padding:18px 20px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">AISLE</span>
+<strong style="display:block;margin-top:6px;font-size:15px;font-weight:600;color:#0B1220;">通道宽度</strong>
+</div>
+<div style="background:#fff;padding:18px 20px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">PAYLOAD</span>
+<strong style="display:block;margin-top:6px;font-size:15px;font-weight:600;color:#0B1220;">单次载重</strong>
+</div>
+<div style="background:#fff;padding:18px 20px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">DOCKING</span>
+<strong style="display:block;margin-top:6px;font-size:15px;font-weight:600;color:#0B1220;">对接高度</strong>
+</div>
+<div style="background:#fff;padding:18px 20px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">THROUGHPUT</span>
+<strong style="display:block;margin-top:6px;font-size:15px;font-weight:600;color:#0B1220;">节拍与班次</strong>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section style="background:#0B1220;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(64px,7vw,100px) 0;">
+<div data-split="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,440px);gap:72px;align-items:end;padding-bottom:52px;">
+<div>
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+<span style="width:40px;height:1px;background:#5C9BFF;"></span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.2em;color:#5C9BFF;">TASK &amp; INTEGRATION</span>
+</div>
+<h2 style="max-width:18ch;font-size:clamp(28px,3vw,42px);line-height:1.14;letter-spacing:-0.03em;font-weight:600;color:#fff;">任务从上游系统来，结果回到上游系统</h2>
+</div>
+<p style="font-size:15.5px;line-height:1.85;color:#9BA7BE;">项目对接时，按设备接口确认任务下发、调度与结果回传方式。WMS / MES、机器人平台与现场设备需要共同验证。</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;">
+<div style="border:1px solid #1E2739;border-top:2px solid #1F5EFF;padding:26px 22px 30px;background:#0F1729;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#5C9BFF;">01 / UPSTREAM</span>
+<h3 style="margin-top:16px;font-size:16.5px;font-weight:600;color:#fff;line-height:1.45;">WMS / MES 任务</h3>
+<p style="margin-top:10px;font-size:13.5px;line-height:1.75;color:#8B96AC;">出库单、补货单与产线呼叫作为任务来源。</p>
+</div>
+<div style="border:1px solid #1E2739;border-top:2px solid #1F5EFF;padding:26px 22px 30px;background:#0F1729;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#5C9BFF;">02 / SCHEDULER</span>
+<h3 style="margin-top:16px;font-size:16.5px;font-weight:600;color:#fff;line-height:1.45;">多机调度</h3>
+<p style="margin-top:10px;font-size:13.5px;line-height:1.75;color:#8B96AC;">按位置、电量与优先级分配设备，避免路口拥堵。</p>
+</div>
+<div style="border:1px solid #1E2739;border-top:2px solid #1F5EFF;padding:26px 22px 30px;background:#0F1729;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#5C9BFF;">03 / EXECUTION</span>
+<h3 style="margin-top:16px;font-size:16.5px;font-weight:600;color:#fff;line-height:1.45;">现场执行</h3>
+<p style="margin-top:10px;font-size:13.5px;line-height:1.75;color:#8B96AC;">ASR-0012 执行商品识别与抓取任务，AMR 系列负责物料搬运与产线对接。</p>
+</div>
+<div style="border:1px solid #1E2739;border-top:2px solid #0E7C86;padding:26px 22px 30px;background:#0F1729;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#3FC4CE;">04 / FEEDBACK</span>
+<h3 style="margin-top:16px;font-size:16.5px;font-weight:600;color:#fff;line-height:1.45;">结果回传</h3>
+<p style="margin-top:10px;font-size:13.5px;line-height:1.75;color:#8B96AC;">完成量、耗时与异常写回上游系统，可对账、可复盘。</p>
+</div>
+</div>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(64px,7vw,100px) 0;">
+<div data-cta="" style="background:#1F5EFF;border-radius:8px;padding:clamp(44px,5vw,68px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:56px;align-items:center;">
+<div>
+<h2 style="max-width:22ch;font-size:clamp(26px,2.8vw,38px);line-height:1.16;letter-spacing:-0.028em;font-weight:600;color:#fff;">给我们一张平面图，我们给出动线与台数</h2>
+<p style="margin-top:16px;max-width:48ch;font-size:15.5px;line-height:1.8;color:#D3E0FF;">商品尺寸、抓取方式、作业空间与任务节拍决定具身智能方案；载重、通道与对接高度决定搬运 AMR 选型。</p>
+</div>
+<a class="hv13" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:10px;padding:18px 34px;background:#fff;color:#1F5EFF;font-size:15px;font-weight:600;border-radius:4px;white-space:nowrap;">获取选型建议<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</section>
+<footer style="background:#0B1220;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;padding:72px 0 40px;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:44px 52px;">
+<div>
+<div style="display:flex;align-items:center;gap:12px;">
+<img alt="" height="32" src="assets/images/logo-mark.svg" style="width:32px;height:32px;object-fit:contain;filter:brightness(0) invert(1);" width="32"/>
+<span>
+<strong style="display:block;font-size:14.5px;font-weight:600;color:#fff;">攀攀科技</strong>
+<span style="display:block;margin-top:3px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#6E7A91;">PANPANTECH · AIESL</span>
+</span>
+</div>
+<p style="margin:20px 0 0;max-width:34ch;font-size:13.5px;line-height:1.8;color:#8B96AC;">连接产品、数据平台、软件研发与硬件智造，为零售、商业空间与工业场景提供可落地的 AIoT 能力。</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">产品</h2>
+<a class="hv14" href="esl.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">电子价签</a>
+<a class="hv15" href="people-counting.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">客流统计</a>
+<a class="hv16" href="cleaning-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">清洁机器人</a>
+<a class="hv17" href="picking-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">拣货机器人</a>
+<a class="hv18" href="e-paper-displays.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">墨水屏显示</a>
+<a class="hv18" href="facade-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">幕墙机器人</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">平台与能力</h2>
+<a class="hv19" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">AiESL 数据中台</a>
+<a class="hv20" href="solutions.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">行业解决方案</a>
+<a class="hv21" href="manufacturing.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">制造与交付</a>
+<a class="hv22" href="products.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">产品总览</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">内容</h2>
+<a class="hv23" href="news.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">新闻中心</a>
+<a class="hv24" href="blog.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">技术博客</a>
+<a class="hv25" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">平台架构</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">公司</h2>
+<a class="hv26" href="about.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">关于我们</a>
+<a class="hv27" href="about.html#brand-architecture" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">品牌架构</a>
+<a class="hv28" href="https://www.aiesl.cn/contact.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">联系我们</a>
+<a class="hv29" href="https://www.panpantechnology.com" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">集团英文站</a>
+</div>
+</div>
+<div style="margin-top:56px;padding-top:24px;border-top:1px solid #1E2739;display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;font-size:12.5px;color:#6E7A91;">
+<span>© 2026 广州攀攀科技有限公司 PanPanTech</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0.08em;">NeuroGrid · AiESL · AiEinkSmart · Pyroglaux · EinkSmart</span>
+<a class="hv30" href="https://beian.miit.gov.cn/" style="color:#6E7A91;text-decoration:none;">粤ICP备2026035004号-1</a>
+</div>
+</div>
+</footer>
+</div>
+<script>
+(function(){
+  var t=document.querySelector('[data-mobtoggle]'),p=document.querySelector('[data-mobpanel]');
+  if(t&&p){t.addEventListener('click',function(){p.style.display=(p.style.display==='block')?'none':'block';});}
+  var track=document.querySelector('[data-hero-track]');
+  if(!track)return;
+  var tabs=[].slice.call(document.querySelectorAll('[data-go]')),
+      ind=document.querySelector('[data-tab-indicator]'),i=0,timer;
+  function go(n){i=n;track.scrollTo({left:track.clientWidth*n,behavior:'smooth'});if(ind)ind.style.transform='translateX('+(n*100)+'%)';}
+  function arm(){clearInterval(timer);timer=setInterval(function(){go((i+1)%5);},7000);}
+  tabs.forEach(function(b){b.addEventListener('click',function(){go(+b.getAttribute('data-go'));arm();});});
+  window.addEventListener('resize',function(){track.scrollTo({left:track.clientWidth*i});});
+  arm();
+})();
+</script>
 </body>
 </html>
