@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>AMR 选型：载荷、接口、路线与异常处理如何一起评估｜技术博客 · 攀攀科技</title>
+<meta content="把机器人放回 WMS、MES 与现场规则中，避免只按单机参数做判断。" name="description"/>
+<link href="https://www.aiesl.cn/blog-amr-selection.html" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<meta content="AMR 选型：载荷、接口、路线与异常处理如何一起评估｜技术博客 · 攀攀科技" property="og:title"/>
+<meta content="把机器人放回 WMS、MES 与现场规则中，避免只按单机参数做判断。" property="og:description"/>
+<meta content="https://www.aiesl.cn/blog-amr-selection.html" property="og:url"/>
+<meta content="zh_CN" property="og:locale"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="assets/images/logo-mark.svg" rel="icon"/>
+<style>
+@font-face{font-family:"AiSans";src:url("assets/fonts/NotoSansSC-V3-subset.woff2") format("woff2");font-weight:100 900;font-display:swap;}
+*{box-sizing:border-box;}
+body{margin:0;background:#fff;color:#48546B;font-family:"AiSans","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,p{margin:0;}
+img{display:block;max-width:100%;}
+a{color:#0B1220;text-decoration:none;}
+a:hover{color:#1F5EFF;}
+::selection{background:#1F5EFF;color:#fff;}
+[data-linegrid]>*{outline:1px solid #E3E8F0;}
+@media (max-width:1080px){
+  [data-cta]{grid-template-columns:minmax(0,1fr) !important;gap:28px !important;}
+  [data-cta]>a{justify-self:start;}
+  [data-body]{grid-template-columns:minmax(0,1fr) !important;gap:40px !important;}
+  [data-aside]{position:static !important;}
+  [data-tbl]>div{grid-template-columns:minmax(0,1fr) !important;gap:8px !important;}
+}
+</style>
+<style>
+[data-desknav] a{white-space:nowrap;}
+@media (max-width:1080px){
+  [data-utilbar]{display:none !important;}
+  [data-desknav]{display:none !important;}
+  [data-mobtoggle]{display:flex !important;}
+}
+@media (min-width:1081px){
+  [data-mobpanel]{display:none !important;}
+}
+</style>
+<style>
+.hv1:hover{color:#fff !important}
+.hv2:hover{color:#fff !important}
+.hv3:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv4:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv5:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv6:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv10:hover{background:#1544C4 !important}
+.hv11:hover{color:#1F5EFF !important}
+.hv12:hover{color:#1F5EFF !important}
+.hv13:hover{color:#1F5EFF !important}
+.hv14:hover{background:#0B1220 !important;color:#fff !important}
+.hv15:hover{color:#fff !important}
+.hv16:hover{color:#fff !important}
+.hv17:hover{color:#fff !important}
+.hv18:hover{color:#fff !important}
+.hv19:hover{color:#fff !important}
+.hv20:hover{color:#fff !important}
+.hv21:hover{color:#fff !important}
+.hv22:hover{color:#fff !important}
+.hv23:hover{color:#fff !important}
+.hv24:hover{color:#fff !important}
+.hv25:hover{color:#fff !important}
+.hv26:hover{color:#fff !important}
+.hv27:hover{color:#fff !important}
+.hv28:hover{color:#fff !important}
+.hv29:hover{color:#fff !important}
+.hv30:hover{color:#fff !important}
+.hv31:hover{color:#B6BDC9 !important}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"AMR 选型：载荷、接口、路线与异常处理如何一起评估","description":"把机器人放回 WMS、MES 与现场规则中，避免只按单机参数做判断。","inLanguage":"zh-CN","url":"https://www.aiesl.cn/blog-amr-selection.html","publisher":{"@type":"Organization","name":"广州攀攀科技有限公司","alternateName":"PanPanTech","url":"https://www.aiesl.cn/"}}</script>
+<style>
+.nv1:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv2:hover{background:#F5F7FA !important}
+.nv3:hover{background:#F5F7FA !important}
+.nv4:hover{background:#F5F7FA !important}
+.nv5:hover{background:#F5F7FA !important}
+.nv6:hover{background:#F5F7FA !important}
+.nv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv10:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv11:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv12:hover{background:#F5F7FA !important;color:#0B1220 !important}
+[data-navdrop]:hover [data-navpanel]{display:block !important;}
+</style>
+<link href="assets/photo-layout-v4-20260905.css" rel="stylesheet"/>
+</head>
+<body><header data-site-header="" style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);backdrop-filter:blur(12px);border-bottom:1px solid #E3E8F0;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;height:76px;display:flex;align-items:center;justify-content:space-between;gap:36px;">
+<a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+<img alt="" height="36" src="assets/images/logo-mark.svg" style="width:36px;height:36px;object-fit:contain;" width="36"/>
+<span>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;line-height:1.2;white-space:nowrap;">攀攀科技</strong>
+<span style="display:block;margin-top:2px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#8B96AC;white-space:nowrap;">PANPANTECH · AIESL</span>
+</span>
+</a>
+<nav data-desknav="" style="display:flex;align-items:center;gap:4px;font-size:14px;">
+<a class="nv1" href="index.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">首页</a>
+<div data-navdrop="" style="position:relative;">
+<span style="display:inline-flex;align-items:center;gap:6px;padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;cursor:default;">产品<span style="font-size:9px;color:#8B96AC;">▼</span></span>
+<div data-navpanel="" style="display:none;position:absolute;top:100%;left:0;min-width:236px;background:#fff;border:1px solid #E3E8F0;box-shadow:0 18px 44px rgba(11,18,32,0.12);padding:8px 0;z-index:60;">
+<a class="nv2" href="esl.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">01</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">电子价签</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">AiEinkSmart</span></span>
+</a>
+<a class="nv3" href="people-counting.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">02</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">客流统计</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">Pyroglaux</span></span>
+</a>
+<a class="nv4" href="cleaning-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">03</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">清洁机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv5" href="picking-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">04</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">拣货机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv6" href="e-paper-displays.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">05</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">墨水屏显示</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">EinkSmart</span></span>
+</a>
+<a class="nv6" href="facade-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">06</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">幕墙机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+</div>
+</div>
+<a class="nv7" href="products.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">产品总览</a>
+<a class="nv7" href="platform.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">数据中台</a>
+<a class="nv8" href="solutions.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">解决方案</a>
+<a class="nv9" href="manufacturing.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">制造能力</a>
+<a class="nv10" href="news.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">新闻</a>
+<a class="nv11" href="blog.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">博客</a>
+<a class="nv12" href="about.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">关于我们</a>
+</nav>
+<div style="display:flex;align-items:center;gap:12px;">
+<a class="hv10" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#1F5EFF;color:#fff;font-size:14px;font-weight:600;border-radius:4px;white-space:nowrap;text-decoration:none;">预约方案</a>
+<button aria-label="打开导航" data-mobtoggle="" style="display:none;appearance:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:44px;height:44px;border:1px solid #C6D2E6;border-radius:4px;background:#fff;cursor:pointer;" type="button">
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+</button>
+</div>
+</div>
+<div data-mobpanel="" style="display:none;border-top:1px solid #E3E8F0;background:#fff;padding:20px min(36px,5vw) 30px;">
+<div style="display:flex;flex-direction:column;gap:2px;">
+<a href="index.html" style="padding:13px 4px;font-size:15px;font-weight:500;color:#0B1220;border-bottom:1px solid #EEF1F6;text-decoration:none;">首页</a>
+<a href="esl.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">电子价签</a>
+<a href="people-counting.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">客流统计</a>
+<a href="cleaning-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">清洁机器人</a>
+<a href="picking-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">拣货机器人</a>
+<a href="e-paper-displays.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">墨水屏显示</a>
+<a href="facade-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">幕墙机器人</a>
+<a href="products.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">产品总览</a>
+<a href="platform.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">数据中台</a>
+<a href="solutions.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">解决方案</a>
+<a href="manufacturing.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">制造能力</a>
+<a href="news.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">新闻中心</a>
+<a href="blog.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">技术博客</a>
+<a href="about.html" style="padding:13px 4px;font-size:15px;color:#48546B;text-decoration:none;">关于我们</a>
+<a href="https://www.aiesl.cn/contact.html" style="margin-top:18px;display:flex;align-items:center;justify-content:center;padding:15px 20px;background:#1F5EFF;color:#fff;font-size:15px;font-weight:600;border-radius:4px;text-decoration:none;">预约方案</a>
+</div>
+</div>
+</header>
+<div style="background:#fff;">
+<div>
+
+
+</div>
+<section style="background:#F5F7FA;border-bottom:1px solid #E3E8F0;position:relative;overflow:hidden;">
+<div style="position:absolute;inset:0;background-image:linear-gradient(#E3E8F0 1px,transparent 1px),linear-gradient(90deg,#E3E8F0 1px,transparent 1px);background-size:72px 72px;opacity:0.55;pointer-events:none;"></div>
+<div style="position:relative;width:min(100% - 72px,1400px);margin-inline:auto;padding:32px 0 clamp(48px,5vw,72px);">
+<div style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:#7C8AA3;margin-bottom:clamp(32px,3.6vw,48px);">
+<a href="index.html" style="color:#7C8AA3;">首页</a><span>/</span><a href="blog.html" style="color:#7C8AA3;">技术博客</a><span>/</span><span style="color:#0B1220;">AMR 选型四要素</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;">
+<span style="padding:5px 12px;background:#EFF4FF;color:#1F5EFF;font-size:12px;font-weight:600;border-radius:3px;">仓储机器人</span>
+<span style="padding:5px 12px;background:#fff;border:1px solid #E3E8F0;color:#5B6880;font-size:12px;font-weight:600;border-radius:3px;">博客</span>
+</div>
+<h1 style="max-width:24ch;font-size:clamp(30px,3.6vw,50px);line-height:1.12;letter-spacing:-0.03em;font-weight:600;color:#0B1220;text-wrap:balance;">AMR 选型：载荷、接口、路线与异常处理如何一起评估</h1>
+<p style="margin-top:22px;max-width:54ch;font-size:17px;line-height:1.8;color:#5B6880;text-wrap:pretty;">把机器人放回 WMS、MES 与现场规则中，避免只按单机参数做判断——因为单机跑得通不等于整条动线跑得通。</p>
+<div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:28px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.12em;color:#8B96AC;">
+<span>AIESL ENGINEERING</span>
+<span>约 15 分钟阅读</span>
+</div>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding-top:clamp(40px,4vw,56px);">
+<figure style="margin:0;">
+<img alt="仓储环境中的 AMR 搬运作业" decoding="async" height="700" src="assets/images/warehouse-amr-scene.jpg" style="width:100%;height:clamp(280px,34vw,480px);object-fit:cover;" width="1400"/>
+<figcaption style="margin-top:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.1em;color:#8B96AC;">FIG. 1 — 搬运的瓶颈很少在机器人本身，多数在取放点、通道宽度与调度规则</figcaption>
+</figure>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(56px,6vw,84px) 0 clamp(64px,7vw,100px);">
+<div data-body="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,270px);gap:clamp(48px,5vw,72px);align-items:start;">
+<article style="max-width:84ch;">
+<p style="font-size:17.5px;line-height:1.85;color:#3C495F;text-wrap:pretty;">AMR 选型容易走偏的地方，是把它当成买一台设备。参数表上载重、速度、续航都写得清楚，看起来对比一下就能定。但真实项目里决定成败的不是单机参数，而是四件事的配合：机器能不能装得下这批货、能不能和你的系统对话、能不能在你的通道里跑起来、出问题时谁来收拾。</p>
+<p style="margin-top:22px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这四件事必须一起评估。任何一项单独看都能通过，组合起来却跑不通——这是 AMR 项目中需要关注的失败方式。下面逐项说明每一项要问什么，以及漏掉它会在哪个阶段暴露。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">一、载荷：不只是重量</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">"载重 300 公斤"这个数字只回答了一半问题。同样 300 公斤，一箱五金件和一托盘纸巾对机器人的要求完全不同。要确认的是下面五项：</p>
+<div data-tbl="" style="margin-top:26px;border:1px solid #E3E8F0;">
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">重量与重心</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">高重心货物在加减速与转弯时会晃动，实际可承载重量低于标称值。堆高的轻货比压实的重货更麻烦。</span>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">尺寸与外廓</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">货物超出机器人台面时，实际通行宽度按货物算，不按机身算。这一条需要在方案阶段确认。</span>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">载具类型</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">托盘、料箱、笼车还是裸箱？载具决定用顶升、辊筒还是背负式，这是机型分类的主要依据。</span>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">对接高度</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">与现有货架、输送线或工位台面的高度差。差几厘米就需要改造一端，改哪一端要提前定。</span>
+</div>
+<div style="padding:20px 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">规格一致性</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">如果货物尺寸五花八门，自动对接的成功率会明显下降。统一载具往往比换更贵的机器人有效。</span>
+</div>
+</div>
+<p style="margin-top:26px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">最后一条值得单独强调。很多项目在"货物规格不统一"的前提下选了更复杂的视觉识别方案，成本上去了，成功率仍然不稳定。先把载具标准化，再选相对简单的机型，通常是更划算的路径——这属于流程改造，不是设备采购，但它对项目成败的影响更大。</p>
+<figure style="margin:clamp(36px,3.6vw,48px) 0 0;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+<img alt="AMR-0300 标准型 AMR" decoding="async" height="1200" loading="lazy" src="assets/images/t300-standard-amr.jpg" style="width:100%;aspect-ratio:4 / 3;object-fit:contain;background:#FFFFFF;padding:16px;border:1px solid #E3E8F0;height:auto;" width="1200"/>
+<img alt="AMR-0300 顶升型 AMR" decoding="async" height="1200" loading="lazy" src="assets/images/t300-lifting-amr.jpg" style="width:100%;aspect-ratio:4 / 3;object-fit:contain;background:#F1F3F7;padding:16px;border:1px solid #E3E8F0;height:auto;" width="1200"/>
+<img alt="AMR-0300 辊筒型 AMR" decoding="async" height="1200" loading="lazy" src="assets/images/t300-conveyor-amr-new.jpg" style="width:100%;aspect-ratio:4 / 3;object-fit:contain;background:#F1F3F7;padding:16px;border:1px solid #E3E8F0;height:auto;" width="1200"/>
+</div>
+<figcaption style="margin-top:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.1em;color:#8B96AC;">FIG. 2 — 标准型 / 顶升型 / 辊筒型：机型由载具与对接方式决定，而不是由载重数字决定</figcaption>
+</figure>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">二、接口：任务从哪里来，结果回到哪里</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">AMR 自己不知道该搬什么。任务来自 WMS、MES 或产线控制系统，搬完的结果也要写回去。这一层没设计好，就会出现"机器人在跑，但系统里的库存不对"这类比不上机器更麻烦的问题。</p>
+<div style="margin-top:26px;display:flex;flex-direction:column;gap:2px;">
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:22px 24px;">
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">任务从哪一层下发</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">是 WMS 直接下发到调度系统，还是经中间层转换？中间层多一道，故障排查就多一环。要明确任务的唯一来源，避免出现两个系统都能派单。</p>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:22px 24px;">
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">任务粒度怎么定</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">"把 A 区 3 号位的料箱送到 12 号工位"是一个任务，还是拆成取、运、放三步？粒度越细越可控，但接口调用次数也越多，需要在两者之间选定。</p>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:22px 24px;">
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">状态回写的时机</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">机器人放下货物就算完成，还是等工位确认才算？前者快但可能与实际不符，后者准但依赖工位有确认动作。库存准确性取决于这个选择。</p>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:22px 24px;">
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">异常怎么回报</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">任务失败时，上游系统收到的是什么？只是"失败"，还是"卡在 B 通道、货物仍在车上"？后者才能让上游决定是重派、转人工还是暂停该区域。</p>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">"状态回写的时机"这一条需要在实施前明确。选"放下即完成"，效率高，但如果货物放错位置、或工位没及时取走，系统里的库位就是错的；选"工位确认后完成"，数据准，但工位操作员必须扫码或按确认，这是新增的人工动作，要提前和产线沟通。没有哪个选择是绝对正确的，但必须在上线前定下来并写进接口文档。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">三、路线：台数是算出来的，不是拍出来的</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">"要几台 AMR"这个问题的答案来自节拍计算，不来自经验估算。算法很简单：先量清楚业务节拍要求，再算单趟耗时，两者相除。难的是把单趟耗时里的各段都算全。</p>
+<div style="margin-top:26px;border:1px solid #E3E8F0;">
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">DEMAND</span>
+<div>
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">节拍要求</strong>
+<p style="margin-top:8px;font-size:14.5px;line-height:1.8;color:#5B6880;">高峰时段每小时需要完成多少趟搬运。要用高峰值，不是日均值——按日均配置的车队在高峰时可能出现运力不足或等待。</p>
+</div>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">TRAVEL</span>
+<div>
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">行驶时间</strong>
+<p style="margin-top:8px;font-size:14.5px;line-height:1.8;color:#5B6880;">取放点之间的实际路径长度，不是直线距离。绕行、单向通道与禁行区都要按真实路径量。</p>
+</div>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">HANDLING</span>
+<div>
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">取放对接时间</strong>
+<p style="margin-top:8px;font-size:14.5px;line-height:1.8;color:#5B6880;">对位、顶升或辊筒交接各需要时间。短距离高频搬运场景里，这部分往往比行驶时间还长。</p>
+</div>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">QUEUE</span>
+<div>
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">交汇等待</strong>
+<p style="margin-top:8px;font-size:14.5px;line-height:1.8;color:#5B6880;">多台车共用通道时会互相让行。车越多，单车效率越低——这条让台数不能线性外推。</p>
+</div>
+</div>
+<div style="padding:20px 24px;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#0E7C86;">CHARGE</span>
+<div>
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">充电占用</strong>
+<p style="margin-top:8px;font-size:14.5px;line-height:1.8;color:#5B6880;">按连续作业班次计算，需要预留同时在充的车位比例。三班连转的场地要按"总是有车在充"来配。</p>
+</div>
+</div>
+</div>
+<p style="margin-top:26px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">把这五段串起来走一个例子。某电子厂的产线配送场景：高峰时段每小时需要完成 60 趟料箱配送，取料区到工位区单程约 80 米。逐段量下来是这样的：</p>
+<div style="margin-top:24px;border:1px solid #E3E8F0;">
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">往返行驶</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">按人车混行区限速与实际绕行路径计，往返约 3.5 分钟。</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">取放对接</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">两端各一次辊筒交接，含对位，合计约 1.5 分钟。</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">交汇等待</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">通道有两处双向交汇点，按实测平均每趟额外增加约 1 分钟。</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">单趟合计</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">约 6 分钟，即单车每小时约 10 趟。</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">按节拍求台数</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">60 ÷ 10 = 6 台，这是不含充电占用的理论值。</span>
+</div>
+<div style="padding:18px 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">加充电占用</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">两班连转、始终有约六分之一的车在充，配置需上浮到 7 台。</span>
+</div>
+</div>
+<p style="margin-top:26px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这个算例里有两个值得注意的点。第一，取放对接占了单趟耗时的四分之一——在这种短距离高频场景里，把对接时间压缩半分钟，效果相当于多买半台车，所以优化载具与对位方式往往比加车划算。第二，交汇等待那 1 分钟是按 6 台车实测的，如果车队扩到 10 台，这个数字会上升，不能沿用。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这正是下面要说的问题：台数不能线性外推。</p>
+<p style="margin-top:26px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">"交汇等待"是台数计算里需要重点校核的一项。它不是线性的：通道条件不变的情况下，车从 3 台加到 6 台，总产出未必翻倍，因为交汇点的等待会随车数上升。这意味着"多买几台就能提产"的假设在窄通道场地里往往不成立，正确的做法是先改通道或调整取放点布局，再考虑加车。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">另外要提前确认人车混行的规则。仓内有叉车、拖板车与作业人员时，AMR 的速度必须下调，通道也要划分。这部分规则由现场安全管理决定，不是技术参数——但它直接影响单趟耗时，因此要在算台数之前明确。</p>
+<div style="margin-top:clamp(36px,3.6vw,48px);background:#0B1220;padding:clamp(28px,3vw,40px);">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#5C9BFF;">KEY TAKEAWAY</span>
+<p style="margin-top:14px;max-width:54ch;font-size:17px;line-height:1.8;color:#fff;text-wrap:pretty;">载荷决定机型，接口决定数据对不对，路线决定台数，异常处理决定能不能长期跑。忽略其中任何一项，都可能在试运行中遇到相应问题。</p>
+</div>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">四、异常处理：需要在上线前明确</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">选型阶段几乎没人问"卡住了怎么办"，但这恰恰是决定项目能不能长期运转的一项。下面五种情况必须在上线前定好处置流程，并明确到岗位。</p>
+<div data-linegrid="" style="margin-top:26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:#fff;">
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">BLOCKED</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">路径被堵</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">临时堆货或叉车停放阻断通道。等多久算超时、超时后是绕行还是报警，要有规则。</p>
+</div>
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">DOCKING</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">对接失败</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">托盘摆歪、货架位置偏移导致取放失败。重试几次后转人工，货物状态怎么记。</p>
+</div>
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">DROPPED</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">货物掉落</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">低频但影响大。谁负责现场处置、系统里的库位怎么修正，需要事先约定。</p>
+</div>
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">OFFLINE</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">单车离线</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">网络中断或故障停机。它身上的任务由谁接手，剩余车队能不能撑住节拍。</p>
+</div>
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#0E7C86;">FALLBACK</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">整体降级</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">调度系统或网络整体故障时，产线能不能切回人工搬运继续生产。</p>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">前四类的处置流程有一个共同写法：定超时阈值、定重试次数、定转交对象。以"路径被堵"为例，可执行的规则是——等待 60 秒后尝试重新规划路径，仍不通则向现场班组长推送告警并把任务挂起，班组长清障后手动恢复；如果 5 分钟内无人处理，调度系统把该任务转派给其它车辆或标记为需人工搬运。三个数字（60 秒、5 分钟、重试次数）和一个岗位（班组长）就构成了完整流程，不需要更复杂的设计。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">"对接失败"的关键在于失败后货物状态怎么记。重试两次仍失败时，货物可能还在车上、也可能半推出，系统必须明确记录成哪一种，否则后续库位就乱了。建议的做法是失败后车辆保持原地不动、任务状态标为"待人工确认"，由工位操作员现场判断并在系统里确认实际位置——这比让机器人自行判断更可靠。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">"货物掉落"频次低但影响大，流程要写得比其它几类更死：现场立即停止该区域调度、由安全员处置、库位由仓管手动修正并留记录。"单车离线"则要提前算清楚——如果车队按 7 台配置刚好满足节拍，那么一台离线就意味着当班节拍达不到，需要事先约定是降低配送频次、还是临时启用人工补位。这个决定应该在合同或运维文档里写明，而不是等第一次离线时现场争论。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">最后一条"整体降级"在产线场景里是硬要求。AMR 承担产线配送后，如果调度系统故障就意味着停产，那这套方案的风险是不可接受的。可执行的做法是保留人工搬运通道与最小库存缓冲，让系统故障时产线能低速继续运转——这部分设计成本不高，但它决定了甲方敢不敢把关键工序交给机器人。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">五、跑起来之后：AMR 数据回到 WMS 与 MES</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">车队上线后会持续产生一批数据，这些数据的价值常被忽略——它们不只是"机器人干了多少活"，而是整条动线的实测记录。下面三类数据可接回上游系统使用。</p>
+<div style="margin-top:26px;display:flex;flex-direction:column;gap:2px;">
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:22px 24px;">
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">单趟耗时分布：找出真正的瓶颈段</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">把每趟任务的行驶、对接、等待时间分别记录并按取放点聚合，就能看出哪个工位对接慢、哪段通道堵。这类问题靠现场观察很难量化，靠数据一周就能定位。改一个工位的对接结构，效果往往好过加一台车。</p>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:22px 24px;">
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">任务失败分类统计：区分设备问题与现场问题</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">按前面五类异常做频次统计并按位置聚合。如果"路径被堵"集中在固定几个点位，那是现场管理问题；如果"对接失败"集中在某个工位，那是该处货架或载具需要调整。把这份统计每月同步给运营方，比笼统反馈"机器人经常出问题"有效得多。</p>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:22px 24px;">
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">节拍达成率：为下一阶段扩产提供依据</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">实际完成趟数与计划趟数的比值，按班次记录。产量要提升时，这份历史数据可用于评估"现有车队还有多少余量、加几台够用"，扩容时仍需结合现场条件复核。</p>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这三类数据都要求调度系统能按任务粒度导出记录，这一点应该在接口设计阶段就提出来——上线后再加，往往要改数据结构。回到第二节的建议：任务粒度定细一些，代价是接口调用多，收益是这些分析全都能做。</p>
+<p style="margin-top:22px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">把五项放在一起看，AMR 选型其实不是设备比较，而是一次动线与流程的重新设计。设备选型是其中一个环节。先把载具统一、接口定清、路线量准、异常写明、数据留通，再回头选机型，有助于减少项目返工。</p>
+</article>
+<aside data-aside="" style="position:sticky;top:100px;">
+<div style="border:1px solid #E3E8F0;padding:26px 24px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#8B96AC;">IN THIS ARTICLE</span>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:11px;">
+<span style="font-size:14px;color:#5B6880;">一、载荷不只是重量</span>
+<span style="font-size:14px;color:#5B6880;">二、接口与状态回写</span>
+<span style="font-size:14px;color:#5B6880;">三、台数怎么算</span>
+<span style="font-size:14px;color:#5B6880;">四、异常处理流程</span>
+<span style="font-size:14px;color:#5B6880;">五、数据回到 WMS/MES</span>
+</div>
+</div>
+<div style="margin-top:16px;border:1px solid #E3E8F0;padding:26px 24px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#8B96AC;">RELATED</span>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:14px;">
+<a class="hv11" href="picking-robots.html" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">拣货与具身智能机器人 →</a>
+<a class="hv12" href="solutions.html" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">仓储与产线配送方案 →</a>
+<a class="hv13" href="manufacturing.html" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">制造与交付能力 →</a>
+</div>
+</div>
+</aside>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:0 0 clamp(64px,7vw,100px);">
+<div data-cta="" style="background:#1F5EFF;border-radius:8px;padding:clamp(44px,5vw,68px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:56px;align-items:center;">
+<div>
+<h2 style="max-width:22ch;font-size:clamp(26px,2.8vw,38px);line-height:1.16;letter-spacing:-0.028em;font-weight:600;color:#fff;">需要把技术专题转化为项目方案？</h2>
+<p style="margin-top:16px;max-width:48ch;font-size:15.5px;line-height:1.8;color:#D3E0FF;">提交门店、仓库、场地、接口或任务信息，我们将结合产品、平台和交付能力进一步沟通。</p>
+</div>
+<a class="hv14" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:10px;padding:18px 34px;background:#fff;color:#1F5EFF;font-size:15px;font-weight:600;border-radius:4px;white-space:nowrap;">预约技术沟通<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</section>
+<footer style="background:#0B1220;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;padding:72px 0 40px;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:44px 52px;">
+<div>
+<div style="display:flex;align-items:center;gap:12px;">
+<img alt="" height="32" src="assets/images/logo-mark.svg" style="width:32px;height:32px;object-fit:contain;filter:brightness(0) invert(1);" width="32"/>
+<span>
+<strong style="display:block;font-size:14.5px;font-weight:600;color:#fff;">攀攀科技</strong>
+<span style="display:block;margin-top:3px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#6E7A91;">PANPANTECH · AIESL</span>
+</span>
+</div>
+<p style="margin:20px 0 0;max-width:34ch;font-size:13.5px;line-height:1.8;color:#8B96AC;">连接产品、数据平台、软件研发与硬件智造，为零售、商业空间与工业场景提供可落地的 AIoT 能力。</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">产品</h2>
+<a class="hv15" href="esl.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">电子价签</a>
+<a class="hv16" href="people-counting.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">客流统计</a>
+<a class="hv17" href="cleaning-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">清洁机器人</a>
+<a class="hv18" href="picking-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">拣货机器人</a>
+<a class="hv19" href="e-paper-displays.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">墨水屏显示</a>
+<a class="hv19" href="facade-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">幕墙机器人</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">平台与能力</h2>
+<a class="hv20" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">AiESL 数据中台</a>
+<a class="hv21" href="solutions.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">行业解决方案</a>
+<a class="hv22" href="manufacturing.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">制造与交付</a>
+<a class="hv23" href="products.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">产品总览</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">内容</h2>
+<a class="hv24" href="news.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">新闻中心</a>
+<a class="hv25" href="blog.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">技术博客</a>
+<a class="hv26" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">平台架构</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">公司</h2>
+<a class="hv27" href="about.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">关于我们</a>
+<a class="hv28" href="about.html#brand-architecture" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">品牌架构</a>
+<a class="hv29" href="https://www.aiesl.cn/contact.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">联系我们</a>
+<a class="hv30" href="https://www.panpantechnology.com" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">集团英文站</a>
+</div>
+</div>
+<div style="margin-top:56px;padding-top:24px;border-top:1px solid #1E2739;display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;font-size:12.5px;color:#6E7A91;">
+<span>© 2026 广州攀攀科技有限公司 PanPanTech</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0.08em;">NeuroGrid · AiESL · AiEinkSmart · Pyroglaux · EinkSmart</span>
+<a class="hv31" href="https://beian.miit.gov.cn/" style="color:#6E7A91;text-decoration:none;">粤ICP备2026035004号-1</a>
+</div>
+</div>
+</footer>
+</div>
+<script>
+(function(){
+  var t=document.querySelector('[data-mobtoggle]'),p=document.querySelector('[data-mobpanel]');
+  if(t&&p){t.addEventListener('click',function(){p.style.display=(p.style.display==='block')?'none':'block';});}
+  var track=document.querySelector('[data-hero-track]');
+  if(!track)return;
+  var tabs=[].slice.call(document.querySelectorAll('[data-go]')),
+      ind=document.querySelector('[data-tab-indicator]'),i=0,timer;
+  function go(n){i=n;track.scrollTo({left:track.clientWidth*n,behavior:'smooth'});if(ind)ind.style.transform='translateX('+(n*100)+'%)';}
+  function arm(){clearInterval(timer);timer=setInterval(function(){go((i+1)%5);},7000);}
+  tabs.forEach(function(b){b.addEventListener('click',function(){go(+b.getAttribute('data-go'));arm();});});
+  window.addEventListener('resize',function(){track.scrollTo({left:track.clientWidth*i});});
+  arm();
+})();
+</script>
+</body>
+</html>

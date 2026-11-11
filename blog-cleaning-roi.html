@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>清洁机器人 ROI 评估应先建立哪些现场基线｜技术博客 · 攀攀科技</title>
+<meta content="面积、地面、班次、人流、补给与人工协同，比单一回本数字更值得先确认。" name="description"/>
+<link href="https://www.aiesl.cn/blog-cleaning-roi.html" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<meta content="清洁机器人 ROI 评估应先建立哪些现场基线｜技术博客 · 攀攀科技" property="og:title"/>
+<meta content="面积、地面、班次、人流、补给与人工协同，比单一回本数字更值得先确认。" property="og:description"/>
+<meta content="https://www.aiesl.cn/blog-cleaning-roi.html" property="og:url"/>
+<meta content="zh_CN" property="og:locale"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="assets/images/logo-mark.svg" rel="icon"/>
+<style>
+@font-face{font-family:"AiSans";src:url("assets/fonts/NotoSansSC-V3-subset.woff2") format("woff2");font-weight:100 900;font-display:swap;}
+*{box-sizing:border-box;}
+body{margin:0;background:#fff;color:#48546B;font-family:"AiSans","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,p{margin:0;}
+img{display:block;max-width:100%;}
+a{color:#0B1220;text-decoration:none;}
+a:hover{color:#1F5EFF;}
+::selection{background:#1F5EFF;color:#fff;}
+[data-linegrid]>*{outline:1px solid #E3E8F0;}
+@media (max-width:1080px){
+  [data-cta]{grid-template-columns:minmax(0,1fr) !important;gap:28px !important;}
+  [data-cta]>a{justify-self:start;}
+  [data-body]{grid-template-columns:minmax(0,1fr) !important;gap:40px !important;}
+  [data-aside]{position:static !important;}
+  [data-tbl]>div{grid-template-columns:minmax(0,1fr) !important;gap:8px !important;}
+}
+</style>
+<style>
+[data-desknav] a{white-space:nowrap;}
+@media (max-width:1080px){
+  [data-utilbar]{display:none !important;}
+  [data-desknav]{display:none !important;}
+  [data-mobtoggle]{display:flex !important;}
+}
+@media (min-width:1081px){
+  [data-mobpanel]{display:none !important;}
+}
+</style>
+<style>
+.hv1:hover{color:#fff !important}
+.hv2:hover{color:#fff !important}
+.hv3:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv4:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv5:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv6:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv10:hover{background:#1544C4 !important}
+.hv11:hover{color:#1F5EFF !important}
+.hv12:hover{color:#1F5EFF !important}
+.hv13:hover{color:#1F5EFF !important}
+.hv14:hover{background:#0B1220 !important;color:#fff !important}
+.hv15:hover{color:#fff !important}
+.hv16:hover{color:#fff !important}
+.hv17:hover{color:#fff !important}
+.hv18:hover{color:#fff !important}
+.hv19:hover{color:#fff !important}
+.hv20:hover{color:#fff !important}
+.hv21:hover{color:#fff !important}
+.hv22:hover{color:#fff !important}
+.hv23:hover{color:#fff !important}
+.hv24:hover{color:#fff !important}
+.hv25:hover{color:#fff !important}
+.hv26:hover{color:#fff !important}
+.hv27:hover{color:#fff !important}
+.hv28:hover{color:#fff !important}
+.hv29:hover{color:#fff !important}
+.hv30:hover{color:#fff !important}
+.hv31:hover{color:#B6BDC9 !important}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"清洁机器人 ROI 评估应先建立哪些现场基线","description":"面积、地面、班次、人流、补给与人工协同，比单一回本数字更值得先确认。","inLanguage":"zh-CN","url":"https://www.aiesl.cn/blog-cleaning-roi.html","publisher":{"@type":"Organization","name":"广州攀攀科技有限公司","alternateName":"PanPanTech","url":"https://www.aiesl.cn/"}}</script>
+<style>
+.nv1:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv2:hover{background:#F5F7FA !important}
+.nv3:hover{background:#F5F7FA !important}
+.nv4:hover{background:#F5F7FA !important}
+.nv5:hover{background:#F5F7FA !important}
+.nv6:hover{background:#F5F7FA !important}
+.nv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv10:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv11:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv12:hover{background:#F5F7FA !important;color:#0B1220 !important}
+[data-navdrop]:hover [data-navpanel]{display:block !important;}
+</style>
+<link href="assets/photo-layout-v4-20260905.css" rel="stylesheet"/>
+</head>
+<body><header data-site-header="" style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);backdrop-filter:blur(12px);border-bottom:1px solid #E3E8F0;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;height:76px;display:flex;align-items:center;justify-content:space-between;gap:36px;">
+<a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+<img alt="" height="36" src="assets/images/logo-mark.svg" style="width:36px;height:36px;object-fit:contain;" width="36"/>
+<span>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;line-height:1.2;white-space:nowrap;">攀攀科技</strong>
+<span style="display:block;margin-top:2px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#8B96AC;white-space:nowrap;">PANPANTECH · AIESL</span>
+</span>
+</a>
+<nav data-desknav="" style="display:flex;align-items:center;gap:4px;font-size:14px;">
+<a class="nv1" href="index.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">首页</a>
+<div data-navdrop="" style="position:relative;">
+<span style="display:inline-flex;align-items:center;gap:6px;padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;cursor:default;">产品<span style="font-size:9px;color:#8B96AC;">▼</span></span>
+<div data-navpanel="" style="display:none;position:absolute;top:100%;left:0;min-width:236px;background:#fff;border:1px solid #E3E8F0;box-shadow:0 18px 44px rgba(11,18,32,0.12);padding:8px 0;z-index:60;">
+<a class="nv2" href="esl.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">01</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">电子价签</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">AiEinkSmart</span></span>
+</a>
+<a class="nv3" href="people-counting.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">02</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">客流统计</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">Pyroglaux</span></span>
+</a>
+<a class="nv4" href="cleaning-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">03</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">清洁机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv5" href="picking-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">04</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">拣货机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv6" href="e-paper-displays.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">05</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">墨水屏显示</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">EinkSmart</span></span>
+</a>
+<a class="nv6" href="facade-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">06</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">幕墙机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+</div>
+</div>
+<a class="nv7" href="products.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">产品总览</a>
+<a class="nv7" href="platform.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">数据中台</a>
+<a class="nv8" href="solutions.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">解决方案</a>
+<a class="nv9" href="manufacturing.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">制造能力</a>
+<a class="nv10" href="news.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">新闻</a>
+<a class="nv11" href="blog.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">博客</a>
+<a class="nv12" href="about.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">关于我们</a>
+</nav>
+<div style="display:flex;align-items:center;gap:12px;">
+<a class="hv10" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#1F5EFF;color:#fff;font-size:14px;font-weight:600;border-radius:4px;white-space:nowrap;text-decoration:none;">预约方案</a>
+<button aria-label="打开导航" data-mobtoggle="" style="display:none;appearance:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:44px;height:44px;border:1px solid #C6D2E6;border-radius:4px;background:#fff;cursor:pointer;" type="button">
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+</button>
+</div>
+</div>
+<div data-mobpanel="" style="display:none;border-top:1px solid #E3E8F0;background:#fff;padding:20px min(36px,5vw) 30px;">
+<div style="display:flex;flex-direction:column;gap:2px;">
+<a href="index.html" style="padding:13px 4px;font-size:15px;font-weight:500;color:#0B1220;border-bottom:1px solid #EEF1F6;text-decoration:none;">首页</a>
+<a href="esl.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">电子价签</a>
+<a href="people-counting.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">客流统计</a>
+<a href="cleaning-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">清洁机器人</a>
+<a href="picking-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">拣货机器人</a>
+<a href="e-paper-displays.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">墨水屏显示</a>
+<a href="facade-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">幕墙机器人</a>
+<a href="products.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">产品总览</a>
+<a href="platform.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">数据中台</a>
+<a href="solutions.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">解决方案</a>
+<a href="manufacturing.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">制造能力</a>
+<a href="news.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">新闻中心</a>
+<a href="blog.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">技术博客</a>
+<a href="about.html" style="padding:13px 4px;font-size:15px;color:#48546B;text-decoration:none;">关于我们</a>
+<a href="https://www.aiesl.cn/contact.html" style="margin-top:18px;display:flex;align-items:center;justify-content:center;padding:15px 20px;background:#1F5EFF;color:#fff;font-size:15px;font-weight:600;border-radius:4px;text-decoration:none;">预约方案</a>
+</div>
+</div>
+</header>
+<div style="background:#fff;">
+<div>
+
+
+</div>
+<section style="background:#F5F7FA;border-bottom:1px solid #E3E8F0;position:relative;overflow:hidden;">
+<div style="position:absolute;inset:0;background-image:linear-gradient(#E3E8F0 1px,transparent 1px),linear-gradient(90deg,#E3E8F0 1px,transparent 1px);background-size:72px 72px;opacity:0.55;pointer-events:none;"></div>
+<div style="position:relative;width:min(100% - 72px,1400px);margin-inline:auto;padding:32px 0 clamp(48px,5vw,72px);">
+<div style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:#7C8AA3;margin-bottom:clamp(32px,3.6vw,48px);">
+<a href="index.html" style="color:#7C8AA3;">首页</a><span>/</span><a href="blog.html" style="color:#7C8AA3;">技术博客</a><span>/</span><span style="color:#0B1220;">清洁机器人 ROI 基线</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;">
+<span style="padding:5px 12px;background:#EFF4FF;color:#1F5EFF;font-size:12px;font-weight:600;border-radius:3px;">清洁自动化</span>
+<span style="padding:5px 12px;background:#fff;border:1px solid #E3E8F0;color:#5B6880;font-size:12px;font-weight:600;border-radius:3px;">博客</span>
+</div>
+<h1 style="max-width:24ch;font-size:clamp(30px,3.6vw,50px);line-height:1.12;letter-spacing:-0.03em;font-weight:600;color:#0B1220;text-wrap:balance;">清洁机器人 ROI 评估应先建立哪些现场基线</h1>
+<p style="margin-top:22px;max-width:54ch;font-size:17px;line-height:1.8;color:#5B6880;text-wrap:pretty;">面积、地面、班次、人流、补给与人工协同，比单一回本数字更值得先确认——因为回本周期是这些基线算出来的结果，不是可以先谈的前提。</p>
+<div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:28px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.12em;color:#8B96AC;">
+<span>AIESL ENGINEERING</span>
+<span>约 14 分钟阅读</span>
+</div>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding-top:clamp(40px,4vw,56px);">
+<figure style="margin:0;">
+<img alt="公共走廊内清洁机器人按计划作业" decoding="async" height="1200" src="assets/images/q3-w-cleaning-robot.jpg" style="width:100%;height:clamp(280px,34vw,480px);object-fit:cover;" width="1200"/>
+<figcaption style="margin-top:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.1em;color:#8B96AC;">FIG. 1 — 有人通行的公共走廊作业：机器能不能长期跑下去，取决于现场条件而非单机性能</figcaption>
+</figure>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(56px,6vw,84px) 0 clamp(64px,7vw,100px);">
+<div data-body="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,270px);gap:clamp(48px,5vw,72px);align-items:start;">
+<article style="max-width:84ch;">
+<p style="font-size:17.5px;line-height:1.85;color:#3C495F;text-wrap:pretty;">"这台机器多久能回本"经常在清洁机器人项目勘测前被问到，但需要结合现场条件评估。任何在勘测之前给出的回本周期，都建立在一串没被确认的假设上：每天作业几小时、覆盖多少面积、需不需要人跟着、耗材多久换一次。假设错一个，结论就完全不同。</p>
+<p style="margin-top:22px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这篇文章不给回本公式，而是列出算这个公式之前必须先测出来的六条基线。它们全部可以在一次现场勘测里完成，成本很低，但决定了后面所有判断的可靠程度。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">一、六条基线：分别决定什么</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这六条不是并列的检查项，它们各自锁定方案里的一个变量。缺哪一条，对应的那部分估算就只能靠猜。</p>
+<div data-tbl="" style="margin-top:28px;border:1px solid #E3E8F0;">
+<div style="padding:22px 26px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">AREA</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">可机洗面积（不是总建筑面积）</strong>
+<p style="margin-top:8px;font-size:15px;line-height:1.8;color:#5B6880;">要测的是机器真正能跑到的连续硬质地面，扣掉货架下方、扶梯口、卫生间、台阶区与常年堆放货物的位置。这个数字通常比总面积小得多，也是决定机型幅宽与台数的直接依据。用总面积去算，可能高估所需台数。</p>
+</div>
+</div>
+<div style="padding:22px 26px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">SURFACE</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">地面材质与污染类型</strong>
+<p style="margin-top:8px;font-size:15px;line-height:1.8;color:#5B6880;">抛光砖、水磨石、环氧地坪、防滑砖与地毯对应完全不同的作业方式与耗材消耗速度。污染类型同样关键：粉尘、油污与生鲜区的水渍，需要的清洁方式不一样，硬洗一遍解决不了油污。</p>
+</div>
+</div>
+<div style="padding:22px 26px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">WINDOW</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">可作业时间窗口</strong>
+<p style="margin-top:8px;font-size:15px;line-height:1.8;color:#5B6880;">营业时间内能不能跑、夜间有没有值班人员、商场统一管理是否限制夜间作业。窗口长度直接决定一台机器一天能完成多少面积——同一台设备在 8 小时窗口和 3 小时窗口下的产出差三倍。</p>
+</div>
+</div>
+<div style="padding:22px 26px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">TRAFFIC</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">人流密度与通行规则</strong>
+<p style="margin-top:8px;font-size:15px;line-height:1.8;color:#5B6880;">机器遇人会减速让行，人流越密实际作业速度越低。高峰时段的走廊里，机器可能大部分时间都在等待。这条决定的是"能不能在营业时段作业"，以及排班要避开哪些时段。</p>
+</div>
+</div>
+<div style="padding:22px 26px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">SUPPLY</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">水电与补给点位</strong>
+<p style="margin-top:8px;font-size:15px;line-height:1.8;color:#5B6880;">加水点、排污点、充电位与停放空间在哪里、距离作业区多远。一趟作业中间要跑多远去加水，直接吃掉有效作业时间。这一条需要在方案阶段确认，以减少实施阶段的补给问题。</p>
+</div>
+</div>
+<div style="padding:22px 26px;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#0E7C86;">HUMAN</span>
+<div>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">人工协同的边界</strong>
+<p style="margin-top:8px;font-size:15px;line-height:1.8;color:#5B6880;">机器不做的部分仍然要人做：边角、台阶、卫生间、玻璃与桌面。明确机器覆盖哪些、人负责哪些，才能算出真实的人力变化——大多数项目是人力结构调整，不是人力消失。</p>
+</div>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">六条中的第一条和第五条需要重点确认。可机洗面积没测，台数就是拍的；补给点位没看，实施时才发现最近的加水点在两百米外的后勤区，作业效率直接打折。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">二、为什么"理论作业效率"不能直接用</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">规格书上会给出每小时清洁面积，这个数字是在空旷、无人、单向直线行驶条件下测得的。真实现场会把它逐层削减，削减的比例取决于上面那六条基线。</p>
+<div style="margin-top:26px;display:flex;flex-direction:column;gap:2px;">
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:20px 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15.5px;font-weight:600;color:#0B1220;">转弯与折返</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">场地越碎、柱子越多，机器花在转向上的时间占比越高。开阔中庭与货架密集区的实际效率差别很大。</span>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:20px 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15.5px;font-weight:600;color:#0B1220;">避障等待</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">遇人减速让行是安全设计，不是故障。人流密集时段的等待时间必须计入，否则排班会排不下。</span>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:20px 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15.5px;font-weight:600;color:#0B1220;">加水与排污往返</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">水箱容量决定单趟可作业面积，补给点距离决定往返耗时。这两项相乘才是真实的有效作业时间。</span>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:20px 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15.5px;font-weight:600;color:#0B1220;">充电与换电</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">电量不足会中断作业。作业窗口长于单次续航时，要么安排回充时间，要么增加台数。</span>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:20px 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15.5px;font-weight:600;color:#0B1220;">现场变化</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">临时堆货、活动搭建与陈列调整会阻断既有路径，需要重新规划或人工干预。</span>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这五项里，前两项主要取决于场地本身，需要结合现场条件评估；后三项属于可以通过方案设计缓解的部分。加水往返可以通过增设临时补给位缩短，充电中断可以通过错开作业时段或增加台数避免，现场变化可以通过与运营方约定"作业时段内不堆货"来减少。也就是说，看到实际效率低于预期时，第一反应不该是换机器，而是先判断损耗落在哪一项、那一项是不是可以改的。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">另一个常见误判是把避障等待当成产品缺陷。机器遇人减速让行属于安全策略的一部分，人流密集时可能增加等待，具体等待时间仍取决于设备设置与现场人流。真正该做的是把作业时段挪到人流低谷，而不是要求供应商"把避障调灵敏一点"——后者是在拿安全余量换效率数字。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">所以正确的做法不是拿规格书数字去除面积，而是在试点阶段实测：让机器在真实场地、真实时段跑一周，记录实际完成面积与实际耗时。这个数字才能用于后续场地的推算。</p>
+<figure style="margin:clamp(36px,3.6vw,48px) 0 0;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+<img alt="商用洗地机器人浅底整机产品图" decoding="async" height="960" loading="lazy" src="assets/images/photo-v2/cleaning-studio-20260905.webp" style="width:100%;aspect-ratio:4 / 3;object-fit:contain;background:#FFFFFF;padding:16px;border:1px solid #E3E8F0;height:auto;" width="1600"/>
+<img alt="中型扫洗一体机型" decoding="async" height="1200" loading="lazy" src="assets/images/c2-cleaning-robot.jpg" style="width:100%;aspect-ratio:4 / 3;object-fit:contain;background:#F1F3F7;padding:16px;border:1px solid #E3E8F0;height:auto;" width="1200"/>
+<img alt="紧凑型机型" decoding="async" height="1200" loading="lazy" src="assets/images/c3-mini-cleaning-robot.jpg" style="width:100%;aspect-ratio:4 / 3;object-fit:contain;background:#F1F3F7;padding:16px;border:1px solid #E3E8F0;height:auto;" width="1200"/>
+</div>
+<figcaption style="margin-top:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.1em;color:#8B96AC;">FIG. 2 — 大型 / 中型 / 紧凑型：机型选择由可机洗面积的连续程度与通过性决定，不是由总面积决定</figcaption>
+</figure>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">三、一个具体的算例</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">下面用一个简化的例子说明这些基线怎么改变结论。假设一个总建筑面积 12000 平方米的商场楼层，第一轮沟通里被按总面积估算，得出"一台大型机型即可覆盖"。勘测之后情况变了：</p>
+<div style="margin-top:26px;border:1px solid #E3E8F0;">
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">可机洗面积</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">扣掉店铺内部、扶梯区、卫生间与休息区后，公共区连续硬质地面约 5000 平方米——不到总面积一半。</span>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">作业窗口</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">商场要求夜间 22:00 后不得作业，早班 7:00 才能进场，营业前只有约 3 小时。</span>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">场地形态</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">中庭开阔适合大型机型，但两侧连廊宽度不足、柱距密，大型机型进不去或转弯困难。</span>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">补给点</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">加排水点集中在后勤通道一端，另一端作业时单趟往返较远。</span>
+</div>
+<div style="padding:20px 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">结论变化</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">从"一台大型机型"变成"中庭用大型 + 连廊用紧凑型"的组合，并在远端增设一个临时补给位。</span>
+</div>
+</div>
+<p style="margin-top:26px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">从成本角度看，这个调整并不是简单的"变贵了"。原方案一台大型机型看起来便宜，但它只能覆盖中庭那部分，连廊仍然要靠人工拖地——也就是说这笔投入换不来完整的人力结构调整，甲方最后会觉得"买了机器，保洁一个也没少"。调整后的组合方案设备支出增加，却把公共区的可机洗面积基本吃满，加上一个临时补给位省下的往返时间，实际每天能完成的面积明显提高。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">换个说法：单看设备清单，组合方案的单价更高；按"每平方米每天的自动清洁成本"来看，它反而更低，因为分母大了。ROI 讨论里真正该比较的是后者。只比设备总价，会系统性地偏向那些覆盖不全、但报价好看的方案，而这类方案在交付半年后往往被判定为"效果不明显"。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这个例子里，没有任何一条是技术难题，全都是现场信息。但如果按第一轮的估算签了合同，交付时就会出现"机器进不去连廊""营业前跑不完"这类无法用调参数解决的问题。勘测的价值就在这里。</p>
+<div style="margin-top:clamp(36px,3.6vw,48px);background:#0B1220;padding:clamp(28px,3vw,40px);">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#5C9BFF;">KEY TAKEAWAY</span>
+<p style="margin-top:14px;max-width:54ch;font-size:17px;line-height:1.8;color:#fff;text-wrap:pretty;">回本周期不是一个可以先谈的前提，而是六条现场基线算出来的结果。基线没测就给出的回本数字，只是把风险留到了交付阶段。</p>
+</div>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">四、成本里容易被漏掉的几项</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">设备价格之外，还有几项持续支出会影响长期账。把它们列进预算，回本估算才有意义。</p>
+<div data-linegrid="" style="margin-top:26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:#fff;">
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">CONSUMABLES</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">耗材</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">滚刷、胶条、滤网与清洁剂按作业时长消耗，粗糙地面消耗更快。</p>
+</div>
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">UTILITIES</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">水电</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">用量通常不高，但需要确认由谁承担——物业还是租户，合同里要写清。</p>
+</div>
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">DAILY OPS</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">日常照看</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">加水、倒污水、清理滚刷缠绕物仍需要人。这部分工时要算进人力账。</p>
+</div>
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#0E7C86;">SERVICE</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">维保与备件</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">响应时限、备件供应与停机期间的替代方案，都应在合同里明确。</p>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">"日常照看"这一项需要纳入成本评估。很多项目按"减少 N 个保洁"来算收益，实际上机器需要有人加水、倒污水、处理缠绕，还要有人看告警。真实的变化通常是保洁人员的工作内容改变——从大面积拖地转向边角与精细清洁，而不是人数直接下降。把这一点讲清楚，项目在物业和甲方那边的接受度反而更高。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">五、试点该怎么做</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">试点的目的是把六条基线变成可用的数字，而不是演示机器能动。建议按下面四步执行，周期两到四周。</p>
+<div style="margin-top:26px;display:flex;flex-direction:column;gap:2px;">
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">STEP 1</span>
+<span style="font-size:15px;color:#48546B;">选一个有代表性的区域——包含开阔面、狭窄通道与至少一个转角，不要只选容易作业的区域。</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">STEP 2</span>
+<span style="font-size:15px;color:#48546B;">按真实作业窗口连续跑两周，记录每天实际完成面积、耗时、中断次数与中断原因。</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">STEP 3</span>
+<span style="font-size:15px;color:#48546B;">同时记录人工投入：加水几次、每次多久、处理异常花了多少时间。</span>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:18px 22px;display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#0E7C86;">STEP 4</span>
+<span style="font-size:15px;color:#48546B;">用实测数据推算全场地台数与人力配置，再回头算回本周期——顺序不能反。</span>
+</div>
+</div>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">STEP 2 里"记录中断原因"需要一份固定的分类，否则两周下来记录会写成一堆无法汇总的自由描述。建议直接用下面五类，每次中断只归一类：</p>
+<div style="margin-top:24px;display:flex;flex-direction:column;gap:2px;">
+<div style="border:1px solid #E3E8F0;padding:16px 22px;display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px;align-items:baseline;">
+<strong style="font-size:14.5px;font-weight:600;color:#0B1220;">缠绕</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">滚刷卷入包装绳、塑料膜或拖把线头。频次高说明地面杂物多，需要与保洁流程配合。</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:16px 22px;display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px;align-items:baseline;">
+<strong style="font-size:14.5px;font-weight:600;color:#0B1220;">卡困</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">卡在门槛、坡道或狭窄转角。集中出现在固定位置时，属于路径规划或通过性问题。</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:16px 22px;display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px;align-items:baseline;">
+<strong style="font-size:14.5px;font-weight:600;color:#0B1220;">缺水</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">水箱见底需返回补给。频次直接反映补给点距离是否合理。</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:16px 22px;display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px;align-items:baseline;">
+<strong style="font-size:14.5px;font-weight:600;color:#0B1220;">电量</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">续航不足需回充。若每天都出现，说明作业窗口长于单次续航，要考虑增加台数。</span>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:16px 22px;display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px;align-items:baseline;">
+<strong style="font-size:14.5px;font-weight:600;color:#0B1220;">临时堆货</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">路径被货物或活动搭建阻断。这一类要反馈给运营方，靠机器本身解决不了。</span>
+</div>
+</div>
+<p style="margin-top:26px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">两周后把这五类的频次排个序，改进优先级就出来了：缠绕和临时堆货靠现场管理解决，缺水靠增设补给位，电量靠调整排班或加台数，卡困靠改路径或换机型。没有分类的记录做不到这一步，只能得出一句"经常中断"。</p>
+<p style="margin-top:26px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">STEP 1 里"不要只选容易作业的区域"值得强调。试点区域选得太理想，得出的效率数字推广到全场地时可能偏高，造成台数不足或作业无法按计划完成，项目在第二阶段失去信任。选一个中等难度、包含各类地形的区域，拿到的数字更接近实际作业条件，推广时仍需结合场地复核。</p>
+<p style="margin-top:22px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">最后一点：把运维责任写进文档，明确到岗位。谁加水、谁换耗材、谁看告警、机器卡住了谁去处理。这套分工不明确的项目，无论回本算得多好，半年后大概率会看到机器停在角落里——不是因为它坏了，而是因为没有人的日常工作里包含"照看它"这一项。</p>
+</article>
+<aside data-aside="" style="position:sticky;top:100px;">
+<div style="border:1px solid #E3E8F0;padding:26px 24px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#8B96AC;">IN THIS ARTICLE</span>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:11px;">
+<span style="font-size:14px;color:#5B6880;">一、六条现场基线</span>
+<span style="font-size:14px;color:#5B6880;">二、理论效率为何不能直接用</span>
+<span style="font-size:14px;color:#5B6880;">三、一个具体算例</span>
+<span style="font-size:14px;color:#5B6880;">四、容易漏掉的成本项</span>
+<span style="font-size:14px;color:#5B6880;">五、试点该怎么做</span>
+</div>
+</div>
+<div style="margin-top:16px;border:1px solid #E3E8F0;padding:26px 24px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#8B96AC;">RELATED</span>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:14px;">
+<a class="hv11" href="cleaning-robots.html" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">商用清洁机器人产品 →</a>
+<a class="hv12" href="cleaning-robots.html#assess" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">场地评估框架 →</a>
+<a class="hv13" href="solutions.html" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">商业空间与枢纽方案 →</a>
+</div>
+</div>
+</aside>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:0 0 clamp(64px,7vw,100px);">
+<div data-cta="" style="background:#1F5EFF;border-radius:8px;padding:clamp(44px,5vw,68px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:56px;align-items:center;">
+<div>
+<h2 style="max-width:22ch;font-size:clamp(26px,2.8vw,38px);line-height:1.16;letter-spacing:-0.028em;font-weight:600;color:#fff;">需要把技术专题转化为项目方案？</h2>
+<p style="margin-top:16px;max-width:48ch;font-size:15.5px;line-height:1.8;color:#D3E0FF;">提交门店、仓库、场地、接口或任务信息，我们将结合产品、平台和交付能力进一步沟通。</p>
+</div>
+<a class="hv14" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:10px;padding:18px 34px;background:#fff;color:#1F5EFF;font-size:15px;font-weight:600;border-radius:4px;white-space:nowrap;">预约技术沟通<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</section>
+<footer style="background:#0B1220;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;padding:72px 0 40px;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:44px 52px;">
+<div>
+<div style="display:flex;align-items:center;gap:12px;">
+<img alt="" height="32" src="assets/images/logo-mark.svg" style="width:32px;height:32px;object-fit:contain;filter:brightness(0) invert(1);" width="32"/>
+<span>
+<strong style="display:block;font-size:14.5px;font-weight:600;color:#fff;">攀攀科技</strong>
+<span style="display:block;margin-top:3px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#6E7A91;">PANPANTECH · AIESL</span>
+</span>
+</div>
+<p style="margin:20px 0 0;max-width:34ch;font-size:13.5px;line-height:1.8;color:#8B96AC;">连接产品、数据平台、软件研发与硬件智造，为零售、商业空间与工业场景提供可落地的 AIoT 能力。</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">产品</h2>
+<a class="hv15" href="esl.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">电子价签</a>
+<a class="hv16" href="people-counting.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">客流统计</a>
+<a class="hv17" href="cleaning-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">清洁机器人</a>
+<a class="hv18" href="picking-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">拣货机器人</a>
+<a class="hv19" href="e-paper-displays.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">墨水屏显示</a>
+<a class="hv19" href="facade-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">幕墙机器人</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">平台与能力</h2>
+<a class="hv20" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">AiESL 数据中台</a>
+<a class="hv21" href="solutions.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">行业解决方案</a>
+<a class="hv22" href="manufacturing.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">制造与交付</a>
+<a class="hv23" href="products.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">产品总览</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">内容</h2>
+<a class="hv24" href="news.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">新闻中心</a>
+<a class="hv25" href="blog.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">技术博客</a>
+<a class="hv26" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">平台架构</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">公司</h2>
+<a class="hv27" href="about.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">关于我们</a>
+<a class="hv28" href="about.html#brand-architecture" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">品牌架构</a>
+<a class="hv29" href="https://www.aiesl.cn/contact.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">联系我们</a>
+<a class="hv30" href="https://www.panpantechnology.com" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">集团英文站</a>
+</div>
+</div>
+<div style="margin-top:56px;padding-top:24px;border-top:1px solid #1E2739;display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;font-size:12.5px;color:#6E7A91;">
+<span>© 2026 广州攀攀科技有限公司 PanPanTech</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0.08em;">NeuroGrid · AiESL · AiEinkSmart · Pyroglaux · EinkSmart</span>
+<a class="hv31" href="https://beian.miit.gov.cn/" style="color:#6E7A91;text-decoration:none;">粤ICP备2026035004号-1</a>
+</div>
+</div>
+</footer>
+</div>
+<script>
+(function(){
+  var t=document.querySelector('[data-mobtoggle]'),p=document.querySelector('[data-mobpanel]');
+  if(t&&p){t.addEventListener('click',function(){p.style.display=(p.style.display==='block')?'none':'block';});}
+  var track=document.querySelector('[data-hero-track]');
+  if(!track)return;
+  var tabs=[].slice.call(document.querySelectorAll('[data-go]')),
+      ind=document.querySelector('[data-tab-indicator]'),i=0,timer;
+  function go(n){i=n;track.scrollTo({left:track.clientWidth*n,behavior:'smooth'});if(ind)ind.style.transform='translateX('+(n*100)+'%)';}
+  function arm(){clearInterval(timer);timer=setInterval(function(){go((i+1)%5);},7000);}
+  tabs.forEach(function(b){b.addEventListener('click',function(){go(+b.getAttribute('data-go'));arm();});});
+  window.addEventListener('resize',function(){track.scrollTo({left:track.clientWidth*i});});
+  arm();
+})();
+</script>
+</body>
+</html>

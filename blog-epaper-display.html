@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>低功耗显示如何服务商业信息与空间内容更新｜技术博客 · 攀攀科技</title>
+<meta content="从显示效果、更新频率、内容管理和安装方式理解数字标牌与智能画框。" name="description"/>
+<link href="https://www.aiesl.cn/blog-epaper-display.html" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<meta content="低功耗显示如何服务商业信息与空间内容更新｜技术博客 · 攀攀科技" property="og:title"/>
+<meta content="从显示效果、更新频率、内容管理和安装方式理解数字标牌与智能画框。" property="og:description"/>
+<meta content="https://www.aiesl.cn/blog-epaper-display.html" property="og:url"/>
+<meta content="zh_CN" property="og:locale"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="assets/images/logo-mark.svg" rel="icon"/>
+<style>
+@font-face{font-family:"AiSans";src:url("assets/fonts/NotoSansSC-V3-subset.woff2") format("woff2");font-weight:100 900;font-display:swap;}
+*{box-sizing:border-box;}
+body{margin:0;background:#fff;color:#48546B;font-family:"AiSans","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,p{margin:0;}
+img{display:block;max-width:100%;}
+a{color:#0B1220;text-decoration:none;}
+a:hover{color:#1F5EFF;}
+::selection{background:#1F5EFF;color:#fff;}
+[data-linegrid]>*{outline:1px solid #E3E8F0;}
+@media (max-width:1080px){
+  [data-cta]{grid-template-columns:minmax(0,1fr) !important;gap:28px !important;}
+  [data-cta]>a{justify-self:start;}
+  [data-body]{grid-template-columns:minmax(0,1fr) !important;gap:40px !important;}
+  [data-aside]{position:static !important;}
+  [data-tbl]>div{grid-template-columns:minmax(0,1fr) !important;gap:8px !important;}
+}
+</style>
+<style>
+[data-desknav] a{white-space:nowrap;}
+@media (max-width:1080px){
+  [data-utilbar]{display:none !important;}
+  [data-desknav]{display:none !important;}
+  [data-mobtoggle]{display:flex !important;}
+}
+@media (min-width:1081px){
+  [data-mobpanel]{display:none !important;}
+}
+</style>
+<style>
+.hv1:hover{color:#fff !important}
+.hv2:hover{color:#fff !important}
+.hv3:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv4:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv5:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv6:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv10:hover{background:#1544C4 !important}
+.hv11:hover{color:#1F5EFF !important}
+.hv12:hover{color:#1F5EFF !important}
+.hv13:hover{color:#1F5EFF !important}
+.hv14:hover{background:#0B1220 !important;color:#fff !important}
+.hv15:hover{color:#fff !important}
+.hv16:hover{color:#fff !important}
+.hv17:hover{color:#fff !important}
+.hv18:hover{color:#fff !important}
+.hv19:hover{color:#fff !important}
+.hv20:hover{color:#fff !important}
+.hv21:hover{color:#fff !important}
+.hv22:hover{color:#fff !important}
+.hv23:hover{color:#fff !important}
+.hv24:hover{color:#fff !important}
+.hv25:hover{color:#fff !important}
+.hv26:hover{color:#fff !important}
+.hv27:hover{color:#fff !important}
+.hv28:hover{color:#fff !important}
+.hv29:hover{color:#fff !important}
+.hv30:hover{color:#fff !important}
+.hv31:hover{color:#B6BDC9 !important}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"低功耗显示如何服务商业信息与空间内容更新","description":"从显示效果、更新频率、内容管理和安装方式理解数字标牌与智能画框。","inLanguage":"zh-CN","url":"https://www.aiesl.cn/blog-epaper-display.html","publisher":{"@type":"Organization","name":"广州攀攀科技有限公司","alternateName":"PanPanTech","url":"https://www.aiesl.cn/"}}</script>
+<style>
+.nv1:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv2:hover{background:#F5F7FA !important}
+.nv3:hover{background:#F5F7FA !important}
+.nv4:hover{background:#F5F7FA !important}
+.nv5:hover{background:#F5F7FA !important}
+.nv6:hover{background:#F5F7FA !important}
+.nv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv10:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv11:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv12:hover{background:#F5F7FA !important;color:#0B1220 !important}
+[data-navdrop]:hover [data-navpanel]{display:block !important;}
+</style>
+<link href="assets/photo-layout-v4-20260905.css" rel="stylesheet"/>
+</head>
+<body><header data-site-header="" style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);backdrop-filter:blur(12px);border-bottom:1px solid #E3E8F0;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;height:76px;display:flex;align-items:center;justify-content:space-between;gap:36px;">
+<a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+<img alt="" height="36" src="assets/images/logo-mark.svg" style="width:36px;height:36px;object-fit:contain;" width="36"/>
+<span>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;line-height:1.2;white-space:nowrap;">攀攀科技</strong>
+<span style="display:block;margin-top:2px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#8B96AC;white-space:nowrap;">PANPANTECH · AIESL</span>
+</span>
+</a>
+<nav data-desknav="" style="display:flex;align-items:center;gap:4px;font-size:14px;">
+<a class="nv1" href="index.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">首页</a>
+<div data-navdrop="" style="position:relative;">
+<span style="display:inline-flex;align-items:center;gap:6px;padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;cursor:default;">产品<span style="font-size:9px;color:#8B96AC;">▼</span></span>
+<div data-navpanel="" style="display:none;position:absolute;top:100%;left:0;min-width:236px;background:#fff;border:1px solid #E3E8F0;box-shadow:0 18px 44px rgba(11,18,32,0.12);padding:8px 0;z-index:60;">
+<a class="nv2" href="esl.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">01</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">电子价签</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">AiEinkSmart</span></span>
+</a>
+<a class="nv3" href="people-counting.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">02</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">客流统计</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">Pyroglaux</span></span>
+</a>
+<a class="nv4" href="cleaning-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">03</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">清洁机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv5" href="picking-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">04</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">拣货机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv6" href="e-paper-displays.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">05</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">墨水屏显示</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">EinkSmart</span></span>
+</a>
+<a class="nv6" href="facade-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">06</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">幕墙机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+</div>
+</div>
+<a class="nv7" href="products.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">产品总览</a>
+<a class="nv7" href="platform.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">数据中台</a>
+<a class="nv8" href="solutions.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">解决方案</a>
+<a class="nv9" href="manufacturing.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">制造能力</a>
+<a class="nv10" href="news.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">新闻</a>
+<a class="nv11" href="blog.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">博客</a>
+<a class="nv12" href="about.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">关于我们</a>
+</nav>
+<div style="display:flex;align-items:center;gap:12px;">
+<a class="hv10" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#1F5EFF;color:#fff;font-size:14px;font-weight:600;border-radius:4px;white-space:nowrap;text-decoration:none;">预约方案</a>
+<button aria-label="打开导航" data-mobtoggle="" style="display:none;appearance:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:44px;height:44px;border:1px solid #C6D2E6;border-radius:4px;background:#fff;cursor:pointer;" type="button">
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+</button>
+</div>
+</div>
+<div data-mobpanel="" style="display:none;border-top:1px solid #E3E8F0;background:#fff;padding:20px min(36px,5vw) 30px;">
+<div style="display:flex;flex-direction:column;gap:2px;">
+<a href="index.html" style="padding:13px 4px;font-size:15px;font-weight:500;color:#0B1220;border-bottom:1px solid #EEF1F6;text-decoration:none;">首页</a>
+<a href="esl.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">电子价签</a>
+<a href="people-counting.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">客流统计</a>
+<a href="cleaning-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">清洁机器人</a>
+<a href="picking-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">拣货机器人</a>
+<a href="e-paper-displays.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">墨水屏显示</a>
+<a href="facade-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">幕墙机器人</a>
+<a href="products.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">产品总览</a>
+<a href="platform.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">数据中台</a>
+<a href="solutions.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">解决方案</a>
+<a href="manufacturing.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">制造能力</a>
+<a href="news.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">新闻中心</a>
+<a href="blog.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">技术博客</a>
+<a href="about.html" style="padding:13px 4px;font-size:15px;color:#48546B;text-decoration:none;">关于我们</a>
+<a href="https://www.aiesl.cn/contact.html" style="margin-top:18px;display:flex;align-items:center;justify-content:center;padding:15px 20px;background:#1F5EFF;color:#fff;font-size:15px;font-weight:600;border-radius:4px;text-decoration:none;">预约方案</a>
+</div>
+</div>
+</header>
+<div style="background:#fff;">
+<div>
+
+
+</div>
+<section style="background:#F5F7FA;border-bottom:1px solid #E3E8F0;position:relative;overflow:hidden;">
+<div style="position:absolute;inset:0;background-image:linear-gradient(#E3E8F0 1px,transparent 1px),linear-gradient(90deg,#E3E8F0 1px,transparent 1px);background-size:72px 72px;opacity:0.55;pointer-events:none;"></div>
+<div style="position:relative;width:min(100% - 72px,1400px);margin-inline:auto;padding:32px 0 clamp(48px,5vw,72px);">
+<div style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:#7C8AA3;margin-bottom:clamp(32px,3.6vw,48px);">
+<a href="index.html" style="color:#7C8AA3;">首页</a><span>/</span><a href="blog.html" style="color:#7C8AA3;">技术博客</a><span>/</span><span style="color:#0B1220;">低功耗显示的应用边界</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;">
+<span style="padding:5px 12px;background:#EFF4FF;color:#1F5EFF;font-size:12px;font-weight:600;border-radius:3px;">墨水屏显示</span>
+<span style="padding:5px 12px;background:#fff;border:1px solid #E3E8F0;color:#5B6880;font-size:12px;font-weight:600;border-radius:3px;">博客</span>
+</div>
+<h1 style="max-width:24ch;font-size:clamp(30px,3.6vw,50px);line-height:1.12;letter-spacing:-0.03em;font-weight:600;color:#0B1220;text-wrap:balance;">低功耗显示如何服务商业信息与空间内容更新</h1>
+<p style="margin-top:22px;max-width:54ch;font-size:17px;line-height:1.8;color:#5B6880;text-wrap:pretty;">从显示效果、更新频率、内容管理和安装方式理解数字标牌与智能画框——以及什么场景该用电子纸，什么场景该老老实实用液晶屏。</p>
+<div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:28px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.12em;color:#8B96AC;">
+<span>AIESL ENGINEERING</span>
+<span>约 15 分钟阅读</span>
+</div>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding-top:clamp(40px,4vw,56px);">
+<figure style="margin:0;">
+<img alt="墨水屏画框在家居空间中的搭配示意" decoding="async" height="662" src="assets/images/digital-art-frame-living-room.webp" style="width:100%;height:clamp(280px,34vw,480px);object-fit:cover;" width="879"/>
+<figcaption style="margin-top:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.1em;color:#8B96AC;">FIG. 1 — 类纸显示的核心特征是"断电仍保持画面"，这决定了它适合什么、不适合什么</figcaption>
+</figure>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(56px,6vw,84px) 0 clamp(64px,7vw,100px);">
+<div data-body="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,270px);gap:clamp(48px,5vw,72px);align-items:start;">
+<article style="max-width:84ch;">
+<p style="font-size:17.5px;line-height:1.85;color:#3C495F;text-wrap:pretty;">电子纸这两年被用在越来越多的场景里，其中有一部分并不合适。它的物理特性决定了一条清晰的边界：画面静止时不耗电、阳光下可读、无背光不刺眼；但刷新需要时间，无法播放动态内容。理解这条边界，比比较分辨率和色数更重要。</p>
+<p style="margin-top:22px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这篇文章讲四件事：电子纸和液晶屏各自的适用场景、内容更新频率怎么影响方案设计、云端内容管理需要哪些能力、以及安装与供电方式如何决定项目可行性。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">一、刷新速度是硬边界</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">电子纸的成像原理是靠电场驱动微胶囊内的颜色粒子移动，整屏刷新需要时间，彩色屏比黑白屏更慢。这不是产品成熟度问题，是原理决定的。因此判断能不能用电子纸，应先确认的问题是：这块屏上的内容多久变一次？</p>
+<div data-tbl="" style="margin-top:26px;border:1px solid #E3E8F0;">
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;background:#F5F7FA;display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1fr) minmax(0,0.9fr);gap:20px;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#8B96AC;">内容变化频率</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#8B96AC;">典型场景</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#8B96AC;">建议方案</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1fr) minmax(0,0.9fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">每天到每周</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">价格牌、货位标识、会议室状态、楼层导视、菜单</span>
+<span style="font-size:14.5px;line-height:1.75;color:#0E7C86;">可考虑电子纸</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1fr) minmax(0,0.9fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">每小时</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">排班看板、生产进度、班车时刻、展陈说明</span>
+<span style="font-size:14.5px;line-height:1.75;color:#0E7C86;">电子纸可行，需评估供电</span>
+</div>
+<div style="padding:18px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1fr) minmax(0,0.9fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">每分钟</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">叫号、排队人数、实时库存</span>
+<span style="font-size:14.5px;line-height:1.75;color:#8B96AC;">需谨慎评估，多数应选液晶</span>
+</div>
+<div style="padding:18px 24px;display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1fr) minmax(0,0.9fr);gap:20px;align-items:baseline;">
+<strong style="font-size:15px;font-weight:600;color:#0B1220;">连续动态</strong>
+<span style="font-size:14.5px;line-height:1.75;color:#5B6880;">广告视频、动画、直播画面</span>
+<span style="font-size:14.5px;line-height:1.75;color:#C05A5A;">不适用，应选液晶</span>
+</div>
+</div>
+<p style="margin-top:26px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这张表里需要重点现场判断的是"每小时"这一行。是否可行需结合设备规格判断，但更新越频繁越耗电，电池供电的终端续航会明显缩短。如果这块屏在高处或吊顶上、换电池需要搭梯子，那么频繁更新带来的运维成本可能抵消掉它省下的布线成本——这时更合理的选择是接市电，或者把更新频率降到每几小时一次。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">另一个常见误区是想用电子纸做"带一点动效"的展示。即使只是页面之间切换，电子纸的刷新过程也会有明显的闪烁与残影过渡，视觉上不像液晶那样干净。如果内容设计里包含转场效果，那就是在用错的介质做对的设计。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">二、电子纸真正的优势在哪里</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">把刷新速度这个限制放在一边，电子纸有四项液晶屏做不到的特性。这四项决定了它值得用在什么地方。</p>
+<div data-linegrid="" style="margin-top:26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:#fff;">
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">BISTABLE</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">断电保持画面</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">显示层主要在刷新时耗电；整机功耗还受通信、控制器与更新频率影响。这让电池供电与免布线部署成为可能。</p>
+</div>
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">REFLECTIVE</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">反射式、阳光下可读</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">环境光越强越清楚，橱窗、户外走廊与天窗下的位置不会像液晶那样反光泛白。</p>
+</div>
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#8B96AC;">NO GLARE</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">无背光、不干扰空间</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">酒店客房、图书馆、美术馆与住宅里，发光屏会破坏氛围，类纸质感更容易融入。</p>
+</div>
+<div style="padding:24px 22px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:0.14em;color:#0E7C86;">WIDE ANGLE</span>
+<strong style="display:block;margin-top:10px;font-size:15px;font-weight:600;color:#0B1220;">近乎无视角限制</strong>
+<p style="margin-top:8px;font-size:14px;line-height:1.78;color:#5B6880;">侧面看不偏色、不变暗，适合走廊与货架侧挂这类斜视场景。</p>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">第一项衍生出的部署优势往往被低估。在满足安装、环境和通信条件的位置，电池供电可减少供电布线；陈列调整时可按现场方案移动，施工需求以实际条件为准。对于经常调整布局的零售与展陈空间，这比屏幕本身的显示效果更有价值。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">第三项则解释了智能画框这个品类为什么存在。液晶屏在家居与酒店空间里的问题不是画质，而是它"看起来像一块屏"——夜间发光、白天反光、关机后是一块黑板。电子纸画框在断电状态下仍然显示画面，视觉上更接近一幅装帧作品，这是它在艺术与空间装饰场景里的核心卖点。</p>
+<figure style="margin:clamp(36px,3.6vw,48px) 0 0;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;">
+<img alt="木质墨水屏画框实拍，完整展示边框与屏幕" decoding="async" height="1400" loading="lazy" src="assets/images/photo-v2/epaper-wood-frame-20260905.webp" style="width:100%;aspect-ratio:4 / 3;object-fit:contain;object-position:center;border:1px solid #E3E8F0;background:#F4F2EF;padding:12px;height:auto;" width="1050"/>
+<img alt="墨水屏智能画框" decoding="async" height="880" loading="lazy" src="assets/images/frame-01.jpg" style="width:100%;aspect-ratio:4 / 3;object-fit:contain;background:#F1F3F7;padding:16px;border:1px solid #E3E8F0;height:auto;" width="880"/>
+</div>
+<figcaption style="margin-top:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.1em;color:#8B96AC;">FIG. 2 — 商业信息与空间内容是两类不同的需求：前者要求批量与准确，后者要求质感与氛围</figcaption>
+</figure>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">三、内容管理：两类需求要分开设计</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">商业标牌和艺术画框虽然用同一种显示技术，但它们的内容管理需求几乎没有交集。把两者混在一套后台里，通常会得到一个两边都不好用的系统。</p>
+<div style="margin-top:26px;display:flex;flex-direction:column;gap:2px;">
+<div style="border:1px solid #E3E8F0;border-left:2px solid #1F5EFF;padding:22px 24px;">
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">商业信息类：批量、模板、准确</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">需要的是模板化排版、按门店或区域批量下发、与业务系统对接取数、以及执行状态回传。这套逻辑和电子价签的数据中台是同一类问题——本质上是"把正确的数字送到正确的位置"，重点在准确性与可追溯。</p>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:22px 24px;">
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;">空间内容类：画质、编排、氛围</strong>
+<p style="margin-top:10px;font-size:15px;line-height:1.8;color:#5B6880;">需要的是图片质量适配、色彩映射调整、播放列表与定时轮换、以及单台或小批量的个性化设置。它不需要对接 ERP，但对显示效果的要求高得多——同一张画在不同色彩映射下差别很大。</p>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">在商业信息这一侧，还有几项能力是项目落地时必须确认的：设备分组与权限（谁能改哪一批标牌）、更新失败的重试与告警、电量监控与更换提醒、以及内容版本记录。这几项和电子价签系统的要求完全一致，如果项目里两者都有，用同一套平台管理会省很多事。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">在空间内容这一侧，需要关注的是色彩映射。电子纸的可显示色数远少于液晶，一张色彩丰富的照片直接推上去，观感往往和预期差距很大。可行的做法是在后台预置几种映射方案（偏中性、偏暖、增强对比），上传时预览确认再下发。这一步做不做，直接决定客户对"画质"的评价。</p>
+<div style="margin-top:clamp(36px,3.6vw,48px);background:#0B1220;padding:clamp(28px,3vw,40px);">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#5C9BFF;">KEY TAKEAWAY</span>
+<p style="margin-top:14px;max-width:54ch;font-size:17px;line-height:1.8;color:#fff;text-wrap:pretty;">选电子纸还是液晶，取决于内容多久变一次；用哪套内容管理，取决于你要的是准确还是质感。这两个判断做对了，剩下的都是安装问题。</p>
+</div>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">四、安装与供电：决定项目可行性的一环</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">显示效果谈完了，真正让项目卡住的常常是安装。下面五项要在方案阶段就确认，它们决定尺寸选择、供电方式与运维成本。</p>
+<div style="margin-top:26px;border:1px solid #E3E8F0;">
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">POWER</span>
+<div>
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">供电方式</strong>
+<p style="margin-top:8px;font-size:14.5px;line-height:1.8;color:#5B6880;">电池供电免布线但要换电；市电供电可减少电池更换需求，但需布线及日常维护。更新频率高、位置难达的场景优先接市电。</p>
+</div>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">ACCESS</span>
+<div>
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">可达性</strong>
+<p style="margin-top:8px;font-size:14.5px;line-height:1.8;color:#5B6880;">换电池或维护时需不需要搭梯子、关闭区域、申请动火许可。高处安装的运维成本要提前计入。</p>
+</div>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">NETWORK</span>
+<div>
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">网络覆盖</strong>
+<p style="margin-top:8px;font-size:14.5px;line-height:1.8;color:#5B6880;">终端需要接入网关或无线网络才能收到内容。地下层、金属结构密集区与户外位置要单独勘测。</p>
+</div>
+</div>
+<div style="padding:20px 24px;border-bottom:1px solid #E3E8F0;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">ENV</span>
+<div>
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">环境条件</strong>
+<p style="margin-top:8px;font-size:14.5px;line-height:1.8;color:#5B6880;">温度范围、湿度、是否有水汽或油污。冷链、户外与厨房区域需要对应的防护等级与工作温区。</p>
+</div>
+</div>
+<div style="padding:20px 24px;display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#0E7C86;">MOUNT</span>
+<div>
+<strong style="display:block;font-size:15.5px;font-weight:600;color:#0B1220;">安装结构</strong>
+<p style="margin-top:8px;font-size:14.5px;line-height:1.8;color:#5B6880;">壁挂、吊挂、嵌入还是货架卡扣。装修方是否允许打孔、能不能改动墙面，会直接限制方案。</p>
+</div>
+</div>
+</div>
+<p style="margin-top:26px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">这五项里的"可达性"需要纳入运维评估。一块装在六米高吊顶下的标牌，换一次电池可能需要申请高空作业、错开营业时间、安排两个人配合——单次成本远高于电池本身。因此在方案阶段就应该反过来推：如果某个位置维护困难，就把它的更新频率降下来，或者干脆接市电。</p>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">"环境条件"则常在户外与冷链项目上出问题。电子纸有工作温度范围，低温下刷新会变慢甚至失败，高温高湿环境需要额外防护。这两类场景不是不能做，但必须选对应规格的产品，使用常规室内型号可能无法满足相关环境要求。</p>
+<h2 style="margin-top:clamp(44px,4.4vw,60px);font-size:clamp(23px,2.3vw,30px);line-height:1.25;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">五、一份选型自查清单</h2>
+<p style="margin-top:20px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">把前面四节压缩成可执行的顺序，判断一个电子纸项目是否成立，按下面五步走一遍即可。</p>
+<div style="margin-top:26px;display:flex;flex-direction:column;gap:2px;">
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">STEP 1</span>
+<span style="font-size:15px;color:#48546B;">内容多久变一次？如果是分钟级或连续动态，直接选液晶，不用往下走。</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">STEP 2</span>
+<span style="font-size:15px;color:#48546B;">这块屏是要"准确"还是要"好看"？决定走商业信息还是空间内容的内容管理路径。</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">STEP 3</span>
+<span style="font-size:15px;color:#48546B;">安装位置能不能到、能不能走线、环境温湿度是否在范围内。</span>
+</div>
+<div style="border:1px solid #E3E8F0;padding:18px 22px;display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#1F5EFF;">STEP 4</span>
+<span style="font-size:15px;color:#48546B;">按更新频率与可达性反推供电方式，再据此确定尺寸与型号。</span>
+</div>
+<div style="border:1px solid #E3E8F0;border-left:2px solid #0E7C86;padding:18px 22px;display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:baseline;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.12em;color:#0E7C86;">STEP 5</span>
+<span style="font-size:15px;color:#48546B;">先在一个区域装少量试点，确认观感、网络覆盖与运维流程，再批量部署。</span>
+</div>
+</div>
+<p style="margin-top:28px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">STEP 1 的作用是筛掉不该用电子纸的项目。这一步花五分钟，能避免后面几个月的返工——用错介质的项目通常无法靠调参数或换型号救回来，只能重做。</p>
+<p style="margin-top:22px;font-size:16.5px;line-height:1.85;color:#48546B;text-wrap:pretty;">最后回到开头那句话：电子纸不是"更省电的屏"，它是一种具有不同物理特性的显示介质。承认这个差异、按它的特性选场景，可结合产品规格评估其在价格标识、空间导视、状态看板与艺术展示中的应用；把它直接当成液晶的低功耗替代品，可能与动态显示等使用需求不匹配。</p>
+</article>
+<aside data-aside="" style="position:sticky;top:100px;">
+<div style="border:1px solid #E3E8F0;padding:26px 24px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#8B96AC;">IN THIS ARTICLE</span>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:11px;">
+<span style="font-size:14px;color:#5B6880;">一、刷新速度是硬边界</span>
+<span style="font-size:14px;color:#5B6880;">二、电子纸的四项优势</span>
+<span style="font-size:14px;color:#5B6880;">三、两类内容管理需求</span>
+<span style="font-size:14px;color:#5B6880;">四、安装与供电</span>
+<span style="font-size:14px;color:#5B6880;">五、选型自查清单</span>
+</div>
+</div>
+<div style="margin-top:16px;border:1px solid #E3E8F0;padding:26px 24px 28px;">
+<span style="display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;letter-spacing:0.14em;color:#8B96AC;">RELATED</span>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:14px;">
+<a class="hv11" href="e-paper-displays.html" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">墨水屏数字标牌与智能画框 →</a>
+<a class="hv12" href="esl.html" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">电子价签产品与系列 →</a>
+<a class="hv13" href="solutions.html" style="font-size:14.5px;font-weight:600;color:#0B1220;line-height:1.5;">商业空间方案 →</a>
+</div>
+</div>
+</aside>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:0 0 clamp(64px,7vw,100px);">
+<div data-cta="" style="background:#1F5EFF;border-radius:8px;padding:clamp(44px,5vw,68px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:56px;align-items:center;">
+<div>
+<h2 style="max-width:22ch;font-size:clamp(26px,2.8vw,38px);line-height:1.16;letter-spacing:-0.028em;font-weight:600;color:#fff;">需要把技术专题转化为项目方案？</h2>
+<p style="margin-top:16px;max-width:48ch;font-size:15.5px;line-height:1.8;color:#D3E0FF;">提交门店、仓库、场地、接口或任务信息，我们将结合产品、平台和交付能力进一步沟通。</p>
+</div>
+<a class="hv14" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:10px;padding:18px 34px;background:#fff;color:#1F5EFF;font-size:15px;font-weight:600;border-radius:4px;white-space:nowrap;">预约技术沟通<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</section>
+<footer style="background:#0B1220;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;padding:72px 0 40px;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:44px 52px;">
+<div>
+<div style="display:flex;align-items:center;gap:12px;">
+<img alt="" height="32" src="assets/images/logo-mark.svg" style="width:32px;height:32px;object-fit:contain;filter:brightness(0) invert(1);" width="32"/>
+<span>
+<strong style="display:block;font-size:14.5px;font-weight:600;color:#fff;">攀攀科技</strong>
+<span style="display:block;margin-top:3px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#6E7A91;">PANPANTECH · AIESL</span>
+</span>
+</div>
+<p style="margin:20px 0 0;max-width:34ch;font-size:13.5px;line-height:1.8;color:#8B96AC;">连接产品、数据平台、软件研发与硬件智造，为零售、商业空间与工业场景提供可落地的 AIoT 能力。</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">产品</h2>
+<a class="hv15" href="esl.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">电子价签</a>
+<a class="hv16" href="people-counting.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">客流统计</a>
+<a class="hv17" href="cleaning-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">清洁机器人</a>
+<a class="hv18" href="picking-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">拣货机器人</a>
+<a class="hv19" href="e-paper-displays.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">墨水屏显示</a>
+<a class="hv19" href="facade-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">幕墙机器人</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">平台与能力</h2>
+<a class="hv20" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">AiESL 数据中台</a>
+<a class="hv21" href="solutions.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">行业解决方案</a>
+<a class="hv22" href="manufacturing.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">制造与交付</a>
+<a class="hv23" href="products.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">产品总览</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">内容</h2>
+<a class="hv24" href="news.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">新闻中心</a>
+<a class="hv25" href="blog.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">技术博客</a>
+<a class="hv26" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">平台架构</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">公司</h2>
+<a class="hv27" href="about.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">关于我们</a>
+<a class="hv28" href="about.html#brand-architecture" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">品牌架构</a>
+<a class="hv29" href="https://www.aiesl.cn/contact.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">联系我们</a>
+<a class="hv30" href="https://www.panpantechnology.com" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">集团英文站</a>
+</div>
+</div>
+<div style="margin-top:56px;padding-top:24px;border-top:1px solid #1E2739;display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;font-size:12.5px;color:#6E7A91;">
+<span>© 2026 广州攀攀科技有限公司 PanPanTech</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0.08em;">NeuroGrid · AiESL · AiEinkSmart · Pyroglaux · EinkSmart</span>
+<a class="hv31" href="https://beian.miit.gov.cn/" style="color:#6E7A91;text-decoration:none;">粤ICP备2026035004号-1</a>
+</div>
+</div>
+</footer>
+</div>
+<script>
+(function(){
+  var t=document.querySelector('[data-mobtoggle]'),p=document.querySelector('[data-mobpanel]');
+  if(t&&p){t.addEventListener('click',function(){p.style.display=(p.style.display==='block')?'none':'block';});}
+  var track=document.querySelector('[data-hero-track]');
+  if(!track)return;
+  var tabs=[].slice.call(document.querySelectorAll('[data-go]')),
+      ind=document.querySelector('[data-tab-indicator]'),i=0,timer;
+  function go(n){i=n;track.scrollTo({left:track.clientWidth*n,behavior:'smooth'});if(ind)ind.style.transform='translateX('+(n*100)+'%)';}
+  function arm(){clearInterval(timer);timer=setInterval(function(){go((i+1)%5);},7000);}
+  tabs.forEach(function(b){b.addEventListener('click',function(){go(+b.getAttribute('data-go'));arm();});});
+  window.addEventListener('resize',function(){track.scrollTo({left:track.clientWidth*i});});
+  arm();
+})();
+</script>
+</body>
+</html>

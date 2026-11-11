@@ -1,136 +1,409 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>技术博客｜电子价签 · 客流统计 · 商用机器人 · 墨水屏｜攀攀科技</title>
-  <meta name="description" content="攀攀科技技术博客与知识中心，介绍电子价签数据中台、客流统计、清洁机器人、仓储 AMR、墨水屏显示与制造交付方法。">
-  <link rel="canonical" href="https://www.aiesl.cn/blog.html">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="技术博客｜电子价签 · 客流统计 · 商用机器人 · 墨水屏｜攀攀科技">
-  <meta property="og:description" content="攀攀科技技术博客与知识中心，介绍电子价签数据中台、客流统计、清洁机器人、仓储 AMR、墨水屏显示与制造交付方法。">
-  <meta property="og:url" content="https://www.aiesl.cn/blog.html">
-  <meta property="og:image" content="https://www.aiesl.cn/current-site/assets/images/warehouse-amr-scene.jpg">
-  <meta name="theme-color" content="#ffffff">
-  <link rel="icon" href="current-site/assets/images/logo-mark.svg">
-  <link rel="stylesheet" href="current-site/assets/css/brand-v3.css">
-  <script src="current-site/assets/js/brand-v3.js" defer></script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.aiesl.cn/#organization","name":"广州攀攀科技有限公司","alternateName":"PanPanTech","url":"https://www.aiesl.cn/","logo":"https://www.aiesl.cn/current-site/assets/images/logo-mark.png"},{"@type":"WebPage","@id":"https://www.aiesl.cn/blog.html#webpage","url":"https://www.aiesl.cn/blog.html","name":"技术博客｜电子价签 · 客流统计 · 商用机器人 · 墨水屏｜攀攀科技","description":"攀攀科技技术博客与知识中心，介绍电子价签数据中台、客流统计、清洁机器人、仓储 AMR、墨水屏显示与制造交付方法。","isPartOf":{"@id":"https://www.aiesl.cn/#website"},"about":{"@id":"https://www.aiesl.cn/#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://www.aiesl.cn/"},{"@type":"ListItem","position":2,"name":"技术博客","item":"https://www.aiesl.cn/blog.html"}]}]}</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>技术博客｜产品选型、平台架构与交付边界 · 攀攀科技</title>
+<meta content="围绕产品选型、平台架构、现场评估、数据治理和交付边界，整理可直接用于项目讨论的技术专题。" name="description"/>
+<link href="https://www.aiesl.cn/blog.html" rel="canonical"/>
+<meta content="website" property="og:type"/>
+<meta content="技术博客｜产品选型、平台架构与交付边界 · 攀攀科技" property="og:title"/>
+<meta content="围绕产品选型、平台架构、现场评估、数据治理和交付边界，整理可直接用于项目讨论的技术专题。" property="og:description"/>
+<meta content="https://www.aiesl.cn/blog.html" property="og:url"/>
+<meta content="zh_CN" property="og:locale"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="assets/images/logo-mark.svg" rel="icon"/>
+<style>
+@font-face{font-family:"AiSans";src:url("assets/fonts/NotoSansSC-V3-subset.woff2") format("woff2");font-weight:100 900;font-display:swap;}
+*{box-sizing:border-box;}
+body{margin:0;background:#fff;color:#48546B;font-family:"AiSans","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,p{margin:0;}
+img{display:block;max-width:100%;}
+a{color:#0B1220;text-decoration:none;}
+a:hover{color:#1F5EFF;}
+::selection{background:#1F5EFF;color:#fff;}
+@media (max-width:1080px){
+  [data-split]{grid-template-columns:minmax(0,1fr) !important;gap:28px !important;}
+  [data-cta]{grid-template-columns:minmax(0,1fr) !important;gap:28px !important;}
+  [data-cta]>a{justify-self:start;}
+  [data-feature]{grid-template-columns:minmax(0,1fr) !important;}
+  [data-feature] img{height:clamp(220px,44vw,320px) !important;min-height:0 !important;}
+}
+</style>
+<style>
+[data-desknav] a{white-space:nowrap;}
+@media (max-width:1080px){
+  [data-utilbar]{display:none !important;}
+  [data-desknav]{display:none !important;}
+  [data-mobtoggle]{display:flex !important;}
+}
+@media (min-width:1081px){
+  [data-mobpanel]{display:none !important;}
+}
+</style>
+<style>
+.hv1:hover{color:#fff !important}
+.hv2:hover{color:#fff !important}
+.hv3:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv4:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv5:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv6:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.hv10:hover{background:#1544C4 !important}
+.hv11:hover{color:#1F5EFF !important;border-color:#1F5EFF !important}
+.hv12:hover{border-color:#B9CBEE !important;box-shadow:0 18px 44px rgba(11,18,32,0.09) !important}
+.hv13:hover{color:#1F5EFF !important;border-color:#1F5EFF !important}
+.hv14:hover{border-color:#B9CBEE !important;box-shadow:0 18px 44px rgba(11,18,32,0.09) !important}
+.hv15:hover{color:#1F5EFF !important;border-color:#1F5EFF !important}
+.hv16:hover{border-color:#B9CBEE !important;box-shadow:0 18px 44px rgba(11,18,32,0.09) !important}
+.hv17:hover{color:#1F5EFF !important;border-color:#1F5EFF !important}
+.hv18:hover{border-color:#B9CBEE !important;box-shadow:0 18px 44px rgba(11,18,32,0.09) !important}
+.hv19:hover{color:#1F5EFF !important;border-color:#1F5EFF !important}
+.hv20:hover{border-color:#B9CBEE !important;box-shadow:0 18px 44px rgba(11,18,32,0.09) !important}
+.hv21:hover{color:#1F5EFF !important;border-color:#1F5EFF !important}
+.hv22:hover{border-color:#B9CBEE !important;box-shadow:0 18px 44px rgba(11,18,32,0.09) !important}
+.hv23:hover{color:#1F5EFF !important;border-color:#1F5EFF !important}
+.hv24:hover{background:#0B1220 !important;color:#fff !important}
+.hv25:hover{color:#fff !important}
+.hv26:hover{color:#fff !important}
+.hv27:hover{color:#fff !important}
+.hv28:hover{color:#fff !important}
+.hv29:hover{color:#fff !important}
+.hv30:hover{color:#fff !important}
+.hv31:hover{color:#fff !important}
+.hv32:hover{color:#fff !important}
+.hv33:hover{color:#fff !important}
+.hv34:hover{color:#fff !important}
+.hv35:hover{color:#fff !important}
+.hv36:hover{color:#fff !important}
+.hv37:hover{color:#fff !important}
+.hv38:hover{color:#fff !important}
+.hv39:hover{color:#fff !important}
+.hv40:hover{color:#fff !important}
+.hv41:hover{color:#B6BDC9 !important}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"广州攀攀科技有限公司","alternateName":"PanPanTech","url":"https://www.aiesl.cn/","description":"围绕产品选型、平台架构、现场评估、数据治理和交付边界，整理可直接用于项目讨论的技术专题。","brand":["NeuroGrid","AiESL","AiEinkSmart","Pyroglaux","EinkSmart"]}</script>
+<style>
+.nv1:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv2:hover{background:#F5F7FA !important}
+.nv3:hover{background:#F5F7FA !important}
+.nv4:hover{background:#F5F7FA !important}
+.nv5:hover{background:#F5F7FA !important}
+.nv6:hover{background:#F5F7FA !important}
+.nv7:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv8:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv9:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv10:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv11:hover{background:#F5F7FA !important;color:#0B1220 !important}
+.nv12:hover{background:#F5F7FA !important;color:#0B1220 !important}
+[data-navdrop]:hover [data-navpanel]{display:block !important;}
+</style>
+<link href="assets/photo-layout-v4-20260905.css" rel="stylesheet"/>
 </head>
-<body data-page="blog">
-  <a class="skip-link" href="#main-content">跳到主要内容</a>
-  <header class="site-header" data-site-header>
-    <div class="container nav-shell">
-      <a class="brand-lockup" href="index.html">
-        <img src="current-site/assets/images/logo-mark.svg" alt="" width="38" height="38">
-        <span><strong>攀攀科技</strong><small>PANPANTECH · AIESL</small></span>
-      </a>
-      <nav class="desktop-nav" aria-label="主导航">
-        <a class="nav-link" href="index.html" >首页</a>
-        <div class="product-menu-wrap">
-          <button class="product-menu-button" type="button" aria-expanded="false" data-product-menu-button>产品</button>
-          <div class="mega-menu" data-mega-menu><div class="mega-grid">
-    <a class="mega-card" href="esl.html">
-      <span class="num">01</span>
-      <strong>电子价签</strong>
-      <span>AiEinkSmart</span>
-    </a>
-    <a class="mega-card" href="people-counting.html">
-      <span class="num">02</span>
-      <strong>客流统计</strong>
-      <span>Pyroglaux</span>
-    </a>
-    <a class="mega-card" href="cleaning-robots.html">
-      <span class="num">03</span>
-      <strong>清洁机器人</strong>
-      <span>iKitbot</span>
-    </a>
-    <a class="mega-card" href="picking-robots.html">
-      <span class="num">04</span>
-      <strong>拣货机器人</strong>
-      <span>Jacobi.ai</span>
-    </a>
-    <a class="mega-card" href="e-paper-displays.html">
-      <span class="num">05</span>
-      <strong>墨水屏显示</strong>
-      <span>EinkSmart</span>
-    </a></div></div>
-        </div>
-        <a class="nav-link" href="products.html" >产品总览</a>
-        <a class="nav-link" href="solutions.html" >解决方案</a>
-        <a class="nav-link" href="manufacturing.html" >制造能力</a>
-        <a class="nav-link" href="news.html" >新闻</a>
-        <a class="nav-link" href="blog.html" aria-current="page">博客</a>
-        <a class="nav-link" href="about.html" >关于我们</a>
-      </nav>
-      <div class="nav-actions">
-        <a class="button button--primary" href="https://www.aiesl.cn/contact.html">预约方案</a>
-        <button class="mobile-toggle" type="button" aria-label="打开导航" aria-expanded="false" data-mobile-toggle><span></span><span></span><span></span></button>
-      </div>
-    </div>
-    <div class="mobile-panel" data-mobile-panel>
-      <a href="index.html">首页</a>
-      <strong class="eyebrow" style="margin:18px 0 8px">五个主营产品</strong>
-      <div class="mobile-products">
-    <a class="mobile-product-link" href="esl.html">
-      <span class="num">01</span>
-      <strong>电子价签</strong>
-      <span>AiEinkSmart</span>
-    </a>
-    <a class="mobile-product-link" href="people-counting.html">
-      <span class="num">02</span>
-      <strong>客流统计</strong>
-      <span>Pyroglaux</span>
-    </a>
-    <a class="mobile-product-link" href="cleaning-robots.html">
-      <span class="num">03</span>
-      <strong>清洁机器人</strong>
-      <span>iKitbot</span>
-    </a>
-    <a class="mobile-product-link" href="picking-robots.html">
-      <span class="num">04</span>
-      <strong>拣货机器人</strong>
-      <span>Jacobi.ai</span>
-    </a>
-    <a class="mobile-product-link" href="e-paper-displays.html">
-      <span class="num">05</span>
-      <strong>墨水屏显示</strong>
-      <span>EinkSmart</span>
-    </a></div>
-      <a href="products.html">产品总览</a>
-      <a href="solutions.html">解决方案</a>
-      <a href="manufacturing.html">制造能力</a>
-      <a href="news.html">新闻中心</a>
-      <a href="blog.html">技术博客</a>
-      <a href="about.html">关于我们</a>
-      <a href="https://www.aiesl.cn/contact.html">预约方案</a>
-    </div>
-  </header>
-  <main id="main-content">
-    <section class="page-hero"><div class="container page-hero-grid">
-    <div><nav class="breadcrumbs" aria-label="面包屑"><a href="index.html">首页</a><span>/</span><span aria-current="page">技术博客</span></nav><span class="eyebrow">技术博客</span><h1>把复杂系统讲清楚，帮助项目做出更稳的判断</h1><p class="lead">围绕产品选型、平台架构、现场评估、数据治理和交付边界，整理可直接用于项目讨论的技术专题。</p></div>
-    <figure class="page-hero-media"><img src="current-site/assets/images/warehouse-amr-scene.jpg" alt="仓储机器人与现场任务协同示意" width="1200" height="750"></figure>
-  </div></section>
-    <section class="section"><div class="container"><div class="section-head section-head--split"><div><span class="eyebrow">推荐专题</span><h2>电子价签项目必须把终端、网络与平台放在一起评估</h2></div><p class="lead">单看标签尺寸或通信距离，无法判断一套系统是否真正可运营。</p></div><article class="editorial-feature reveal"><a class="editorial-feature-media" href="esl.html#platform"><img src="current-site/assets/images/factory-qc.jpg" alt="电子价签项目为什么必须同时看终端、基站与数据中台" width="1200" height="750"></a><div class="editorial-feature-body"><div class="editorial-meta"><span>电子价签</span><span>技术专题</span></div><h2>电子价签项目为什么必须同时看终端、基站与数据中台</h2><p class="lead">从系统边界、任务链路和异常回传三个角度理解一套可运营的 ESL 网络。</p><a class="text-link" href="esl.html#platform">查看相关内容</a></div></article></div></section>
-    <section class="section section--soft"><div class="container"><div class="section-head section-head--split"><div><span class="eyebrow">知识与方法</span><h2>从系统边界到现场验收</h2></div><p class="lead">内容不使用未经验证的 ROI、产能和准确率数字，重点解释判断框架与实施边界。</p></div><div class="editorial-grid"><article class="editorial-card reveal"><a class="editorial-card-media" href="solutions.html#data-loop"><img src="current-site/assets/images/factory-hall.jpg" alt="如何把门店价格任务设计成可追踪的数据闭环" loading="lazy" width="720" height="450"></a><div class="editorial-card-body"><div class="editorial-meta"><span>数据治理</span><span>博客</span></div><h3>如何把门店价格任务设计成可追踪的数据闭环</h3><p>模板、商品、价格、权限、执行状态和审计记录分别解决哪些问题。</p><a class="text-link" href="solutions.html#data-loop">查看相关内容</a></div></article><article class="editorial-card reveal"><a class="editorial-card-media" href="people-counting.html"><img src="current-site/assets/images/people-01.jpg" alt="3D 双目客流统计如何兼顾匿名化与运营分析" loading="lazy" width="720" height="450"></a><div class="editorial-card-body"><div class="editorial-meta"><span>空间分析</span><span>博客</span></div><h3>3D 双目客流统计如何兼顾匿名化与运营分析</h3><p>区分感知、计数、空间指标与个人身份识别，明确数据使用边界。</p><a class="text-link" href="people-counting.html">查看相关内容</a></div></article><article class="editorial-card reveal"><a class="editorial-card-media" href="cleaning-robots.html"><img src="current-site/assets/images/robot-dark-hero.jpg" alt="清洁机器人 ROI 评估应先建立哪些现场基线" loading="lazy" width="720" height="450"></a><div class="editorial-card-body"><div class="editorial-meta"><span>清洁自动化</span><span>博客</span></div><h3>清洁机器人 ROI 评估应先建立哪些现场基线</h3><p>面积、地面、班次、人流、补给与人工协同，比单一回本数字更值得先确认。</p><a class="text-link" href="cleaning-robots.html">查看相关内容</a></div></article><article class="editorial-card reveal"><a class="editorial-card-media" href="picking-robots.html"><img src="current-site/assets/images/warehouse-amr-scene.jpg" alt="AMR 选型：载荷、接口、路线与异常处理如何一起评估" loading="lazy" width="720" height="450"></a><div class="editorial-card-body"><div class="editorial-meta"><span>仓储机器人</span><span>博客</span></div><h3>AMR 选型：载荷、接口、路线与异常处理如何一起评估</h3><p>把机器人放回 WMS、MES 与现场规则中，避免只按单机参数做判断。</p><a class="text-link" href="picking-robots.html">查看相关内容</a></div></article><article class="editorial-card reveal"><a class="editorial-card-media" href="e-paper-displays.html"><img src="current-site/assets/images/digital-art-frame-living-room.webp" alt="低功耗显示如何服务商业信息与空间内容更新" loading="lazy" width="720" height="450"></a><div class="editorial-card-body"><div class="editorial-meta"><span>墨水屏显示</span><span>博客</span></div><h3>低功耗显示如何服务商业信息与空间内容更新</h3><p>从显示效果、更新频率、内容管理和安装方式理解数字标牌与智能画框。</p><a class="text-link" href="e-paper-displays.html">查看相关内容</a></div></article><article class="editorial-card reveal"><a class="editorial-card-media" href="manufacturing.html"><img src="current-site/assets/images/factory-assembly.jpg" alt="从样品到批量：智能硬件项目需要确认哪些制造节点" loading="lazy" width="720" height="450"></a><div class="editorial-card-body"><div class="editorial-meta"><span>研发与制造</span><span>博客</span></div><h3>从样品到批量：智能硬件项目需要确认哪些制造节点</h3><p>需求评审、工程准备、试产、质量检查和交付资料如何减少后期变更风险。</p><a class="text-link" href="manufacturing.html">查看相关内容</a></div></article></div></div></section>
-    <section class="cta"><div class="container"><div class="cta-panel reveal"><div><h2>需要把技术专题转化为项目方案？</h2><p>提交门店、仓库、场地、接口或任务信息，我们将结合产品、平台和交付能力进一步沟通。</p></div><a class="button button--primary" href="https://www.aiesl.cn/contact.html">预约技术沟通</a></div></div></section></main>
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a class="brand-lockup" href="index.html">
-            <img src="current-site/assets/images/logo-mark.svg" alt="" width="38" height="38">
-            <span><strong>攀攀科技</strong><small>PANPANTECH · AIESL</small></span>
-          </a>
-          <p>连接产品、数据平台、软件研发与硬件智造，为零售、商业空间和工业场景提供可落地的 AIoT 能力。</p>
-        </div>
-        <div class="footer-col"><h2>产品</h2><a href="esl.html">电子价签</a><a href="people-counting.html">客流统计</a><a href="cleaning-robots.html">清洁机器人</a><a href="picking-robots.html">拣货机器人</a><a href="e-paper-displays.html">墨水屏显示</a></div>
-        <div class="footer-col"><h2>平台与能力</h2><a href="esl.html#platform">AiESL 数据中台</a><a href="solutions.html">行业解决方案</a><a href="manufacturing.html">制造与交付</a><a href="products.html">产品总览</a></div>
-        <div class="footer-col"><h2>内容</h2><a href="news.html">新闻中心</a><a href="blog.html">技术博客</a><a href="solutions.html">行业方案</a><a href="esl.html#platform">平台架构</a></div>
-        <div class="footer-col"><h2>公司</h2><a href="about.html">关于我们</a><a href="about.html#brand-architecture">品牌架构</a><a href="https://www.aiesl.cn/contact.html">联系我们</a><a href="https://www.panpantechnology.com">集团英文站</a></div>
-      </div>
-      <div class="footer-bottom"><span>© <span data-year></span> 广州攀攀科技有限公司 PanPanTech</span><span>NeuroGrid · AiESL · AiEinkSmart · Pyroglaux · EinkSmart</span><a href="https://beian.miit.gov.cn/" rel="noopener">粤ICP备2026035004号-1</a></div>
-    </div>
-  </footer>
+<body><header data-site-header="" style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);backdrop-filter:blur(12px);border-bottom:1px solid #E3E8F0;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;height:76px;display:flex;align-items:center;justify-content:space-between;gap:36px;">
+<a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+<img alt="" height="36" src="assets/images/logo-mark.svg" style="width:36px;height:36px;object-fit:contain;" width="36"/>
+<span>
+<strong style="display:block;font-size:16px;font-weight:600;color:#0B1220;line-height:1.2;white-space:nowrap;">攀攀科技</strong>
+<span style="display:block;margin-top:2px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#8B96AC;white-space:nowrap;">PANPANTECH · AIESL</span>
+</span>
+</a>
+<nav data-desknav="" style="display:flex;align-items:center;gap:4px;font-size:14px;">
+<a class="nv1" href="index.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">首页</a>
+<div data-navdrop="" style="position:relative;">
+<span style="display:inline-flex;align-items:center;gap:6px;padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;cursor:default;">产品<span style="font-size:9px;color:#8B96AC;">▼</span></span>
+<div data-navpanel="" style="display:none;position:absolute;top:100%;left:0;min-width:236px;background:#fff;border:1px solid #E3E8F0;box-shadow:0 18px 44px rgba(11,18,32,0.12);padding:8px 0;z-index:60;">
+<a class="nv2" href="esl.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">01</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">电子价签</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">AiEinkSmart</span></span>
+</a>
+<a class="nv3" href="people-counting.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">02</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">客流统计</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">Pyroglaux</span></span>
+</a>
+<a class="nv4" href="cleaning-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">03</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">清洁机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv5" href="picking-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">04</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">拣货机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+<a class="nv6" href="e-paper-displays.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">05</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">墨水屏显示</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">EinkSmart</span></span>
+</a>
+<a class="nv6" href="facade-robots.html" style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 18px;text-decoration:none;">
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:#1F5EFF;">06</span>
+<span><strong style="display:block;font-size:14.5px;font-weight:600;color:#0B1220;white-space:nowrap;">幕墙机器人</strong><span style="display:block;margin-top:2px;font-size:12px;color:#8B96AC;">PanPanTech</span></span>
+</a>
+</div>
+</div>
+<a class="nv7" href="products.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">产品总览</a>
+<a class="nv7" href="platform.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">数据中台</a>
+<a class="nv8" href="solutions.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">解决方案</a>
+<a class="nv9" href="manufacturing.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">制造能力</a>
+<a class="nv10" href="news.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">新闻</a>
+<a class="nv11" href="blog.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">博客</a>
+<a class="nv12" href="about.html" style="padding:9px 14px;color:#48546B;border-radius:4px;text-decoration:none;">关于我们</a>
+</nav>
+<div style="display:flex;align-items:center;gap:12px;">
+<a class="hv10" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#1F5EFF;color:#fff;font-size:14px;font-weight:600;border-radius:4px;white-space:nowrap;text-decoration:none;">预约方案</a>
+<button aria-label="打开导航" data-mobtoggle="" style="display:none;appearance:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:44px;height:44px;border:1px solid #C6D2E6;border-radius:4px;background:#fff;cursor:pointer;" type="button">
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+<span style="display:block;width:18px;height:1.5px;background:#0B1220;"></span>
+</button>
+</div>
+</div>
+<div data-mobpanel="" style="display:none;border-top:1px solid #E3E8F0;background:#fff;padding:20px min(36px,5vw) 30px;">
+<div style="display:flex;flex-direction:column;gap:2px;">
+<a href="index.html" style="padding:13px 4px;font-size:15px;font-weight:500;color:#0B1220;border-bottom:1px solid #EEF1F6;text-decoration:none;">首页</a>
+<a href="esl.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">电子价签</a>
+<a href="people-counting.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">客流统计</a>
+<a href="cleaning-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">清洁机器人</a>
+<a href="picking-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">拣货机器人</a>
+<a href="e-paper-displays.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">墨水屏显示</a>
+<a href="facade-robots.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">幕墙机器人</a>
+<a href="products.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">产品总览</a>
+<a href="platform.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">数据中台</a>
+<a href="solutions.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">解决方案</a>
+<a href="manufacturing.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">制造能力</a>
+<a href="news.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">新闻中心</a>
+<a href="blog.html" style="padding:13px 4px;font-size:15px;color:#48546B;border-bottom:1px solid #EEF1F6;text-decoration:none;">技术博客</a>
+<a href="about.html" style="padding:13px 4px;font-size:15px;color:#48546B;text-decoration:none;">关于我们</a>
+<a href="https://www.aiesl.cn/contact.html" style="margin-top:18px;display:flex;align-items:center;justify-content:center;padding:15px 20px;background:#1F5EFF;color:#fff;font-size:15px;font-weight:600;border-radius:4px;text-decoration:none;">预约方案</a>
+</div>
+</div>
+</header>
+<div style="background:#fff;">
+<div>
+
+
+</div>
+<section style="background:#F5F7FA;border-bottom:1px solid #E3E8F0;position:relative;overflow:hidden;">
+<div style="position:absolute;inset:0;background-image:linear-gradient(#E3E8F0 1px,transparent 1px),linear-gradient(90deg,#E3E8F0 1px,transparent 1px);background-size:72px 72px;opacity:0.55;pointer-events:none;"></div>
+<div style="position:relative;width:min(100% - 72px,1400px);margin-inline:auto;padding:32px 0 clamp(56px,6vw,88px);">
+<div style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:#7C8AA3;margin-bottom:clamp(36px,4vw,56px);">
+<a href="index.html" style="color:#7C8AA3;">首页</a><span>/</span><span style="color:#0B1220;">技术博客</span>
+</div>
+<div data-split="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.95fr);gap:64px;align-items:center;">
+<div>
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+<span style="width:40px;height:1px;background:#1F5EFF;"></span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.2em;color:#1F5EFF;">ENGINEERING BLOG</span>
+</div>
+<h1 style="max-width:17ch;font-size:clamp(34px,4vw,56px);line-height:1.1;letter-spacing:-0.032em;font-weight:600;color:#0B1220;text-wrap:balance;">把复杂系统讲清楚，帮助项目做出更稳的判断</h1>
+<p style="margin-top:22px;max-width:44ch;font-size:16.5px;line-height:1.8;color:#5B6880;text-wrap:pretty;">围绕产品选型、平台架构、现场评估、数据治理和交付边界，整理可直接用于项目讨论的技术专题。</p>
+</div>
+<img alt="仓储机器人与现场任务协同" decoding="async" height="700" src="assets/images/warehouse-amr-scene.jpg" style="width:100%;height:clamp(240px,28vw,380px);object-fit:cover;" width="1400"/>
+</div>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(64px,7vw,100px) 0 clamp(48px,5vw,72px);">
+<div data-split="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,420px);gap:72px;align-items:end;padding-bottom:44px;">
+<div>
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+<span style="width:40px;height:1px;background:#1F5EFF;"></span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.2em;color:#1F5EFF;">FEATURED TOPIC</span>
+</div>
+<h2 style="max-width:22ch;font-size:clamp(28px,3vw,42px);line-height:1.14;letter-spacing:-0.03em;font-weight:600;color:#0B1220;">电子价签项目必须把终端、网络与平台放在一起评估</h2>
+</div>
+<p style="font-size:15.5px;line-height:1.85;color:#5B6880;">单看标签尺寸或通信距离，无法判断一套系统是否真正可运营。</p>
+</div>
+<article data-feature="" style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);border:1px solid #E3E8F0;border-radius:6px;overflow:hidden;background:#fff;">
+<a href="blog-esl-system.html" style="display:block;">
+<img alt="电子价签项目为什么必须同时看终端、基站与数据中台" decoding="async" height="1200" src="assets/images/photo-v2/factory-qc-20260905.webp" style="width:100%;height:100%;min-height:340px;object-fit:cover;" width="1800"/>
+</a>
+<div style="padding:clamp(32px,3.4vw,52px);display:flex;flex-direction:column;justify-content:center;">
+<div style="display:flex;flex-wrap:wrap;gap:10px;">
+<span style="padding:5px 12px;background:#EFF4FF;color:#1F5EFF;font-size:12px;font-weight:600;border-radius:3px;">电子价签</span>
+<span style="padding:5px 12px;background:#F1F3F7;color:#5B6880;font-size:12px;font-weight:600;border-radius:3px;">技术专题</span>
+</div>
+<h3 style="margin-top:20px;max-width:24ch;font-size:clamp(22px,2.3vw,30px);line-height:1.22;letter-spacing:-0.025em;font-weight:600;color:#0B1220;">电子价签项目为什么必须同时看终端、基站与数据中台</h3>
+<p style="margin-top:16px;max-width:46ch;font-size:15.5px;line-height:1.8;color:#5B6880;text-wrap:pretty;">从系统边界、任务链路和异常回传三个角度理解一套可运营的 ESL 网络。</p>
+<a class="hv11" href="blog-esl-system.html" style="display:inline-flex;align-items:center;gap:9px;margin-top:26px;font-size:14.5px;font-weight:600;color:#0B1220;border-bottom:1px solid #C6D2E6;padding-bottom:4px;width:fit-content;">查看相关内容<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</article>
+</section>
+<section style="background:#F5F7FA;border-block:1px solid #E3E8F0;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(64px,7vw,100px) 0;">
+<div data-split="" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,420px);gap:72px;align-items:end;padding-bottom:44px;">
+<div>
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+<span style="width:40px;height:1px;background:#1F5EFF;"></span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:0.2em;color:#1F5EFF;">KNOWLEDGE &amp; METHOD</span>
+</div>
+<h2 style="max-width:20ch;font-size:clamp(28px,3vw,42px);line-height:1.14;letter-spacing:-0.03em;font-weight:600;color:#0B1220;">从系统边界到现场验收</h2>
+</div>
+<p style="font-size:15.5px;line-height:1.85;color:#5B6880;">内容不使用未经验证的 ROI、产能和准确率数字，重点解释判断框架与实施边界。</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;">
+<article class="hv12" style="border:1px solid #E3E8F0;border-radius:6px;overflow:hidden;background:#fff;transition:box-shadow 0.25s ease,border-color 0.25s ease;">
+<a href="blog-price-data-loop.html" style="display:block;">
+<img alt="如何把门店价格任务设计成可追踪的数据闭环" decoding="async" height="1200" loading="lazy" src="assets/images/photo-v2/factory-hall-20260905.webp" style="width:100%;aspect-ratio:16 / 10;object-fit:cover;height:auto;" width="1800"/>
+</a>
+<div style="padding:26px 26px 30px;">
+<div style="display:flex;flex-wrap:wrap;gap:10px;">
+<span style="padding:4px 11px;background:#EFF4FF;color:#1F5EFF;font-size:11.5px;font-weight:600;border-radius:3px;">数据治理</span>
+<span style="padding:4px 11px;background:#F1F3F7;color:#5B6880;font-size:11.5px;font-weight:600;border-radius:3px;">博客</span>
+</div>
+<h3 style="margin-top:16px;font-size:18.5px;line-height:1.35;font-weight:600;letter-spacing:-0.02em;color:#0B1220;">如何把门店价格任务设计成可追踪的数据闭环</h3>
+<p style="margin-top:12px;font-size:14.5px;line-height:1.8;color:#5B6880;">模板、商品、价格、权限、执行状态和审计记录分别解决哪些问题。</p>
+<a class="hv13" href="blog-price-data-loop.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:14px;font-weight:600;color:#0B1220;border-bottom:1px solid #C6D2E6;padding-bottom:3px;width:fit-content;">查看相关内容<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</article>
+<article class="hv14" style="border:1px solid #E3E8F0;border-radius:6px;overflow:hidden;background:#fff;transition:box-shadow 0.25s ease,border-color 0.25s ease;">
+<a href="blog-people-counting.html" style="display:block;">
+<img alt="R40 门店双目客流统计设备" decoding="async" height="800" loading="lazy" src="assets/images/photo-v2/people-r40-front-20260905.webp" style="width:100%;aspect-ratio:16 / 10;object-fit:contain;background:#FFFFFF;padding:16px;height:auto;" width="800"/>
+</a>
+<div style="padding:26px 26px 30px;">
+<div style="display:flex;flex-wrap:wrap;gap:10px;">
+<span style="padding:4px 11px;background:#EFF4FF;color:#1F5EFF;font-size:11.5px;font-weight:600;border-radius:3px;">空间分析</span>
+<span style="padding:4px 11px;background:#F1F3F7;color:#5B6880;font-size:11.5px;font-weight:600;border-radius:3px;">博客</span>
+</div>
+<h3 style="margin-top:16px;font-size:18.5px;line-height:1.35;font-weight:600;letter-spacing:-0.02em;color:#0B1220;">3D 双目客流统计如何兼顾匿名化与运营分析</h3>
+<p style="margin-top:12px;font-size:14.5px;line-height:1.8;color:#5B6880;">区分感知、计数、空间指标与个人身份识别，明确数据使用边界。</p>
+<a class="hv15" href="blog-people-counting.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:14px;font-weight:600;color:#0B1220;border-bottom:1px solid #C6D2E6;padding-bottom:3px;width:fit-content;">查看相关内容<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</article>
+<article class="hv16" style="border:1px solid #E3E8F0;border-radius:6px;overflow:hidden;background:#fff;transition:box-shadow 0.25s ease,border-color 0.25s ease;">
+<a href="blog-cleaning-roi.html" style="display:block;">
+<img alt="商用洗地机器人浅底整机产品图" decoding="async" height="960" loading="lazy" src="assets/images/photo-v2/cleaning-studio-20260905.webp" style="width:100%;aspect-ratio:16 / 10;object-fit:contain;background:#FFFFFF;padding:16px;height:auto;" width="1600"/>
+</a>
+<div style="padding:26px 26px 30px;">
+<div style="display:flex;flex-wrap:wrap;gap:10px;">
+<span style="padding:4px 11px;background:#EFF4FF;color:#1F5EFF;font-size:11.5px;font-weight:600;border-radius:3px;">清洁自动化</span>
+<span style="padding:4px 11px;background:#F1F3F7;color:#5B6880;font-size:11.5px;font-weight:600;border-radius:3px;">博客</span>
+</div>
+<h3 style="margin-top:16px;font-size:18.5px;line-height:1.35;font-weight:600;letter-spacing:-0.02em;color:#0B1220;">清洁机器人 ROI 评估应先建立哪些现场基线</h3>
+<p style="margin-top:12px;font-size:14.5px;line-height:1.8;color:#5B6880;">面积、地面、班次、人流、补给与人工协同，比单一回本数字更值得先确认。</p>
+<a class="hv17" href="blog-cleaning-roi.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:14px;font-weight:600;color:#0B1220;border-bottom:1px solid #C6D2E6;padding-bottom:3px;width:fit-content;">查看相关内容<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</article>
+<article class="hv18" style="border:1px solid #E3E8F0;border-radius:6px;overflow:hidden;background:#fff;transition:box-shadow 0.25s ease,border-color 0.25s ease;">
+<a href="blog-amr-selection.html" style="display:block;">
+<img alt="AMR 选型：载荷、接口、路线与异常处理如何一起评估" decoding="async" height="700" loading="lazy" src="assets/images/warehouse-amr-scene.jpg" style="width:100%;aspect-ratio:16 / 10;object-fit:cover;height:auto;" width="1400"/>
+</a>
+<div style="padding:26px 26px 30px;">
+<div style="display:flex;flex-wrap:wrap;gap:10px;">
+<span style="padding:4px 11px;background:#EFF4FF;color:#1F5EFF;font-size:11.5px;font-weight:600;border-radius:3px;">仓储机器人</span>
+<span style="padding:4px 11px;background:#F1F3F7;color:#5B6880;font-size:11.5px;font-weight:600;border-radius:3px;">博客</span>
+</div>
+<h3 style="margin-top:16px;font-size:18.5px;line-height:1.35;font-weight:600;letter-spacing:-0.02em;color:#0B1220;">AMR 选型：载荷、接口、路线与异常处理如何一起评估</h3>
+<p style="margin-top:12px;font-size:14.5px;line-height:1.8;color:#5B6880;">把机器人放回 WMS、MES 与现场规则中，避免只按单机参数做判断。</p>
+<a class="hv19" href="blog-amr-selection.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:14px;font-weight:600;color:#0B1220;border-bottom:1px solid #C6D2E6;padding-bottom:3px;width:fit-content;">查看相关内容<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</article>
+<article class="hv20" style="border:1px solid #E3E8F0;border-radius:6px;overflow:hidden;background:#fff;transition:box-shadow 0.25s ease,border-color 0.25s ease;">
+<a href="blog-epaper-display.html" style="display:block;">
+<img alt="墨水屏画框在家居空间中的搭配示意" decoding="async" height="662" loading="lazy" src="assets/images/digital-art-frame-living-room.webp" style="width:100%;aspect-ratio:16 / 10;object-fit:cover;height:auto;" width="879"/>
+</a>
+<div style="padding:26px 26px 30px;">
+<div style="display:flex;flex-wrap:wrap;gap:10px;">
+<span style="padding:4px 11px;background:#EFF4FF;color:#1F5EFF;font-size:11.5px;font-weight:600;border-radius:3px;">墨水屏显示</span>
+<span style="padding:4px 11px;background:#F1F3F7;color:#5B6880;font-size:11.5px;font-weight:600;border-radius:3px;">博客</span>
+</div>
+<h3 style="margin-top:16px;font-size:18.5px;line-height:1.35;font-weight:600;letter-spacing:-0.02em;color:#0B1220;">低功耗显示如何服务商业信息与空间内容更新</h3>
+<p style="margin-top:12px;font-size:14.5px;line-height:1.8;color:#5B6880;">从显示效果、更新频率、内容管理和安装方式理解数字标牌与智能画框。</p>
+<a class="hv21" href="blog-epaper-display.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:14px;font-weight:600;color:#0B1220;border-bottom:1px solid #C6D2E6;padding-bottom:3px;width:fit-content;">查看相关内容<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</article>
+<article class="hv22" style="border:1px solid #E3E8F0;border-radius:6px;overflow:hidden;background:#fff;transition:box-shadow 0.25s ease,border-color 0.25s ease;">
+<a href="blog-manufacturing-nodes.html" style="display:block;">
+<img alt="从样品到批量：智能硬件项目需要确认哪些制造节点" decoding="async" height="1200" loading="lazy" src="assets/images/photo-v2/factory-assembly-20260905.webp" style="width:100%;aspect-ratio:16 / 10;object-fit:cover;height:auto;" width="1800"/>
+</a>
+<div style="padding:26px 26px 30px;">
+<div style="display:flex;flex-wrap:wrap;gap:10px;">
+<span style="padding:4px 11px;background:#EFF4FF;color:#1F5EFF;font-size:11.5px;font-weight:600;border-radius:3px;">研发与制造</span>
+<span style="padding:4px 11px;background:#F1F3F7;color:#5B6880;font-size:11.5px;font-weight:600;border-radius:3px;">博客</span>
+</div>
+<h3 style="margin-top:16px;font-size:18.5px;line-height:1.35;font-weight:600;letter-spacing:-0.02em;color:#0B1220;">从样品到批量：智能硬件项目需要确认哪些制造节点</h3>
+<p style="margin-top:12px;font-size:14.5px;line-height:1.8;color:#5B6880;">需求评审、工程准备、试产、质量检查和交付资料如何减少后期变更风险。</p>
+<a class="hv23" href="blog-manufacturing-nodes.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:14px;font-weight:600;color:#0B1220;border-bottom:1px solid #C6D2E6;padding-bottom:3px;width:fit-content;">查看相关内容<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</article>
+</div>
+</div>
+</section>
+<section style="width:min(100% - 72px,1400px);margin-inline:auto;padding:clamp(64px,7vw,100px) 0;">
+<div data-cta="" style="background:#1F5EFF;border-radius:8px;padding:clamp(44px,5vw,68px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:56px;align-items:center;">
+<div>
+<h2 style="max-width:22ch;font-size:clamp(26px,2.8vw,38px);line-height:1.16;letter-spacing:-0.028em;font-weight:600;color:#fff;">需要把技术专题转化为项目方案？</h2>
+<p style="margin-top:16px;max-width:48ch;font-size:15.5px;line-height:1.8;color:#D3E0FF;">提交门店、仓库、场地、接口或任务信息，我们将结合产品、平台和交付能力进一步沟通。</p>
+</div>
+<a class="hv24" href="https://www.aiesl.cn/contact.html" style="display:inline-flex;align-items:center;gap:10px;padding:18px 34px;background:#fff;color:#1F5EFF;font-size:15px;font-weight:600;border-radius:4px;white-space:nowrap;">预约技术沟通<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;">→</span></a>
+</div>
+</section>
+<footer style="background:#0B1220;">
+<div style="width:min(100% - 72px,1400px);margin-inline:auto;padding:72px 0 40px;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:44px 52px;">
+<div>
+<div style="display:flex;align-items:center;gap:12px;">
+<img alt="" height="32" src="assets/images/logo-mark.svg" style="width:32px;height:32px;object-fit:contain;filter:brightness(0) invert(1);" width="32"/>
+<span>
+<strong style="display:block;font-size:14.5px;font-weight:600;color:#fff;">攀攀科技</strong>
+<span style="display:block;margin-top:3px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;letter-spacing:0.18em;color:#6E7A91;">PANPANTECH · AIESL</span>
+</span>
+</div>
+<p style="margin:20px 0 0;max-width:34ch;font-size:13.5px;line-height:1.8;color:#8B96AC;">连接产品、数据平台、软件研发与硬件智造，为零售、商业空间与工业场景提供可落地的 AIoT 能力。</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">产品</h2>
+<a class="hv25" href="esl.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">电子价签</a>
+<a class="hv26" href="people-counting.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">客流统计</a>
+<a class="hv27" href="cleaning-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">清洁机器人</a>
+<a class="hv28" href="picking-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">拣货机器人</a>
+<a class="hv29" href="e-paper-displays.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">墨水屏显示</a>
+<a class="hv29" href="facade-robots.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">幕墙机器人</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">平台与能力</h2>
+<a class="hv30" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">AiESL 数据中台</a>
+<a class="hv31" href="solutions.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">行业解决方案</a>
+<a class="hv32" href="manufacturing.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">制造与交付</a>
+<a class="hv33" href="products.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">产品总览</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">内容</h2>
+<a class="hv34" href="news.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">新闻中心</a>
+<a class="hv35" href="blog.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">技术博客</a>
+<a class="hv36" href="platform.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">平台架构</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<h2 style="margin:0 0 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.16em;color:#6E7A91;">公司</h2>
+<a class="hv37" href="about.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">关于我们</a>
+<a class="hv38" href="about.html#brand-architecture" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">品牌架构</a>
+<a class="hv39" href="https://www.aiesl.cn/contact.html" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">联系我们</a>
+<a class="hv40" href="https://www.panpantechnology.com" style="font-size:13.5px;color:#B6BDC9;text-decoration:none;">集团英文站</a>
+</div>
+</div>
+<div style="margin-top:56px;padding-top:24px;border-top:1px solid #1E2739;display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;font-size:12.5px;color:#6E7A91;">
+<span>© 2026 广州攀攀科技有限公司 PanPanTech</span>
+<span style="font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0.08em;">NeuroGrid · AiESL · AiEinkSmart · Pyroglaux · EinkSmart</span>
+<a class="hv41" href="https://beian.miit.gov.cn/" style="color:#6E7A91;text-decoration:none;">粤ICP备2026035004号-1</a>
+</div>
+</div>
+</footer>
+</div>
+<script>
+(function(){
+  var t=document.querySelector('[data-mobtoggle]'),p=document.querySelector('[data-mobpanel]');
+  if(t&&p){t.addEventListener('click',function(){p.style.display=(p.style.display==='block')?'none':'block';});}
+  var track=document.querySelector('[data-hero-track]');
+  if(!track)return;
+  var tabs=[].slice.call(document.querySelectorAll('[data-go]')),
+      ind=document.querySelector('[data-tab-indicator]'),i=0,timer;
+  function go(n){i=n;track.scrollTo({left:track.clientWidth*n,behavior:'smooth'});if(ind)ind.style.transform='translateX('+(n*100)+'%)';}
+  function arm(){clearInterval(timer);timer=setInterval(function(){go((i+1)%5);},7000);}
+  tabs.forEach(function(b){b.addEventListener('click',function(){go(+b.getAttribute('data-go'));arm();});});
+  window.addEventListener('resize',function(){track.scrollTo({left:track.clientWidth*i});});
+  arm();
+})();
+</script>
 </body>
 </html>
